@@ -79,15 +79,73 @@ npm run webp
 - %INQUIRY_URL% - 問い合わせフォームの URL（外部）
 - %PROJECT_NAME% - 表示用プロジェクト名（例: MEETS CREATOR）
 - %PROJECT_BRAND% - ブランド名（例: JTA DIRECT）
-- %BRAND_NAME% - ヘッダの alt 等に使うブランド表記
-- %COMPANY_URL% - 会社サイトの URL（元: jrta.co.jp）
-- %COMPANY_NAME% - 会社名表示用
+# temp_vite-flocss-sass
 
-置換手順（手動）
+Vite + SCSS (FLOCSS) のフロントエンドテンプレートです。新しい案件で再利用しやすいように構成・スタイル設計・ビルド設定をまとめています。
 
-1. `src/index.html` を開く
-2. 上のプレースホルダをプロジェクトの実値で置換
-3. 必要に応じて `src/assets/images/` のロゴや ogp 画像も差し替え
+## 目的
 
-自動化の希望があれば、スクリプトで置換するテンプレ化手順を追加します。
-****
+- 最小限の設定で Vite 開発サーバーが動くこと
+- FLOCSS 構造に沿った SCSS のサンプル
+- 画像アセットやテンプレート変数を差し替えるだけで使えるようにする
+
+## すぐに試す（fish シェル向け）
+
+```fish
+# Node を用意（例: nvm）
+nvm install 18
+nvm use 18
+
+# 依存をインストール
+npm install
+
+# 開発サーバー起動
+npm run dev
+
+# ビルド
+npm run build
+
+# ビルド結果を確認
+npm run preview
+
+# Lint / Format
+npm run lint
+npm run format
+```
+
+## 追加したファイル
+
+- `.env.example` — 環境変数サンプル（テンプレート変数を管理する場合に使用）
+
+## テンプレート変数
+
+`src/index.html` にはプロジェクトごとに置換すべきプレースホルダがあります。主なものは以下です。
+
+- %SITE_TITLE%
+- %SITE_DESCRIPTION%
+- %OG_TITLE%
+- %OG_DESCRIPTION%
+- %OG_IMAGE%
+- %SITE_URL%
+- %OG_SITE_NAME%
+- %FAVICON_URL%
+- %SHOP_URL%
+- %INQUIRY_URL%
+- %PROJECT_NAME%
+- %PROJECT_BRAND%
+- %BRAND_NAME%
+- %COMPANY_URL%
+- %COMPANY_NAME%
+
+手動で置換するか、`.env` と置換スクリプトで運用してください。
+
+## 今回行った変更（コミットはしていません）
+
+1. `package.json` の `name` をテンプレ名からリポジトリ名へ変更
+2. `package.json` の `repository.url` をリポジトリ実体（GitHub: nknkt/temp_vite-flocss-sass）へ変更
+3. `.env.example` を追加
+4. README をプロジェクト向けに整理
+
+---
+
+変更内容を確認してからコミットするか、さらに編集する旨を教えてください。

@@ -1,14 +1,14 @@
 {
-  "name": "vite-sass-template",
+  "name": "temp_vite-flocss-sass",
   "private": true,
   "version": "0.1.0",
   "type": "module",
-  "description": "Vite + Sass (SCSS) starter template. Replace metadata and assets for each new project.",
+  "description": "Vite + SCSS (FLOCSS) starter template. Replace metadata and assets for each new project.",
   "author": "kenta kanno",
   "license": "MIT",
   "repository": {
-    "type": "git",
-    "url": "git+https://github.com/<yourname>/<repo>.git"
+  "type": "git",
+  "url": "git+https://github.com/nknkt/temp_vite-flocss-sass.git"
   },
   "engines": {
     "node": ">=18.0.0"
