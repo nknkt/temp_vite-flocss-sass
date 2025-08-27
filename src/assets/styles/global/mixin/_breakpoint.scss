@@ -1,0 +1,39 @@
+@use "../variables" as *;
+
+// 従来のmin-width/max-width構文（ブラウザ互換性重視）
+// @mixin sp {
+//   @media only screen and (max-width: #{$breakpoint-tablet - 1}) {
+//     @content;
+//   }
+// }
+
+// @mixin tb {
+//   @media only screen and (min-width: #{$breakpoint-tablet}) and (max-width: #{$breakpoint-desktop - 1}) {
+//     @content;
+//   }
+// }
+
+// @mixin pc {
+//   @media print, screen and (min-width: #{$breakpoint-desktop}) {
+//     @content;
+//   }
+// }
+
+// CSS Media Queries Level 4 範囲構文（モダンブラウザ対応）
+@mixin sp {
+  @media only screen and (width < #{$breakpoint-tablet}) {
+    @content;
+  }
+}
+
+@mixin tb {
+  @media only screen and (#{$breakpoint-tablet} <= width < #{$breakpoint-desktop}) {
+    @content;
+  }
+}
+
+@mixin pc {
+  @media print, screen and (#{$breakpoint-desktop} <= width) {
+    @content;
+  }
+}

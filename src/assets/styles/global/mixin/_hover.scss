@@ -1,0 +1,15 @@
+@mixin hover {
+  // デスクトップ：hover時
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      @content;
+    }
+  }
+
+  // タッチデバイス：タップ時（active状態）
+  @media (hover: none) and (pointer: coarse) {
+    &:active {
+      @content;
+    }
+  }
+}

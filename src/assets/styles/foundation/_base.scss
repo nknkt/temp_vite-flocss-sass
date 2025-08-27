@@ -1,0 +1,80 @@
+@use "../global" as *;
+
+html {
+  scroll-behavior: smooth;
+
+  // 1600px以上：フルイド（1600px時は10px、拡大で比例）
+  @media (1600px < width) {
+    font-size: calc(100vw * 10 / 1600);
+  }
+
+  // 1280px〜1600px：固定（10px）
+  @media (1280px <= width <= 1600px) {
+    font-size: 10px;
+  }
+
+  // 1280px未満：フルイド（1280pxで10px、下はvwで縮小）
+  @include tb {
+    font-size: calc(100vw * 10 / 1280);
+  }
+
+  // 767px以下：再びフルイド
+  @include sp {
+    font-size: calc(100vw * 10 / 390);
+  }
+}
+
+body {
+  background: $color-bg-main;
+  margin: 0;
+  font-family: $font-base;
+  font-size: 1rem; // htmlのfont-sizeがそのまま適用される
+  font-weight: $weight-base;
+  line-height: 2;
+  color: $color-font-base;
+  letter-spacing: 0.075em;
+  // font-feature-settings: 'palt';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  color: $select;
+}
+
+picture {
+  display: block;
+}
+
+img {
+  width: 100%;
+  height: auto;
+}
+
+*,
+*::before,
+*::after {
+  transition: $transition-basic;
+  box-sizing: border-box;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul,
+ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+button {
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+}

@@ -1,0 +1,43 @@
+{
+  "name": "vite-sass-template",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Vite + Sass (SCSS) starter template. Replace metadata and assets for each new project.",
+  "author": "kenta kanno",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/<yourname>/<repo>.git"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "eslint . --fix",
+    "lint:check": "eslint .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "fix": "npm run lint && npm run format",
+    "check": "npm run lint:check && npm run format:check",
+    "preview": "vite preview",
+    "webp": "node scripts/convert-images.js"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.25.0",
+    "eslint": "^9.25.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-html": "^8.1.2",
+    "globals": "^16.0.0",
+    "postcss": "^8.5.3",
+    "prettier": "^3.3.3",
+    "rollup-plugin-prettier": "^4.1.2",
+    "sass": "^1.89.2",
+    "sharp": "^0.33.5",
+    "vite": "^6.3.5",
+    "vite-plugin-eslint": "^1.8.1",
+    "vite-plugin-static-copy": "^3.1.1"
+  }
+}

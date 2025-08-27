@@ -1,0 +1,7 @@
+@use "../global" as *;
+
+.l-header {
+  background: rgba($color: $color-black, $alpha: 0.8);
+  color: #fff;
+  padding: 2rem;
+}
