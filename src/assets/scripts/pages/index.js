@@ -1,7 +1,6 @@
 import AnchorScroll from '../modules/_AnchorScroll.js'
 import ScrollActive from '../modules/_ScrollActive.js'
 import Collapse from '../modules/_Collapse.js'
-import ProductGallerySlider from '../modules/_ProductGallerySlider.js'
 import HamburgerMenu from '../modules/_HamburgerMenu.js'
 import HeaderScroll from '../modules/_HeaderScroll.js'
 import IntroTextAnimate from '../modules/_IntroTextAnimate.js'
@@ -47,17 +46,6 @@ document.addEventListener('DOMContentLoaded', () => {
       const scrollActive = new ScrollActive(el)
       scrollActive.init()
     })
-  }
-
-  // Product Gallery Slider for infinite loop
-  {
-    const gallerySlider = document.querySelector('.js-product-gallery-slider')
-    if (gallerySlider) {
-      const productGallerySlider = new ProductGallerySlider(gallerySlider, {
-        cloneCount: 2, // オリジナルを含めて3セット（計18個）表示
-      })
-      productGallerySlider.init()
-    }
   }
 
   // HeaderScroll（l-headerのロゴ制御）
