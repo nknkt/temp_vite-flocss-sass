@@ -32,7 +32,7 @@ export default defineConfig({
     copyPublicDir: false,
     rollupOptions: {
       output: {
-        assetFileNames: (assetInfo) => {
+        assetFileNames: assetInfo => {
           if (assetInfo.name && assetInfo.name.endsWith('.css')) {
             return 'assets/css/[name][extname]';
           }
@@ -53,11 +53,7 @@ export default defineConfig({
       overlay: false, // エラーオーバーレイを無効化
     },
     watch: {
-      ignored: [
-        '**/node_modules/**',
-        '**/plugins/**',
-        '**/.git/**',
-      ],
+      ignored: ['**/node_modules/**', '**/plugins/**', '**/.git/**'],
     },
   },
 });
