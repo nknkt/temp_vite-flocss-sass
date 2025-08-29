@@ -32,5 +32,5 @@ export default [
   },
 
   // include @eslint/js recommended config
-  ...Array.isArray(js.configs.recommended) ? js.configs.recommended : [js.configs.recommended],
+  ...(Array.isArray(js.configs.recommended) ? js.configs.recommended : [js.configs.recommended]),
 ]

@@ -14,29 +14,29 @@ html {
   }
 
   // 1280px未満：フルイド（1280pxで10px、下はvwで縮小）
-  @include tb {
+  @include tb () {
     font-size: calc(100vw * 10 / 1280);
   }
 
   // 767px以下：再びフルイド
-  @include sp {
+  @include sp () {
     font-size: calc(100vw * 10 / 390);
   }
 }
 
 body {
-  background: $color-bg-main;
   margin: 0;
-  font-family: $font-base;
-  font-size: 1rem; // htmlのfont-sizeがそのまま適用される
-  font-weight: $weight-base;
-  line-height: 2;
   color: $color-font-base;
-  letter-spacing: 0.075em;
+  font-weight: $weight-base;
+  font-size: 1rem; // htmlのfont-sizeがそのまま適用される
+  font-family: $font-base;
+  line-height: 2;
+  letter-spacing: .075em;
+  background: $color-bg-main;
   // font-feature-settings: 'palt';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-rendering: optimizeLegibility;
+  text-rendering: optimizelegibility;
 }
 
 ::selection {
@@ -55,8 +55,8 @@ img {
 *,
 *::before,
 *::after {
-  transition: $transition-basic;
   box-sizing: border-box;
+  transition: $transition-basic;
 }
 
 a {
@@ -66,15 +66,15 @@ a {
 
 ul,
 ol {
-  list-style: none;
   margin: 0;
   padding: 0;
+  list-style: none;
 }
 
 button {
-  background: none;
-  border: none;
   padding: 0;
   font: inherit;
+  background: none;
+  border: none;
   cursor: pointer;
 }
