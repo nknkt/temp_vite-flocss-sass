@@ -6,19 +6,19 @@ import HeaderScroll from '../modules/_HeaderScroll.js';
 import IntroTextAnimate from '../modules/_IntroTextAnimate.js';
 import HorizontalScroll from '../modules/_HorizontalScroll.js';
 import PageTop from '../modules/_PageTop.js';
-import creatorTable from '../components/creator-table.js';
-window.creatorTable = creatorTable; // import直後に記載
+import { initAlpineComponents, renderAlpineComponents } from '../components/alpine-components.js';
+
+// Alpine.jsコンポーネントを初期化
+initAlpineComponents();
 
 // DOMContentLoaded後に初期化
 document.addEventListener('DOMContentLoaded', () => {
+  // Alpine.jsコンポーネントをレンダリング
+  renderAlpineComponents('alpine-components-container');
+
   // HorizontalScroll初期化（必要なら）
   if (typeof HorizontalScroll === 'function') {
     HorizontalScroll();
-  }
-
-  // creatorTable初期化（必要なら）
-  if (typeof creatorTable === 'function') {
-    creatorTable();
   }
 
   // Hamburger Menu

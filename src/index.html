@@ -1,19 +1,19 @@
 <!doctype html>
 <html lang="ja">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>%SITE_TITLE%</title>
-    <meta name="description" content="%SITE_DESCRIPTION%" />
-    <meta name="format-detection" content="telephone=no" />
-    <meta property="og:title" content="%OG_TITLE%" />
-    <meta property="og:description" content="%OG_DESCRIPTION%" />
-    <meta property="og:image" content="%OG_IMAGE%" />
-    <meta property="og:url" content="%SITE_URL%" />
-    <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="%OG_SITE_NAME%" />
-    <link rel="shortcut icon" type="/image/vnd.microsoft.icon" href="%FAVICON_URL%" />
-    <link rel="stylesheet" href="./assets/styles/style.scss" />
+    <meta name="description" content="%SITE_DESCRIPTION%">
+    <meta name="format-detection" content="telephone=no">
+    <meta property="og:title" content="%OG_TITLE%">
+    <meta property="og:description" content="%OG_DESCRIPTION%">
+    <meta property="og:image" content="%OG_IMAGE%">
+    <meta property="og:url" content="%SITE_URL%">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="%OG_SITE_NAME%">
+    <link rel="shortcut icon" type="/image/vnd.microsoft.icon" href="%FAVICON_URL%">
+    <link rel="stylesheet" href="./assets/styles/style.scss">
   </head>
 
   <body>
@@ -26,7 +26,10 @@
 
       <main class="l-main">
         main
-        <div class="u-inner">inner</div>
+        <div class="u-inner">
+          <!-- Alpine.jsコンポーネントがJavaScriptで動的に挿入されます -->
+          <div id="alpine-components-container"></div>
+        </div>
       </main>
 
       <footer class="l-footer">footer</footer>

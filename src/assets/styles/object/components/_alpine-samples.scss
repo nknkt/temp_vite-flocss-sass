@@ -1,0 +1,204 @@
+// Alpine.js コンポーネント用のスタイル
+
+.alpine-sample {
+  margin-bottom: 2rem;
+  padding: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+
+  h2 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    color: #333;
+  }
+}
+
+// ボタンスタイル
+.btn {
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+
+  &.btn-primary {
+    color: white;
+    background: #007bff;
+
+    &:hover {
+      background: #0056b3;
+    }
+  }
+
+  &.btn-success {
+    color: white;
+    background: #28a745;
+
+    &:hover {
+      background: #1e7e34;
+    }
+  }
+
+  &.btn-danger {
+    color: white;
+    background: #dc3545;
+
+    &:hover {
+      background: #c82333;
+    }
+  }
+
+  &.btn-secondary {
+    color: white;
+    background: #6c757d;
+
+    &:hover {
+      background: #545b62;
+    }
+  }
+
+  &.btn-small {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.75rem;
+  }
+
+  + .btn {
+    margin-left: 0.5rem;
+  }
+}
+
+// カウンター用
+.count-display {
+  color: #007bff;
+  font-weight: 700;
+}
+
+// トグル用
+.toggle-content {
+  margin-top: 1rem;
+  padding: 1rem;
+  background: #f8f9fa;
+  border-radius: 4px;
+}
+
+// フォーム用
+.form-group {
+  margin-bottom: 1rem;
+
+  label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #333;
+    font-weight: 500;
+  }
+}
+
+.form-input {
+  width: 100%;
+  padding: 0.5rem;
+  font-size: 0.875rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+
+  &:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 0 2px rgb(0 123 255 / 25%);
+  }
+}
+
+.form-textarea {
+  @extend .form-input;
+
+  min-height: 80px;
+  resize: vertical;
+}
+
+.form-preview {
+  margin-top: 1rem;
+  padding: 1rem;
+  background: #e9ecef;
+  border-radius: 4px;
+
+  h3 {
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+    color: #333;
+  }
+
+  p {
+    margin: 0.25rem 0;
+  }
+}
+
+// リスト用
+.list-input {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+
+  .form-input {
+    flex: 1;
+  }
+}
+
+.item-list {
+  margin: 1rem 0;
+  padding: 0;
+  list-style: none;
+
+  .item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+    padding: 0.5rem;
+    background: #f8f9fa;
+    border-radius: 4px;
+  }
+}
+
+// タブ用
+.tab-buttons {
+  display: flex;
+  margin-bottom: 1rem;
+  border-bottom: 2px solid #e9ecef;
+}
+
+.tab-button {
+  padding: 0.5rem 1rem;
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background: #f8f9fa;
+  }
+
+  &.active {
+    color: #007bff;
+    font-weight: 500;
+    border-bottom-color: #007bff;
+  }
+}
+
+.tab-content {
+  .tab-panel {
+    padding: 1rem;
+    background: #f8f9fa;
+    border-radius: 4px;
+
+    h3 {
+      margin-top: 0;
+      margin-bottom: 0.5rem;
+      color: #333;
+    }
+
+    p {
+      margin: 0.5rem 0;
+    }
+  }
+}
