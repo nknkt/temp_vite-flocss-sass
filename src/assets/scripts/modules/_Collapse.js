@@ -82,7 +82,7 @@ export default class Collapse {
           this.isExpanded = true;
 
           // リソースの読み込みを待ってから、即座にターゲット要素を開く
-          window.addEventListener('load', e => {
+          window.addEventListener('load', () => {
             this.expand();
             this.onTransitionEnd();
           });
@@ -132,21 +132,21 @@ export default class Collapse {
     this.targetEl.setAttribute('aria-hidden', (!this.isExpanded).toString());
   }
 
-  onClick(e) {
+  onClick() {
     // TransitionEvent のリスナーとの干渉を避けるため window.requestAnimationFrame() で実行タイミングを制御する
     window.requestAnimationFrame(() => {
       this.isExpanded = !this.isExpanded;
     });
   }
 
-  onClickCollapse(e) {
+  onClickCollapse() {
     // TransitionEvent のリスナーとの干渉を避けるため window.requestAnimationFrame() で実行タイミングを制御する
     window.requestAnimationFrame(() => {
       this.isExpanded = false;
     });
   }
 
-  onTransitionEnd(e) {
+  onTransitionEnd() {
     this.targetEl.style.transition = '';
 
     if (this.isExpanded) {
@@ -158,13 +158,11 @@ export default class Collapse {
     }
   }
 
-  onMutate(records) {
-    records.forEach(record => {
-      if (this.isExpanded) {
-        this.expand();
-      } else {
-        this.collapse();
-      }
-    });
+  onMutate() {
+    if (this.isExpanded) {
+      this.expand();
+    } else {
+      this.collapse();
+    }
   }
 }

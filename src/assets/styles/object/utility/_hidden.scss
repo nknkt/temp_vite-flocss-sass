@@ -1,17 +1,17 @@
 @use "../../global" as *;
 
 .u-hidden-sp {
-  @include sp () {
+  @include sp() {
     display: none;
   }
 }
 
 .u-hidden-pc {
-  @include pc () {
+  @include pc() {
     display: none;
   }
 
-  @include tb () {
+  @include tb() {
     display: none;
   }
 }

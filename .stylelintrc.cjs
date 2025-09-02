@@ -1,11 +1,7 @@
 module.exports = {
   ignoreFiles: ['src/assets/styles/foundation/_destyle.scss'],
 
-  extends: [
-    'stylelint-config-standard',
-    'stylelint-config-recommended-scss',
-    'stylelint-config-rational-order',
-  ],
+  extends: ['stylelint-config-standard', 'stylelint-config-recommended-scss', 'stylelint-config-rational-order'],
   plugins: [
     'stylelint-declaration-block-no-ignored-properties',
     'stylelint-scss',
@@ -35,8 +31,6 @@ module.exports = {
     'font-family-name-quotes': 'always-unless-keyword',
     'font-weight-notation': 'numeric',
     'function-calc-no-unspaced-operator': true,
-    'color-hex-case': 'lower',
-    'color-hex-length': 'short',
     'order/order': [['custom-properties', 'declarations', 'rules']],
     'order/properties-order': [
       require('stylelint-config-rational-order').rules['order/properties-order'],
@@ -49,5 +43,9 @@ module.exports = {
     'scss/declaration-nested-properties': 'never',
     'scss/double-slash-comment-whitespace-inside': 'always',
     'scss/selector-no-redundant-nesting-selector': true,
+
+    // Nesting rules
+    'selector-nested-pattern': null,
+    'nesting-selector-no-missing-scoping-root': null,
   },
 };

@@ -5,7 +5,7 @@ export default function creatorTable() {
       {
         id: 1,
         name: 'かずのこ',
-  icon: 'assets/images/examples/avatar_img-01.png',
+        icon: 'assets/images/examples/avatar_img-01.png',
         bgColor: '#1a5184',
         textColor: 'light',
         description:
@@ -36,7 +36,7 @@ export default function creatorTable() {
       {
         id: 2,
         name: 'ヤギワタル',
-  icon: 'assets/images/examples/avatar_img-02.png',
+        icon: 'assets/images/examples/avatar_img-02.png',
         bgColor: '#e60012',
         textColor: 'light',
         description:
@@ -77,7 +77,7 @@ export default function creatorTable() {
       {
         id: 3,
         name: 'とーる',
-  icon: 'assets/images/examples/avatar_img-03.png',
+        icon: 'assets/images/examples/avatar_img-03.png',
         bgColor: '#ffdf31',
         textColor: 'dark',
         description:
@@ -113,7 +113,7 @@ export default function creatorTable() {
       {
         id: 4,
         name: 'イクタケマコト',
-  icon: 'assets/images/examples/avatar_img-04.png',
+        icon: 'assets/images/examples/avatar_img-04.png',
         bgColor: '#92cdf1',
         textColor: 'light',
         description:
@@ -144,7 +144,7 @@ export default function creatorTable() {
       {
         id: 5,
         name: 'nishimo',
-  icon: 'assets/images/examples/avatar_img-05.png',
+        icon: 'assets/images/examples/avatar_img-05.png',
         bgColor: '#59aa31',
         textColor: 'light',
         description:
@@ -192,54 +192,54 @@ export default function creatorTable() {
 
     // 商品数を4桁の数字でフォーマット
     formatProductCount(creator) {
-      return creator.products.length.toString().padStart(4, '0')
+      return creator.products.length.toString().padStart(4, '0');
     },
 
     // SNSアイコンのパスを取得
     getSocialIcon(type) {
-      return this.socialIcons[type] || ''
+      return this.socialIcons[type] || '';
     },
 
     // 改行文字をHTMLのbrタグに変換
     formatTitle(title) {
-      return title.replace(/\n/g, '<br>')
+      return title.replace(/\n/g, '<br>');
     },
 
     // alt属性用に改行文字を削除
     formatAltText(title) {
-      return title.replace(/\n/g, '')
+      return title.replace(/\n/g, '');
     },
 
     // コンポーネント初期化時の処理
     init() {
       // 重複初期化を防ぐためのフラグチェック
       if (window.creatorTableInitialized) {
-        return
+        return;
       }
 
-      window.creatorTableInitialized = true
+      window.creatorTableInitialized = true;
 
       // 横スクロール用のクラスを適用
       this.$nextTick(() => {
         setTimeout(() => {
-          this.applyHorizontalScrollClasses()
-        }, 100)
-      })
+          this.applyHorizontalScrollClasses();
+        }, 100);
+      });
     },
 
     // 横スクロールクラスの適用
     applyHorizontalScrollClasses() {
       this.creators.forEach(creator => {
         if (creator.products.length >= 4) {
-          const creatorSection = document.getElementById(`creator-${creator.id}`)
+          const creatorSection = document.getElementById(`creator-${creator.id}`);
           if (creatorSection) {
-            const container = creatorSection.querySelector('.p-creator-detail__products-container')
+            const container = creatorSection.querySelector('.p-creator-detail__products-container');
             if (container) {
-              container.classList.add('js-horizontal-scroll')
+              container.classList.add('js-horizontal-scroll');
             }
           }
         }
-      })
+      });
     },
-  }
+  };
 }

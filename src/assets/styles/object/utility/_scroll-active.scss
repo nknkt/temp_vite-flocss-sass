@@ -5,7 +5,7 @@
   opacity: 0;
   transition:
     opacity 1s,
-    transform .8s ease-in-out;
+    transform 0.8s ease-in-out;
 
   &.is-active {
     transform: translateY(0);

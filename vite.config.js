@@ -1,10 +1,18 @@
 import { defineConfig } from 'vite';
 import { viteStaticCopy } from 'vite-plugin-static-copy';
+import { autoLintFormatValidate } from './plugins/auto-lint-format-validate.js';
 
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [
-    // auto-lint-formatプラグインは開発時のループを避けるため無効化
+    // 開発時のlint/format/validate自動実行
+    autoLintFormatValidate({
+      eslint: true,
+      prettier: true,
+      htmlValidate: true,
+      stylelint: true,
+      debounceMs: 500, // ファイル変更後の遅延時間
+    }),
     viteStaticCopy({
       targets: [
         {

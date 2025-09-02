@@ -34,7 +34,7 @@ export default class AnchorScroll {
     this.config = deepMerge({}, defaultConfig, config || {});
     this.scrollRoot = 'scrollingElement' in document ? document.scrollingElement : document.documentElement;
     this.headerElement = document.querySelector(this.config.headerSelector);
-  this.targetElement = document.querySelectorAll(this.config.anchorSelector);
+    this.targetElement = document.querySelectorAll(this.config.anchorSelector);
   }
 
   init() {

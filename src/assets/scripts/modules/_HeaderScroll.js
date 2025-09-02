@@ -8,9 +8,9 @@ export default class HeaderScroll {
    */
   constructor(header) {
     this.header = header;
-  // p-kv要素とロゴ要素を取得
-  this.kv = document.querySelector('.p-kv');
-  this.logo = this.header.querySelector('.l-header__logo');
+    // p-kv要素とロゴ要素を取得
+    this.kv = document.querySelector('.p-kv');
+    this.logo = this.header.querySelector('.l-header__logo');
   }
 
   /**
@@ -18,15 +18,15 @@ export default class HeaderScroll {
    */
   init() {
     this.bindEvents();
-      // ロゴ内のaタグクリック時にis-activeを外す
-      if (this.logo) {
-        const aTag = this.logo.querySelector('a');
-        if (aTag) {
-          aTag.addEventListener('click', () => {
-            this.logo.classList.remove('is-active');
-          });
-        }
+    // ロゴ内のaタグクリック時にis-activeを外す
+    if (this.logo) {
+      const aTag = this.logo.querySelector('a');
+      if (aTag) {
+        aTag.addEventListener('click', () => {
+          this.logo.classList.remove('is-active');
+        });
       }
+    }
   }
 
   /**
@@ -41,16 +41,16 @@ export default class HeaderScroll {
    * スクロールハンドラー
    */
   handleScroll() {
-      const scrollY = window.scrollY;
-      // p-kvの範囲から出たらロゴにis-activeを付与/削除
-      if (this.kv && this.logo) {
-        const kvHeight = this.kv.offsetHeight;
-        if (scrollY > kvHeight) {
-          this.logo.classList.add('is-active');
-        } else {
-          this.logo.classList.remove('is-active');
-        }
+    const scrollY = window.scrollY;
+    // p-kvの範囲から出たらロゴにis-activeを付与/削除
+    if (this.kv && this.logo) {
+      const kvHeight = this.kv.offsetHeight;
+      if (scrollY > kvHeight) {
+        this.logo.classList.add('is-active');
+      } else {
+        this.logo.classList.remove('is-active');
       }
+    }
   }
 
   /**
@@ -60,15 +60,14 @@ export default class HeaderScroll {
     // リサイズ時に閾値を再計算する場合はここに実装
   }
 
-
   /**
    * 破棄
    */
   destroy() {
     window.removeEventListener('scroll', this.handleScroll.bind(this));
     window.removeEventListener('resize', this.handleResize.bind(this));
-      if (this.logo) {
-        this.logo.classList.remove('is-active');
-      }
+    if (this.logo) {
+      this.logo.classList.remove('is-active');
+    }
   }
 }

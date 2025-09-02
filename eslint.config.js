@@ -1,6 +1,6 @@
-import html from 'eslint-plugin-html'
-import globals from 'globals'
-import js from '@eslint/js'
+import html from 'eslint-plugin-html';
+import globals from 'globals';
+import js from '@eslint/js';
 
 export default [
   // base ignores
@@ -16,6 +16,7 @@ export default [
       sourceType: 'module',
       globals: {
         ...globals.browser,
+        ...globals.node,
         ScrollTrigger: 'readonly',
         Alpine: 'readonly',
       },
@@ -33,4 +34,4 @@ export default [
 
   // include @eslint/js recommended config
   ...(Array.isArray(js.configs.recommended) ? js.configs.recommended : [js.configs.recommended]),
-]
+];
