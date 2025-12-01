@@ -15,8 +15,8 @@ module.exports = {
     'declaration-block-no-duplicate-properties': true,
     'declaration-block-no-shorthand-property-overrides': true,
     'no-duplicate-at-import-rules': true,
-    'no-duplicate-selectors': true,
-    '@stylistic/number-leading-zero': 'never',
+    'no-duplicate-selectors': false,
+    '@stylistic/number-leading-zero': 'always',
     'number-max-precision': 2,
     'at-rule-empty-line-before': [
       'always',
@@ -31,7 +31,6 @@ module.exports = {
     'font-family-name-quotes': 'always-unless-keyword',
     'font-weight-notation': 'numeric',
     'function-calc-no-unspaced-operator': true,
-    'order/order': [['custom-properties', 'declarations', 'rules']],
     'order/properties-order': [
       require('stylelint-config-rational-order').rules['order/properties-order'],
       { unspecified: 'bottomAlphabetical' },
@@ -46,6 +45,6 @@ module.exports = {
 
     // Nesting rules
     'selector-nested-pattern': null,
-    'nesting-selector-no-missing-scoping-root': null,
+    'nesting-selector-no-missing-scoping-root': true,
   },
 };

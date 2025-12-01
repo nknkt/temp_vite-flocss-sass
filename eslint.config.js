@@ -12,14 +12,7 @@ export default [
   {
     files: ['**/*.{js,html}'],
     languageOptions: {
-      ecmaVersion: 2022,
       sourceType: 'module',
-      globals: {
-        ...globals.browser,
-        ...globals.node,
-        ScrollTrigger: 'readonly',
-        Alpine: 'readonly',
-      },
     },
     plugins: {
       html,
