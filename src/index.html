@@ -12,7 +12,7 @@
     <meta property="og:url" content="%SITE_URL%">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="%OG_SITE_NAME%">
-    <link rel="shortcut icon" type="/image/vnd.microsoft.icon" href="%FAVICON_URL%">
+    <!-- <link rel="shortcut icon" type="/image/vnd.microsoft.icon" href="%FAVICON_URL%"> -->
     <link rel="stylesheet" href="./assets/styles/style.scss">
   </head>
 
@@ -76,61 +76,103 @@
           </div>
         </section>
 
-        <section id="vision" class="u-inner" style="min-height: 100vh; padding-top: 12rem; padding-bottom: 8rem">
-          <h2 style="font-size: 4rem; margin-bottom: 2rem">Vision</h2>
-          <p style="font-size: 1.8rem; line-height: 1.8">
-            私たちのビジョンについて説明します。ここにコンテンツが入ります。
+        <section id="vision" class="p-sample-section">
+          <h2 class="p-sample-section__title">Vision</h2>
+          <p class="p-sample-section__desc">
+            モーダル・ドロワー（dialog要素）とPopover（Popover API）のサンプル実装です。
           </p>
+
+          <!-- ボタングループ -->
+          <div class="p-sample-section__buttons">
+            <button class="c-button c-button--primary js-modal-trigger" data-target="modal-center">
+              モーダルを開く
+            </button>
+            <button class="c-button c-button--secondary js-modal-trigger" data-target="drawer-right">
+              ドロワーを開く
+            </button>
+            <button class="c-button c-button--accent" popovertarget="popover-custom">Popoverを開く</button>
+          </div>
+
+          <!-- モーダル（中央） -->
+          <dialog class="c-modal" id="modal-center">
+            <div class="c-modal__content">
+              <button class="c-modal__close js-modal-close" aria-label="閉じる">&times;</button>
+              <h3 class="c-modal__title">モーダルタイトル</h3>
+              <div class="c-modal__body">
+                <p>これはモーダルの内容です。中央に表示され、背景がオーバーレイで覆われます。</p>
+                <p>スクロール可能な長いコンテンツにも対応しています。</p>
+                <p>ESCキーまたは背景クリックで閉じることができます。</p>
+              </div>
+              <div class="c-modal__footer">
+                <button class="c-modal__button c-modal__button--secondary js-modal-close">キャンセル</button>
+                <button class="c-modal__button c-modal__button--primary">OK</button>
+              </div>
+            </div>
+          </dialog>
+
+          <!-- ドロワー（右） -->
+          <dialog class="c-drawer c-drawer--right" id="drawer-right">
+            <div class="c-drawer__content">
+              <button class="c-drawer__close js-modal-close" aria-label="閉じる">&times;</button>
+              <h3 class="c-drawer__title">ドロワーメニュー</h3>
+              <div class="c-drawer__body">
+                <nav>
+                  <ul>
+                    <li><a href="#">メニュー 1</a></li>
+                    <li><a href="#">メニュー 2</a></li>
+                    <li><a href="#">メニュー 3</a></li>
+                    <li><a href="#">メニュー 4</a></li>
+                  </ul>
+                </nav>
+              </div>
+            </div>
+          </dialog>
+
+          <!-- Popover -->
+          <div id="popover-custom" popover class="c-popover">
+            <div class="c-popover__content">
+              <div class="c-popover__header">
+                <h4 class="c-popover__title">通知</h4>
+                <button class="c-popover__close" popovertarget="popover-custom" popovertargetaction="hide">
+                  &times;
+                </button>
+              </div>
+              <div class="c-popover__body">
+                <p>これはPopover APIを使用したポップオーバーです。</p>
+                <p>JavaScriptなしで動作し、アクセシビリティが組み込まれています。</p>
+              </div>
+            </div>
+          </div>
         </section>
 
-        <section
-          id="team"
-          class="u-inner"
-          style="min-height: 100vh; padding-top: 12rem; padding-bottom: 8rem; background: #f5f5f5"
-        >
-          <h2 style="font-size: 4rem; margin-bottom: 2rem">Team</h2>
-          <p style="font-size: 1.8rem; line-height: 1.8">チームメンバーの紹介です。ここにコンテンツが入ります。</p>
+        <section id="team" class="p-sample-section p-sample-section--gray">
+          <h2 class="p-sample-section__title">Team</h2>
+          <p class="p-sample-section__text">チームメンバーの紹介です。ここにコンテンツが入ります。</p>
         </section>
 
-        <section id="portfolio" class="u-inner" style="min-height: 100vh; padding-top: 12rem; padding-bottom: 8rem">
-          <h2 style="font-size: 4rem; margin-bottom: 2rem">Portfolio</h2>
-          <p style="font-size: 1.8rem; line-height: 1.8">これまでの実績を紹介します。ここにコンテンツが入ります。</p>
+        <section id="portfolio" class="p-sample-section">
+          <h2 class="p-sample-section__title">Portfolio</h2>
+          <p class="p-sample-section__text">これまでの実績を紹介します。ここにコンテンツが入ります。</p>
         </section>
 
-        <section
-          id="services"
-          class="u-inner"
-          style="min-height: 100vh; padding-top: 12rem; padding-bottom: 8rem; background: #f5f5f5"
-        >
-          <h2 style="font-size: 4rem; margin-bottom: 2rem">Services</h2>
-          <p style="font-size: 1.8rem; line-height: 1.8">
-            提供するサービスについて説明します。ここにコンテンツが入ります。
-          </p>
+        <section id="services" class="p-sample-section p-sample-section--gray">
+          <h2 class="p-sample-section__title">Services</h2>
+          <p class="p-sample-section__text">提供するサービスについて説明します。ここにコンテンツが入ります。</p>
         </section>
 
-        <section id="insights" class="u-inner" style="min-height: 100vh; padding-top: 12rem; padding-bottom: 8rem">
-          <h2 style="font-size: 4rem; margin-bottom: 2rem">Insights</h2>
-          <p style="font-size: 1.8rem; line-height: 1.8">
-            最新の情報やブログ記事を掲載します。ここにコンテンツが入ります。
-          </p>
+        <section id="insights" class="p-sample-section">
+          <h2 class="p-sample-section__title">Insights</h2>
+          <p class="p-sample-section__text">最新の情報やブログ記事を掲載します。ここにコンテンツが入ります。</p>
         </section>
 
-        <section
-          id="about"
-          class="u-inner"
-          style="min-height: 100vh; padding-top: 12rem; padding-bottom: 8rem; background: #f5f5f5"
-        >
-          <h2 style="font-size: 4rem; margin-bottom: 2rem">About</h2>
-          <p style="font-size: 1.8rem; line-height: 1.8">
-            会社概要や理念について説明します。ここにコンテンツが入ります。
-          </p>
+        <section id="about" class="p-sample-section p-sample-section--gray">
+          <h2 class="p-sample-section__title">About</h2>
+          <p class="p-sample-section__text">会社概要や理念について説明します。ここにコンテンツが入ります。</p>
         </section>
 
-        <section id="contact" class="u-inner" style="min-height: 100vh; padding-top: 12rem; padding-bottom: 8rem">
-          <h2 style="font-size: 4rem; margin-bottom: 2rem">Contact</h2>
-          <p style="font-size: 1.8rem; line-height: 1.8">
-            お問い合わせフォームがここに入ります。ここにコンテンツが入ります。
-          </p>
+        <section id="contact" class="p-sample-section">
+          <h2 class="p-sample-section__title">Contact</h2>
+          <p class="p-sample-section__text">お問い合わせフォームがここに入ります。ここにコンテンツが入ります。</p>
         </section>
       </main>
 

@@ -1,12 +1,14 @@
 module.exports = {
   ignoreFiles: ['src/assets/styles/foundation/_destyle.scss'],
 
-  extends: ['stylelint-config-standard', 'stylelint-config-recommended-scss', 'stylelint-config-rational-order'],
+  extends: [
+    'stylelint-config-standard-scss',
+    'stylelint-config-rational-order'
+  ],
+
   plugins: [
     'stylelint-declaration-block-no-ignored-properties',
-    'stylelint-scss',
-    'stylelint-order',
-    '@stylistic/stylelint-plugin',
+    '@stylistic/stylelint-plugin'
   ],
 
   rules: {
@@ -15,15 +17,15 @@ module.exports = {
     'declaration-block-no-duplicate-properties': true,
     'declaration-block-no-shorthand-property-overrides': true,
     'no-duplicate-at-import-rules': true,
-    'no-duplicate-selectors': false,
+    'no-duplicate-selectors': null,
     '@stylistic/number-leading-zero': 'always',
     'number-max-precision': 2,
     'at-rule-empty-line-before': [
       'always',
       {
         except: ['first-nested'],
-        ignore: ['after-comment', 'blockless-after-same-name-blockless'],
-      },
+        ignore: ['after-comment', 'blockless-after-same-name-blockless']
+      }
     ],
 
     'color-named': 'never',
@@ -31,10 +33,6 @@ module.exports = {
     'font-family-name-quotes': 'always-unless-keyword',
     'font-weight-notation': 'numeric',
     'function-calc-no-unspaced-operator': true,
-    'order/properties-order': [
-      require('stylelint-config-rational-order').rules['order/properties-order'],
-      { unspecified: 'bottomAlphabetical' },
-    ],
 
     // SCSS specific
     'scss/at-mixin-argumentless-call-parentheses': 'always',
@@ -44,7 +42,6 @@ module.exports = {
     'scss/selector-no-redundant-nesting-selector': true,
 
     // Nesting rules
-    'selector-nested-pattern': null,
-    'nesting-selector-no-missing-scoping-root': true,
-  },
-};
+    'selector-nested-pattern': null
+  }
+}

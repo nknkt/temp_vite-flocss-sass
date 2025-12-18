@@ -1,0 +1,55 @@
+@use "../../global/mixin" as *;
+
+// ==========================================
+// サンプルセクション
+// ==========================================
+.p-sample-section {
+  min-height: 100vh;
+  padding: 12rem 3.2rem 8rem;
+
+  @include sp() {
+    padding: 10rem 2rem 6rem;
+  }
+
+  // 背景グレー
+  &--gray {
+    background: #f5f5f5;
+  }
+
+  &__title {
+    margin-bottom: 2rem;
+    font-weight: 700;
+    font-size: 4rem;
+
+    @include sp() {
+      font-size: 3rem;
+    }
+  }
+
+  &__desc {
+    margin-bottom: 4rem;
+    color: #666;
+    font-size: 1.8rem;
+    line-height: 1.8;
+
+    @include sp() {
+      font-size: 1.6rem;
+    }
+  }
+
+  &__text {
+    font-size: 1.8rem;
+    line-height: 1.8;
+
+    @include sp() {
+      font-size: 1.6rem;
+    }
+  }
+
+  &__buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.6rem;
+    margin-bottom: 2rem;
+  }
+}

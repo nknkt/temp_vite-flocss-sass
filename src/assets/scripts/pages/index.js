@@ -7,6 +7,7 @@ import IntroTextAnimate from '../modules/_IntroTextAnimate.js';
 import HorizontalScroll from '../modules/_HorizontalScroll.js';
 import PageTop from '../modules/_PageTop.js';
 import SubMenu from '../modules/_SubMenu.js';
+import Modal from '../modules/_Modal.js';
 
 // DOMContentLoaded後に初期化
 document.addEventListener('DOMContentLoaded', () => {
@@ -37,6 +38,11 @@ document.addEventListener('DOMContentLoaded', () => {
   {
     const subMenu = new SubMenu();
     subMenu.init();
+  }
+
+  // Modal & Drawer
+  {
+    const modal = new Modal();
   }
 
   // Scroll Active

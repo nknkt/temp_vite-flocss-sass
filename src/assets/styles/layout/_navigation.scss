@@ -55,6 +55,7 @@
 
     &--has-submenu {
       @media (width >= 768px) {
+        // stylelint-disable-next-line selector-class-pattern
         &:hover .l-navigation__submenu {
           transform: translateY(0);
           visibility: visible;

@@ -1,6 +1,7 @@
 @mixin hover {
   // デスクトップ：hover時
   @media (hover: hover) and (pointer: fine) {
+    // stylelint-disable-next-line nesting-selector-no-missing-scoping-root
     &:hover {
       @content;
     }
@@ -8,6 +9,7 @@
 
   // タッチデバイス：タップ時（active状態）
   @media (hover: none) and (pointer: coarse) {
+    // stylelint-disable-next-line nesting-selector-no-missing-scoping-root
     &:active {
       @content;
     }
