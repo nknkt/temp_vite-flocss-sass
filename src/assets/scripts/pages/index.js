@@ -6,6 +6,7 @@ import HeaderScroll from '../modules/_HeaderScroll.js';
 import IntroTextAnimate from '../modules/_IntroTextAnimate.js';
 import HorizontalScroll from '../modules/_HorizontalScroll.js';
 import PageTop from '../modules/_PageTop.js';
+import SubMenu from '../modules/_SubMenu.js';
 
 // DOMContentLoaded後に初期化
 document.addEventListener('DOMContentLoaded', () => {
@@ -30,6 +31,12 @@ document.addEventListener('DOMContentLoaded', () => {
   {
     const anchorScroll = new AnchorScroll();
     anchorScroll.init();
+  }
+
+  // SubMenu
+  {
+    const subMenu = new SubMenu();
+    subMenu.init();
   }
 
   // Scroll Active

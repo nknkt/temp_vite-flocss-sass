@@ -31,12 +31,27 @@
           </button>
 
           <nav class="l-navigation js-nav-menu">
-            <div class="l-navigation__bg"></div>
             <ul class="l-navigation__list">
               <li class="l-navigation__item"><a href="#vision" class="l-navigation__link">Vision</a></li>
               <li class="l-navigation__item"><a href="#team" class="l-navigation__link">Team</a></li>
               <li class="l-navigation__item"><a href="#portfolio" class="l-navigation__link">Portfolio</a></li>
-              <li class="l-navigation__item"><a href="#services" class="l-navigation__link">Services</a></li>
+              <li class="l-navigation__item l-navigation__item--has-submenu">
+                <button class="l-navigation__link js-submenu-toggle" aria-expanded="false">
+                  Services
+                  <span class="l-navigation__arrow"></span>
+                </button>
+                <ul class="l-navigation__submenu">
+                  <li class="l-navigation__submenu-item">
+                    <a href="#web-design" class="l-navigation__submenu-link">Web Design</a>
+                  </li>
+                  <li class="l-navigation__submenu-item">
+                    <a href="#development" class="l-navigation__submenu-link">Development</a>
+                  </li>
+                  <li class="l-navigation__submenu-item">
+                    <a href="#consulting" class="l-navigation__submenu-link">Consulting</a>
+                  </li>
+                </ul>
+              </li>
               <li class="l-navigation__item"><a href="#insights" class="l-navigation__link">Insights</a></li>
               <li class="l-navigation__item"><a href="#about" class="l-navigation__link">About</a></li>
             </ul>
@@ -48,6 +63,19 @@
       </header>
 
       <main class="l-main">
+        <!-- ファーストビュー -->
+        <section class="p-hero">
+          <div class="p-hero__image">
+            <img
+              src="https://images.unsplash.com/photo-1557804506-669a67965ba0?w=1920&h=1080&fit=crop"
+              alt="Hero Background">
+          </div>
+          <div class="p-hero__content">
+            <h1 class="p-hero__title">Welcome to Our Website</h1>
+            <p class="p-hero__text">Discover amazing experiences with us</p>
+          </div>
+        </section>
+
         <section id="vision" class="u-inner" style="min-height: 100vh; padding-top: 12rem; padding-bottom: 8rem">
           <h2 style="font-size: 4rem; margin-bottom: 2rem">Vision</h2>
           <p style="font-size: 1.8rem; line-height: 1.8">
