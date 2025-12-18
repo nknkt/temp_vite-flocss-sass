@@ -13,6 +13,9 @@ export default [
     files: ['**/*.{js,html}'],
     languageOptions: {
       sourceType: 'module',
+      globals: {
+        ...globals.browser,
+      },
     },
     plugins: {
       html,

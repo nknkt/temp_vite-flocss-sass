@@ -6,16 +6,9 @@ import HeaderScroll from '../modules/_HeaderScroll.js';
 import IntroTextAnimate from '../modules/_IntroTextAnimate.js';
 import HorizontalScroll from '../modules/_HorizontalScroll.js';
 import PageTop from '../modules/_PageTop.js';
-import { initAlpineComponents, renderAlpineComponents } from '../components/alpine-components.js';
-
-// Alpine.jsコンポーネントを初期化
-initAlpineComponents();
 
 // DOMContentLoaded後に初期化
 document.addEventListener('DOMContentLoaded', () => {
-  // Alpine.jsコンポーネントをレンダリング
-  renderAlpineComponents('alpine-components-container');
-
   // HorizontalScroll初期化（必要なら）
   if (typeof HorizontalScroll === 'function') {
     HorizontalScroll();
@@ -23,11 +16,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Hamburger Menu
   {
-    const hamburger = document.getElementsByClassName('js-hamburger')[0];
-    const navMenu = document.getElementsByClassName('js-nav-menu')[0];
-    const navBg = document.getElementsByClassName('l-navigation__bg')[0];
+    const hamburger = document.querySelector('.js-hamburger');
+    const navMenu = document.querySelector('.js-nav-menu');
+    const navBg = document.querySelector('.l-navigation__bg');
 
-    if (hamburger && navMenu && navBg) {
+    if (hamburger && navMenu) {
       const hamburgerMenu = new HamburgerMenu(hamburger, navMenu, {}, navBg);
       hamburgerMenu.init();
     }

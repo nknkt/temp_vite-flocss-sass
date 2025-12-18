@@ -1,7 +1,92 @@
 @use "../global" as *;
 
 .l-header {
-  padding: 2rem;
-  color: #fff;
-  background: rgba($color: $color-black, $alpha: 80%);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  width: 100%;
+  background: rgb(255 255 255 / 95%);
+  box-shadow: 0 2px 10px rgb(0 0 0 / 5%);
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+
+  &__inner {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 1.6rem 3.2rem;
+
+    @include sp() {
+      padding: 1.2rem 2rem;
+    }
+  }
+
+  &__logo {
+    z-index: 100;
+    font-weight: 600;
+    font-size: 2rem;
+    line-height: 1;
+
+    @include sp() {
+      font-size: 1.8rem;
+    }
+
+    a {
+      display: block;
+      transition: opacity 0.3s ease;
+
+      @include hover() {
+        opacity: 0.7;
+      }
+    }
+  }
+
+  &__hamburger {
+    position: relative;
+    z-index: 100;
+    display: none;
+    flex-direction: column;
+    gap: 6px;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    background: none;
+    border: none;
+    cursor: pointer;
+
+    @include sp() {
+      display: flex;
+    }
+
+    span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: $color-black;
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+
+    &.is-active {
+      span {
+        &:nth-child(1) {
+          transform: translateY(8px) rotate(45deg);
+        }
+
+        &:nth-child(2) {
+          opacity: 0;
+        }
+
+        &:nth-child(3) {
+          transform: translateY(-8px) rotate(-45deg);
+        }
+      }
+    }
+  }
 }

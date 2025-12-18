@@ -18,24 +18,97 @@
 
   <body>
     <div class="l-page">
-      page
       <header class="l-header">
-        header
-        <nav class="l-navigation">navigation</nav>
+        <div class="l-header__inner">
+          <div class="l-header__logo">
+            <a href="/">Your Brand</a>
+          </div>
+
+          <button class="l-header__hamburger js-hamburger" aria-label="メニューを開く">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+
+          <nav class="l-navigation js-nav-menu">
+            <div class="l-navigation__bg"></div>
+            <ul class="l-navigation__list">
+              <li class="l-navigation__item"><a href="#vision" class="l-navigation__link">Vision</a></li>
+              <li class="l-navigation__item"><a href="#team" class="l-navigation__link">Team</a></li>
+              <li class="l-navigation__item"><a href="#portfolio" class="l-navigation__link">Portfolio</a></li>
+              <li class="l-navigation__item"><a href="#services" class="l-navigation__link">Services</a></li>
+              <li class="l-navigation__item"><a href="#insights" class="l-navigation__link">Insights</a></li>
+              <li class="l-navigation__item"><a href="#about" class="l-navigation__link">About</a></li>
+            </ul>
+            <div class="l-navigation__cta">
+              <a href="#contact" class="l-navigation__button">Contact</a>
+            </div>
+          </nav>
+        </div>
       </header>
 
       <main class="l-main">
-        main
-        <div class="u-inner">
-          <!-- Alpine.jsコンポーネントがJavaScriptで動的に挿入されます -->
-          <div id="alpine-components-container"></div>
-        </div>
+        <section id="vision" class="u-inner" style="min-height: 100vh; padding-top: 12rem; padding-bottom: 8rem">
+          <h2 style="font-size: 4rem; margin-bottom: 2rem">Vision</h2>
+          <p style="font-size: 1.8rem; line-height: 1.8">
+            私たちのビジョンについて説明します。ここにコンテンツが入ります。
+          </p>
+        </section>
+
+        <section
+          id="team"
+          class="u-inner"
+          style="min-height: 100vh; padding-top: 12rem; padding-bottom: 8rem; background: #f5f5f5"
+        >
+          <h2 style="font-size: 4rem; margin-bottom: 2rem">Team</h2>
+          <p style="font-size: 1.8rem; line-height: 1.8">チームメンバーの紹介です。ここにコンテンツが入ります。</p>
+        </section>
+
+        <section id="portfolio" class="u-inner" style="min-height: 100vh; padding-top: 12rem; padding-bottom: 8rem">
+          <h2 style="font-size: 4rem; margin-bottom: 2rem">Portfolio</h2>
+          <p style="font-size: 1.8rem; line-height: 1.8">これまでの実績を紹介します。ここにコンテンツが入ります。</p>
+        </section>
+
+        <section
+          id="services"
+          class="u-inner"
+          style="min-height: 100vh; padding-top: 12rem; padding-bottom: 8rem; background: #f5f5f5"
+        >
+          <h2 style="font-size: 4rem; margin-bottom: 2rem">Services</h2>
+          <p style="font-size: 1.8rem; line-height: 1.8">
+            提供するサービスについて説明します。ここにコンテンツが入ります。
+          </p>
+        </section>
+
+        <section id="insights" class="u-inner" style="min-height: 100vh; padding-top: 12rem; padding-bottom: 8rem">
+          <h2 style="font-size: 4rem; margin-bottom: 2rem">Insights</h2>
+          <p style="font-size: 1.8rem; line-height: 1.8">
+            最新の情報やブログ記事を掲載します。ここにコンテンツが入ります。
+          </p>
+        </section>
+
+        <section
+          id="about"
+          class="u-inner"
+          style="min-height: 100vh; padding-top: 12rem; padding-bottom: 8rem; background: #f5f5f5"
+        >
+          <h2 style="font-size: 4rem; margin-bottom: 2rem">About</h2>
+          <p style="font-size: 1.8rem; line-height: 1.8">
+            会社概要や理念について説明します。ここにコンテンツが入ります。
+          </p>
+        </section>
+
+        <section id="contact" class="u-inner" style="min-height: 100vh; padding-top: 12rem; padding-bottom: 8rem">
+          <h2 style="font-size: 4rem; margin-bottom: 2rem">Contact</h2>
+          <p style="font-size: 1.8rem; line-height: 1.8">
+            お問い合わせフォームがここに入ります。ここにコンテンツが入ります。
+          </p>
+        </section>
       </main>
 
       <footer class="l-footer">footer</footer>
     </div>
 
     <script type="module" src="./assets/scripts/pages/index.js"></script>
-    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
   </body>
 </html>

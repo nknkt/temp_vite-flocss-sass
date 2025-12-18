@@ -1,92 +1,50 @@
-/* eslint-disable */
-import ElementCoordinate from './_ElementCoordinate.js';
-
-const defaultConfig = {
-  headerSelector: '#js-header',
-  anchorSelector: 'a[href^="#"]',
-};
-
-// Object.assign を使用してオブジェクトをマージ
-function deepMerge(target, ...sources) {
-  if (!sources.length) return target;
-  const source = sources.shift();
-
-  if (isObject(target) && isObject(source)) {
-    for (const key in source) {
-      if (isObject(source[key])) {
-        if (!target[key]) Object.assign(target, { [key]: {} });
-        deepMerge(target[key], source[key]);
-      } else {
-        Object.assign(target, { [key]: source[key] });
-      }
-    }
-  }
-
-  return deepMerge(target, ...sources);
-}
-
-function isObject(item) {
-  return item && typeof item === 'object' && !Array.isArray(item);
-}
-
+/**
+ * アンカースクロール
+ * CSSの scroll-behavior と scroll-padding-top を活用
+ */
 export default class AnchorScroll {
-  constructor(config) {
-    this.config = deepMerge({}, defaultConfig, config || {});
-    this.scrollRoot = 'scrollingElement' in document ? document.scrollingElement : document.documentElement;
-    this.headerElement = document.querySelector(this.config.headerSelector);
-    this.targetElement = document.querySelectorAll(this.config.anchorSelector);
+  constructor(selector = 'a[href^="#"]') {
+    this.links = document.querySelectorAll(selector);
+    this.lastHash = '';
   }
 
   init() {
-    this._handleEvent();
-  }
+    this.links.forEach(link => {
+      link.addEventListener(
+        'click',
+        e => {
+          e.preventDefault();
+          e.stopImmediatePropagation();
+          const href = link.getAttribute('href');
 
-  animation(targetElement) {
-    if (targetElement) {
-      const targetCoordinate = new ElementCoordinate(targetElement);
+          // 同じリンクを連続クリックした場合は無視
+          if (href === this.lastHash) return;
 
-      // anime.jsの代わりにネイティブスクロールを使用
-      this.scrollRoot.scrollTo({
-        top: targetCoordinate.y,
-        behavior: 'smooth',
-      });
+          this.lastHash = href;
+
+          // ページトップへ
+          if (href === '#') {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            return;
+          }
+
+          // ターゲット要素にスクロール
+          const target = document.querySelector(href);
+          if (target) target.scrollIntoView({ behavior: 'smooth' });
+        },
+        { capture: true },
+      );
+    });
+
+    // ページ読み込み時のハッシュ対応
+    if (location.hash) {
+      setTimeout(() => {
+        const target = document.querySelector(location.hash);
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth' });
+          this.lastHash = location.hash;
+        }
+      }, 100);
     }
-  }
-
-  _handleEvent() {
-    window.addEventListener('load', e => {
-      const hash = location.hash;
-      const targetElement = hash !== '' ? document.querySelector(location.hash) : null;
-
-      if (targetElement) {
-        this.animation(targetElement);
-      }
-    });
-
-    Array.from(this.targetElement).forEach(el => {
-      el &&
-        el.addEventListener(
-          'click',
-          e => {
-            e.preventDefault();
-            const hrefAttr = e.currentTarget.getAttribute('href');
-            if (hrefAttr) {
-              if (hrefAttr === '#') {
-                // #のみの場合はページトップへ
-                this.scrollRoot.scrollTo({ top: 0, behavior: 'smooth' });
-                return;
-              }
-              // #以降のIDだけ抽出
-              const targetHash = hrefAttr.replace(/^.*#/, '');
-              const targetSelector = `#${targetHash}`;
-              const targetElement = targetSelector ? document.querySelector(targetSelector) : null;
-              if (targetElement) {
-                this.animation(targetElement);
-              }
-            }
-          },
-          false
-        );
-    });
   }
 }

@@ -2,6 +2,7 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 80px; // ヘッダーの高さ分を確保
 
   // 1600px以上：フルイド（1600px時は10px、拡大で比例）
   @media (1600px < width) {
