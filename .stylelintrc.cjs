@@ -42,6 +42,9 @@ module.exports = {
     'scss/selector-no-redundant-nesting-selector': true,
 
     // Nesting rules
-    'selector-nested-pattern': null
+    'selector-nested-pattern': null,
+    'selector-class-pattern': null,
+    'no-descending-specificity': null,
+    'keyframes-name-pattern': null
   }
 }
