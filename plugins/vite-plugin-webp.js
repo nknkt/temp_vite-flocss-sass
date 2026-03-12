@@ -11,6 +11,7 @@ export function vitePluginWebp(options = {}) {
     quality = WEBP_QUALITY,
     lossless = { png: true, jpg: false },
     enabled = true,
+    exclude = [], // 除外するファイル名パターン（配列）
   } = options
 
   let config
@@ -37,27 +38,97 @@ export function vitePluginWebp(options = {}) {
       console.log('🚀 Starting WebP conversion...')
       console.log('📂 Output directory:', outDir)
 
+      // HTMLから data-no-webp 属性を持つ画像を収集
+      const htmlExcludedImages = await collectNoWebpImages(outDir)
+      const allExclude = [...exclude, ...htmlExcludedImages]
+
+      if (htmlExcludedImages.length > 0) {
+        console.log('🚫 Excluded by data-no-webp:', htmlExcludedImages)
+      }
+
       // すべての assets/images ディレクトリを検索して変換
       const imagesDirs = await findAllImagesDirectories(outDir)
       console.log('📁 Found image directories:', imagesDirs)
       for (const imagesDir of imagesDirs) {
         console.log('🔄 Processing directory:', imagesDir)
-        await convertDirectory(imagesDir, quality, lossless)
+        await convertDirectory(imagesDir, quality, lossless, allExclude)
       }
 
       // HTMLファイルのパスを書き換え
-      await replaceHtmlPaths(outDir)
+      await replaceHtmlPaths(outDir, allExclude)
 
       // CSSファイルのパスを書き換え
-      await replaceCssPaths(outDir)
+      await replaceCssPaths(outDir, allExclude)
 
       console.log('✨ WebP conversion completed!')
     },
   }
 }
 
-async function convertToWebP(filePath, quality, lossless) {
+// HTMLから data-no-webp 属性を持つ画像ファイル名を収集
+async function collectNoWebpImages(outDir) {
+  const excludedImages = new Set()
+  const htmlFiles = await findHtmlFiles(outDir)
+
+  for (const htmlFile of htmlFiles) {
+    const html = await readFile(htmlFile, 'utf-8')
+
+    // data-no-webp属性を持つimgタグからファイル名を抽出
+    const imgMatches = html.matchAll(/<img[^>]+data-no-webp[^>]+src=["']([^"']+)\.(jpg|jpeg|png)["'][^>]*>/gi)
+    for (const match of imgMatches) {
+      const fileName = match[1].split('/').pop()
+      excludedImages.add(`${fileName}.${match[2]}`)
+    }
+
+    // data-no-webp属性を持つsrcsetからファイル名を抽出
+    const srcsetMatches = html.matchAll(/<[^>]+data-no-webp[^>]+srcset=["']([^"']+)["'][^>]*>/gi)
+    for (const match of srcsetMatches) {
+      const srcset = match[1]
+      const imageMatches = srcset.matchAll(/([^\s,]+)\.(jpg|jpeg|png)/gi)
+      for (const imgMatch of imageMatches) {
+        const fileName = imgMatch[1].split('/').pop()
+        excludedImages.add(`${fileName}.${imgMatch[2]}`)
+      }
+    }
+  }
+
+  return Array.from(excludedImages)
+}
+
+// ファイル名が除外パターンに一致するかチェック
+function isExcluded(filePath, excludePatterns) {
+  if (!excludePatterns || excludePatterns.length === 0) return false
+
+  const fileName = path.basename(filePath)
+  const normalizedPath = filePath.replace(/\\/g, '/')
+
+  return excludePatterns.some(pattern => {
+    // 完全一致
+    if (fileName === pattern || normalizedPath.includes(pattern)) {
+      return true
+    }
+
+    // ワイルドカード対応（簡易版）
+    if (pattern.includes('*')) {
+      const regexPattern = pattern
+        .replace(/[.+?^${}()|[\]\\]/g, '\\$&')
+        .replace(/\*/g, '.*')
+      const regex = new RegExp(`^${regexPattern}$`)
+      return regex.test(fileName)
+    }
+
+    return false
+  })
+}
+
+async function convertToWebP(filePath, quality, lossless, excludePatterns = []) {
   try {
+    // 除外パターンに一致する場合はスキップ
+    if (isExcluded(filePath, excludePatterns)) {
+      console.log(`  ⏭️  Skipped (excluded): ${path.basename(filePath)}`)
+      return
+    }
+
     const parsedPath = path.parse(filePath)
     const outputPath = path.join(parsedPath.dir, `${parsedPath.name}.webp`)
 
@@ -93,7 +164,7 @@ async function convertToWebP(filePath, quality, lossless) {
   }
 }
 
-async function convertDirectory(dirPath, quality, lossless) {
+async function convertDirectory(dirPath, quality, lossless, excludePatterns = []) {
   try {
     const entries = await readdir(dirPath)
 
@@ -102,11 +173,11 @@ async function convertDirectory(dirPath, quality, lossless) {
       const stats = await stat(fullPath)
 
       if (stats.isDirectory()) {
-        await convertDirectory(fullPath, quality, lossless)
+        await convertDirectory(fullPath, quality, lossless, excludePatterns)
       } else if (stats.isFile()) {
         const ext = path.extname(fullPath).toLowerCase()
         if (SUPPORTED_FORMATS.includes(ext)) {
-          await convertToWebP(fullPath, quality, lossless)
+          await convertToWebP(fullPath, quality, lossless, excludePatterns)
         }
       }
     }
@@ -115,36 +186,60 @@ async function convertDirectory(dirPath, quality, lossless) {
   }
 }
 
-async function replaceHtmlPaths(outDir) {
+async function replaceHtmlPaths(outDir, excludePatterns = []) {
   try {
     const htmlFiles = await findHtmlFiles(outDir)
 
     for (const htmlFile of htmlFiles) {
       let html = await readFile(htmlFile, 'utf-8')
 
-      // imgタグのsrc属性
+      // imgタグのsrc属性（data-no-webp属性がある場合は除外）
       html = html.replace(
         /(<img[^>]+src=["'])([^"']+)\.(jpg|jpeg|png)(["'][^>]*>)/gi,
         (match, before, imgPath, ext, after) => {
+          // data-no-webp属性がある場合は変換しない
+          if (match.includes('data-no-webp')) {
+            return match
+          }
+          // 除外パターンに一致する場合は変換しない
+          const fileName = imgPath.split('/').pop()
+          if (isExcluded(`${fileName}.${ext}`, excludePatterns)) {
+            return match
+          }
           return `${before}${imgPath}.webp${after}`
         }
       )
 
       // srcset属性
-      html = html.replace(/srcset=["']([^"']+)["']/gi, (match, srcset) => {
-        const webpSrcset = srcset.replace(
-          /([^\s,]+)\.(jpg|jpeg|png)/gi,
-          (imgPath, path, ext) => {
-            return imgPath.replace(/\.(jpg|jpeg|png)$/i, '.webp')
+      html = html.replace(
+        /(<[^>]*)(srcset=["']([^"']+)["'])([^>]*>)/gi,
+        (fullMatch, beforeSrcset, srcsetAttr, srcset, afterSrcset) => {
+          // data-no-webp属性がある場合は変換しない
+          if (fullMatch.includes('data-no-webp')) {
+            return fullMatch
           }
-        )
-        return `srcset="${webpSrcset}"`
-      })
+          const webpSrcset = srcset.replace(
+            /([^\s,]+)\.(jpg|jpeg|png)/gi,
+            (imgPath, pathWithoutExt, ext) => {
+              const fileName = imgPath.split('/').pop()
+              if (isExcluded(fileName, excludePatterns)) {
+                return imgPath
+              }
+              return imgPath.replace(/\.(jpg|jpeg|png)$/i, '.webp')
+            }
+          )
+          return `${beforeSrcset}srcset="${webpSrcset}"${afterSrcset}`
+        }
+      )
 
-      // CSSのbackground-image
+      // CSSのbackground-image（インラインスタイル）
       html = html.replace(
         /url\(["']?([^"')]+)\.(jpg|jpeg|png)["']?\)/gi,
         (match, imgPath, ext) => {
+          const fileName = imgPath.split('/').pop()
+          if (isExcluded(`${fileName}.${ext}`, excludePatterns)) {
+            return match
+          }
           return `url("${imgPath}.webp")`
         }
       )
@@ -157,7 +252,7 @@ async function replaceHtmlPaths(outDir) {
   }
 }
 
-async function replaceCssPaths(outDir) {
+async function replaceCssPaths(outDir, excludePatterns = []) {
   try {
     const cssFiles = await findCssFiles(outDir)
 
@@ -168,6 +263,10 @@ async function replaceCssPaths(outDir) {
       css = css.replace(
         /url\(["']?([^"')]+)\.(jpg|jpeg|png)["']?\)/gi,
         (match, imgPath, ext) => {
+          const fileName = imgPath.split('/').pop()
+          if (isExcluded(`${fileName}.${ext}`, excludePatterns)) {
+            return match
+          }
           return `url("${imgPath}.webp")`
         }
       )

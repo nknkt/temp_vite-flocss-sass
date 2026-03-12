@@ -4,8 +4,27 @@ import { vitePluginWebp } from './plugins/vite-plugin-webp.js'
 import { resolve } from 'path'
 import { readdirSync, existsSync } from 'fs'
 
+// ========================
+// プロジェクト設定
+// ========================
+// ベースパス（サブディレクトリ配置時は '/project-name/' に変更）
+const BASE_PATH = '/'
+
+// ルートディレクトリ（サブディレクトリ配置時は 'src/project-name' に変更）
+const ROOT_DIR = 'src'
+
+// WebP変換から除外する画像（OGP画像、QRコードなど）
+const WEBP_EXCLUDE = [
+  // 'og-image.jpg',      // 完全一致
+  // 'qr-*.png',          // ワイルドカード
+  // 'twitter-card.png',  // OGP画像など
+]
+
+// ========================
+// エントリーポイント自動検出
+// ========================
 // src配下のindex.htmlを持つディレクトリを自動検出
-const srcDir = resolve(import.meta.dirname, 'src')
+const srcDir = resolve(import.meta.dirname, ROOT_DIR)
 const entries = {}
 
 // src/index.html（メインエントリー）
@@ -46,12 +65,11 @@ export default defineConfig({
       quality: 90, // JPEG用の品質 (1-100)
       lossless: { png: true, jpg: false }, // PNGはロスレス、JPEGは高品質圧縮
       enabled: true, // 有効/無効の切り替え
+      exclude: WEBP_EXCLUDE, // WebPに変換しない画像（上部で設定）
     }),
   ],
-  // プロジェクト決定後、サブディレクトリ配置時は src内にディレクトリを作成し、rootを変更
-  // 例: root: 'src/project-name', outDir: '../../dist'
-  base: '/',
-  root: 'src',
+  base: BASE_PATH,
+  root: ROOT_DIR,
   css: {
     preprocessorOptions: {
       scss: {
