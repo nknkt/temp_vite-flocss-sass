@@ -1,7 +1,6 @@
 @use "../global" as *;
 
 html {
-  scroll-behavior: smooth; // アンカーリンクのスクロールを滑らかに
   scrollbar-gutter: stable; // スクロールバーの有無でレイアウトがずれないよう領域を常に確保
 
   // ヘッダーの高さ分を確保
