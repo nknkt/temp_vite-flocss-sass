@@ -1,32 +1,56 @@
-import { defineConfig } from 'vite';
-import { viteStaticCopy } from 'vite-plugin-static-copy';
-import { autoLintFormatValidate } from './plugins/auto-lint-format-validate.js';
+import { defineConfig } from 'vite'
+import { viteStaticCopy } from 'vite-plugin-static-copy'
+import { vitePluginWebp } from './plugins/vite-plugin-webp.js'
+import { resolve } from 'path'
+import { readdirSync, existsSync } from 'fs'
+
+// src配下のindex.htmlを持つディレクトリを自動検出
+const srcDir = resolve(import.meta.dirname, 'src')
+const entries = {}
+
+// src/index.html（メインエントリー）
+if (existsSync(resolve(srcDir, 'index.html'))) {
+  entries.main = resolve(srcDir, 'index.html')
+}
+
+// src/**/index.html（サブディレクトリ）
+// assets, snippetsなどのリソースディレクトリは除外
+const excludeDirs = ['assets', 'snippets']
+readdirSync(srcDir, { withFileTypes: true })
+  .filter(dirent => dirent.isDirectory() && !excludeDirs.includes(dirent.name))
+  .forEach(dirent => {
+    const indexPath = resolve(srcDir, dirent.name, 'index.html')
+    if (existsSync(indexPath)) {
+      entries[dirent.name] = indexPath
+    }
+  })
 
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [
-    // 開発時のlint/format/validate自動実行
-    autoLintFormatValidate({
-      eslint: true,
-      prettier: true,
-      htmlValidate: true,
-      stylelint: true,
-      debounceMs: 500, // ファイル変更後の遅延時間
-    }),
     viteStaticCopy({
       targets: [
         {
-          src: 'assets/images/*.{webp,png,jpg,jpeg,svg,gif,ico}',
+          src: 'assets/images/*.{svg,gif,ico}',
           dest: 'assets/images',
         },
+
         {
-          src: 'assets/images/sp',
-          dest: 'assets/images',
+          src: 'assets/videos/**/*',
+          dest: 'assets/videos',
         },
       ],
     }),
+    // ビルド時に画像をWebPに変換しHTMLのパスも書き換え
+    vitePluginWebp({
+      quality: 90, // JPEG用の品質 (1-100)
+      lossless: { png: true, jpg: false }, // PNGはロスレス、JPEGは高品質圧縮
+      enabled: true, // 有効/無効の切り替え
+    }),
   ],
-  base: process.env.NODE_ENV === 'production' ? '/ipc/meets_creator/' : '/',
+  // プロジェクト決定後、サブディレクトリ配置時は src内にディレクトリを作成し、rootを変更
+  // 例: root: 'src/project-name', outDir: '../../dist'
+  base: '/',
   root: 'src',
   css: {
     preprocessorOptions: {
@@ -36,9 +60,10 @@ export default defineConfig({
     },
   },
   build: {
-    outDir: '../dist/ipc/meets_creator',
+    outDir: '../dist',
     copyPublicDir: false,
     rollupOptions: {
+      input: entries,
       output: {
         assetFileNames: assetInfo => {
           if (assetInfo.name && assetInfo.name.endsWith('.css')) {
@@ -46,6 +71,9 @@ export default defineConfig({
           }
           if (assetInfo.name && /\.(png|jpe?g|svg|gif|webp|ico)$/.test(assetInfo.name)) {
             return 'assets/images/[name][extname]';
+          }
+          if (assetInfo.name && /\.(mp4|webm|mov|ogg|m4v)$/.test(assetInfo.name)) {
+            return 'assets/videos/[name][extname]';
           }
           return 'assets/[name][extname]';
         },
