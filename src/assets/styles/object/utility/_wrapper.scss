@@ -1,10 +1,10 @@
 @use "../../global" as *;
 
-.u-inner {
-  width: 116rem;
+.u-wrapper {
+  width: 132rem;
   margin-inline: auto;
 
   @include sp() {
-    width: 30rem;
+    width: 34rem;
   }
 }
