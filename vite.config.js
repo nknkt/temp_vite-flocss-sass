@@ -15,9 +15,11 @@ const ROOT_DIR = 'src'
 
 // WebP変換から除外する画像（OGP画像、QRコードなど）
 const WEBP_EXCLUDE = [
-  // 'og-image.jpg',      // 完全一致
-  // 'qr-*.png',          // ワイルドカード
-  // 'twitter-card.png',  // OGP画像など
+  'og-*.{png,jpg}',        // OG画像（og-image.png, og-image-twitter.png等）
+  'ogp*.{png,jpg}',        // OGP画像（ogpで始まる画像）
+  '**/og-*.{png,jpg}',     // サブディレクトリも含む
+  // 'qr-*.png',           // QRコード等も必要に応じて追加
+  // 'favicon.ico',        // faviconも除外する場合
 ]
 
 // ========================

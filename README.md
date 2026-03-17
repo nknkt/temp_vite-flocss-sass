@@ -59,6 +59,49 @@ npm run webp
 
 Replace them manually or use an `.env`-based replacement script.
 
+## OGP画像について
+
+プロジェクト開始時にOGP画像を作成してください。
+
+### 必要な画像
+
+#### og.png または og.jpg
+- **サイズ**: 1200x630px（推奨）
+- **用途**: Facebook、LinkedIn、Twitter等のOGP画像
+- **フォーマット**: PNG または JPG
+- **配置場所**: `src/assets/images/og.png`
+- **注意**: 自動WebP変換から除外されます
+
+### WebP変換の除外設定
+
+`vite.config.js`の`WEBP_EXCLUDE`に以下のパターンが設定されています：
+
+```javascript
+const WEBP_EXCLUDE = [
+  'og-*.{png,jpg}',      // og-で始まる画像
+  'ogp*.{png,jpg}',      // ogpで始まる画像
+  '**/og-*.{png,jpg}',   // サブディレクトリ含む
+]
 ```
 
+### 推奨サイズとクロップエリア
+- テキストや重要な要素は中央600x600pxの領域に配置
+- 上下左右に余白を持たせる（端が切れる可能性を考慮）
+- ファイルサイズは300KB以下を推奨
+
+### デザイン時の注意点
+- ブランドカラーを使用
+- サイト名またはロゴを配置
+- キャッチコピーを大きく見やすく
+- 背景はシンプルに
+- テキストは読みやすいコントラストで
+
+### HTMLでの使用例
+
+```html
+<!-- OGP -->
+<meta property="og:image" content="./assets/images/og.png">
+
+<!-- Twitter Card -->
+<meta name="twitter:image" content="./assets/images/og.png">
 ```
