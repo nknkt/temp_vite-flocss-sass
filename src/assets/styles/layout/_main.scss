@@ -2,6 +2,9 @@
 
 .l-main {
   min-height: 100vh;
-  padding: 2rem;
-  overflow: clip;
+  padding-top: $header-height-pc;
+
+  @include sp() {
+    padding-top: $header-height-sp;
+  }
 }

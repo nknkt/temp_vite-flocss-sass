@@ -1,31 +1,30 @@
 // color
-$color-font-base: #111 !default;
-$color-bg-main: #f9faf3 !default;
-$color-black: #111 !default;
-$color-bg-green: #f4f6e9 !default;
-$color-border-green: #e7ead6 !default;
-$color-kodak-yellow: #fbc400 !default;
-$color-kodak-bg: #fff6d7 !default;
-$color-kodak-border: #fac915 !default;
+$color-font-base: #1a1a2e !default;
+$color-bg-main: #f4f6f9 !default;
+$color-black: #1a1a2e !default;
+$color-accent: #9f9f9f !default;
+$select: #fbca5a !default;
 
 // weight
 $weight-base: 500 !default;
-$weight-light: 300 !default;
 $weight-semi-bold: 600 !default;
 $weight-bold: 700 !default;
 
 // font
 $font-base: "Zen Kaku Gothic Antique", sans-serif !default;
 $font-poppins: "Poppins", sans-serif !default;
-$font-yakuhan: "YakuHanJP", "Zen Kaku Gothic Antique", sans-serif !default;
 
+// 汎用フォント
 // $font-lato: "Lato", sans-serif !default;
 // $font-roboto: "Roboto", sans-serif !default;
 // $font-monserrat: "Montserrat", sans-serif !default;
 
+// yakuhan
+// $font-yakuhan: "YakuHanJP", "Zen Kaku Gothic Antique", sans-serif !default;
+
 // gradient
-$gradient-red-orange: linear-gradient(90deg, rgb(237 0 0 / 99.6%) 0%, rgb(255 155 74) 100%) !default;
-$gradient-black-gray: linear-gradient(90deg, rgb(17 17 17 / 99.6%) 0%, rgb(153 153 153) 100%) !default;
+$gradient-blue-blue: linear-gradient(90deg, rgb(45 91 227 / 99.6%) 0%, rgb(100 160 255) 100%) !default;
+$gradient-black-gray: linear-gradient(90deg, rgb(26 26 46 / 99.6%) 0%, rgb(120 130 160) 100%) !default;
 
 // transition
 $transition-basic: all 0.3s ease-in-out !default;
@@ -36,3 +35,7 @@ $breakpoint-desktop: 768px !default;
 // $breakpoint-wide: 2000px !default;
 // $breakpoint-medium: 1024px !default;
 // $breakpoint-tablet: 600px !default;
+
+// header height
+$header-height-pc: 9rem;
+$header-height-sp: 5rem;

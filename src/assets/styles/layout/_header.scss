@@ -19,7 +19,8 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background: $color-kodak-yellow;
+    height: 9rem;
+    background: $color-accent;
     transform: translateZ(0);
     transition:
       opacity 0.18s ease,
@@ -29,8 +30,9 @@
     padding-inline: 2.6rem 4rem;
 
     @include sp() {
+      height: 5rem;
       contain: none;
-      padding-inline: 0 0.5rem;
+      padding-inline: 0.5rem;
     }
   }
 
@@ -56,6 +58,12 @@
         opacity: 0.7;
       }
     }
+
+    svg {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
   }
 
   @include sp() {
@@ -75,7 +83,7 @@
       font-family: $font-poppins;
       line-height: 1;
       letter-spacing: 0;
-      background: $gradient-red-orange;
+      background: $gradient-blue-blue;
       border-radius: 1.7rem;
       place-items: center;
     }
@@ -125,14 +133,12 @@
     }
   }
 
-  // スクロール時のスタイル
   &.is-scrolled {
     .l-header__inner {
-      background: #fff;
+      background: rgba($color: #fff, $alpha: 90%);
     }
   }
 
-  // hide-on-scroll機能
   &.is-hidden {
     transform: translateY(-100%);
   }

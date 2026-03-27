@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite'
 import { viteStaticCopy } from 'vite-plugin-static-copy'
 import { vitePluginWebp } from './plugins/vite-plugin-webp.js'
+import { vitePluginSsi } from './plugins/vite-plugin-ssi.js'
 import { resolve } from 'path'
 import { readdirSync, existsSync } from 'fs'
 
@@ -47,16 +48,21 @@ readdirSync(srcDir, { withFileTypes: true })
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [
+    vitePluginSsi(),
     viteStaticCopy({
+      silent: true,
       targets: [
         {
           src: 'assets/images/*.{svg,gif,ico}',
           dest: 'assets/images',
         },
-
         {
           src: 'assets/videos/**/*',
           dest: 'assets/videos',
+        },
+        {
+          src: 'assets/includes/**/*',
+          dest: 'assets/includes',
         },
       ],
     }),
