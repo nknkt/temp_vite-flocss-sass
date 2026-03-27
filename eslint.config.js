@@ -5,7 +5,7 @@ import js from '@eslint/js';
 export default [
   // base ignores
   {
-    ignores: ['dist/**', 'node_modules/**', 'plugins/**', 'src/snippets/**'],
+    ignores: ['dist/**', 'node_modules/**', 'plugins/**', 'src/snippets/**', 'src/assets/includes/**'],
   },
 
   // project-specific rules and HTML plugin
@@ -22,7 +22,7 @@ export default [
     },
     rules: {
       'no-unused-vars': 'warn',
-      'no-console': 'warn',
+      'no-console': ['warn', { allow: ['warn', 'error'] }],
       'prefer-const': 'error',
       'no-var': 'error',
     },

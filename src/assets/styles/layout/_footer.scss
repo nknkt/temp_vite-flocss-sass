@@ -43,21 +43,6 @@
     padding-right: 2.2rem;
     text-decoration: underline;
 
-    &::before {
-      position: absolute;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      display: block;
-      width: 1.3rem;
-      height: 1.3rem;
-      margin: auto;
-      background: currentcolor;
-      content: "";
-      mask: url("/assets/images/link-ico.svg") no-repeat center;
-      mask-size: contain;
-    }
-
     & + & {
       margin-left: 3rem;
 

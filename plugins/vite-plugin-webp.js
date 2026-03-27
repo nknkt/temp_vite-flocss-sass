@@ -287,6 +287,8 @@ async function findHtmlFiles(dir) {
     const fullPath = path.join(dir, entry.name)
 
     if (entry.isDirectory()) {
+      // assets/includes は SSI パーシャルなのでスキップ
+      if (entry.name === 'includes') continue
       htmlFiles.push(...(await findHtmlFiles(fullPath)))
     } else if (entry.isFile() && entry.name.endsWith('.html')) {
       htmlFiles.push(fullPath)

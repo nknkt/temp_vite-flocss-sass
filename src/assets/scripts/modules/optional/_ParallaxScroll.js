@@ -21,8 +21,6 @@ export default class ParallaxScroll {
   }
 
   handleScroll() {
-    const scrollY = window.pageYOffset;
-
     this.parallaxElements.forEach(element => {
       const rect = element.getBoundingClientRect();
       const speed = parseFloat(element.dataset.parallaxSpeed) || 0.5;
