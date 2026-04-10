@@ -78,9 +78,12 @@ Replace them manually or use an `.env`-based replacement script.
 
 ```javascript
 const WEBP_EXCLUDE = [
-  'og-*.{png,jpg}',      // og-で始まる画像
-  'ogp*.{png,jpg}',      // ogpで始まる画像
-  '**/og-*.{png,jpg}',   // サブディレクトリ含む
+  'og.png',              // OG画像
+  'og.jpg',              // OG画像
+  'og-*.png',            // og-で始まる画像（PNG）
+  'og-*.jpg',            // og-で始まる画像（JPG）
+  'ogp*.png',            // ogpで始まる画像（PNG）
+  'ogp*.jpg',            // ogpで始まる画像（JPG）
 ]
 ```
 
@@ -105,3 +108,40 @@ const WEBP_EXCLUDE = [
 <!-- Twitter Card -->
 <meta name="twitter:image" content="./assets/images/og.png">
 ```
+
+## プロジェクト固有コンテンツの置き換え
+
+このテンプレートには、サンプルプロジェクトの内容が含まれています。新規プロジェクトで使用する際は、以下を置き換えてください。
+
+### 1. HTMLコンテンツ（`src/index.html`）
+
+以下のダミーテキストを実際のプロジェクト内容に置き換え：
+- ヘッダーロゴ：`<img src="./assets/images/logo.svg">`
+- メインタイトル：「製品名・サービス名をここに記載」
+- 説明文：「製品・サービスに関する説明文をここに記載します...」
+- フッター：「Copyright (C) 2024 COMPANY NAME...」
+
+### 2. SCSSファイル
+
+以下のファイルにサンプルプロジェクトのクラスが含まれています：
+- `src/assets/styles/object/project/_about.scss`
+  - クラス名を変更またはファイルを削除して新規作成
+- `src/assets/styles/object/project/_search.scss`
+  - クラス名を変更またはファイルを削除して新規作成
+
+### 3. 画像ファイル（`src/assets/images/`）
+
+サンプルプロジェクトの画像は削除し、新規プロジェクトの画像に置き換えてください：
+- `logo.svg`：ブランドロゴ
+- `og.png`：OGP画像（1200x630px）
+- その他必要な画像を追加
+
+### 4. JavaScriptモジュール
+
+`src/assets/scripts/modules/` 内のサンプルモジュールを確認：
+- 不要なモジュールは削除
+- 必要に応じて新規作成
+
+### 5. データファイル
+
+`src/assets/scripts/data/` に配置されるJSONファイルは、プロジェクトに応じて作成してください。
