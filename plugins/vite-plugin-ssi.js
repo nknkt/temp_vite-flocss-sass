@@ -11,7 +11,7 @@ import { resolve } from 'path'
  *   Options +Includes
  *   AddOutputFilter INCLUDES .html
  */
-export function vitePluginSsi() {
+export default function vitePluginSsi() {
   let root = ''
   let isBuild = false
 

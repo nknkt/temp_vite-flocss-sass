@@ -6,7 +6,7 @@ import { existsSync } from 'fs'
 const SUPPORTED_FORMATS = ['.jpg', '.jpeg', '.png']
 const WEBP_QUALITY = 90
 
-export function vitePluginWebp(options = {}) {
+export default function vitePluginWebp(options = {}) {
   const {
     quality = WEBP_QUALITY,
     lossless = { png: true, jpg: false },
