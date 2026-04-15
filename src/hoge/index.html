@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <!--#include file="../assets/includes/gtm-head.html" -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hoge Page - %SITE_NAME%</title>
+    <meta name="description" content="下層ページのテストページです">
+    <meta name="format-detection" content="telephone=no">
+
+    <meta property="og:title" content="Hoge Page - %SITE_NAME%">
+    <meta property="og:description" content="下層ページのテストページです">
+    <meta property="og:image" content="../assets/images/og.png">
+    <meta property="og:url" content="%URL%/hoge/">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="%SITE_NAME%">
+
+    <link rel="canonical" href="%URL%/hoge/">
+    <!-- <meta name="robots" content="noindex"> -->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://www.googletagmanager.com">
+    <link rel="preconnect" href="https://www.google-analytics.com">
+    <!--#include file="../assets/includes/fonts.html" -->
+
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../assets/styles/style.scss">
+  </head>
+
+  <body>
+    <!--#include file="../assets/includes/gtm-body.html" -->
+
+    <!--#include file="../assets/includes/svg-symbols.html" -->
+
+    <div class="l-page">
+      <!--#include file="../assets/includes/header.html" -->
+
+      <main class="l-main">
+        <section style="padding: 10rem 0;">
+          <h1 class="c-section-head u-fade-in">
+            <span class="c-section-head__en">Hoge Page</span>
+            <span class="c-section-head__ja">下層ページテスト</span>
+          </h1>
+
+          <div class="u-wrapper" style="margin-top: 5rem;">
+            <div class="u-fade-in" style="max-width: 80rem; margin-inline: auto; text-align: center;">
+              <p style="font-size: 1.8rem; line-height: 2; font-weight: 500;">
+                これは下層ページのテストです。<br>
+                パスが正しく解決されているか確認してください。
+              </p>
+              <p style="font-size: 1.6rem; line-height: 2; margin-top: 2rem;">
+                CSS、JS、画像などのアセットが正しく読み込まれます。<br>
+                <a href="../" class="c-link-text">トップページに戻る</a>
+              </p>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <!--#include file="../assets/includes/footer.html" -->
+    </div>
+
+    <script type="module" src="../assets/scripts/pages/index.js"></script>
+  </body>
+</html>
