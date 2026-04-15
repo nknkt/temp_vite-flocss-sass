@@ -1,7 +1,8 @@
 import { defineConfig } from 'vite'
 import { viteStaticCopy } from 'vite-plugin-static-copy'
-import { vitePluginWebp } from './plugins/vite-plugin-webp.js'
-import { vitePluginSsi } from './plugins/vite-plugin-ssi.js'
+import vitePluginWebp from './plugins/vite-plugin-webp.js'
+import vitePluginSsi from './plugins/vite-plugin-ssi.js'
+import PurgeCSS from 'vite-plugin-purgecss-updated-v5'
 import { resolve } from 'path'
 import { readdirSync, existsSync } from 'fs'
 
@@ -19,6 +20,14 @@ const WEBP_EXCLUDE = [
   'og.png',                // OG画像
   // 'qr-*.png',           // QRコード等も必要に応じて追加
   // 'favicon.ico',        // faviconも除外する場合
+]
+
+// PurgeCSS設定（未使用CSSの削除）
+const PURGECSS_ENABLED = false  // デフォルトはOFF（大規模プロジェクトで有効化を推奨）
+const PURGECSS_SAFELIST = [
+  /^js-/,                  // JS用クラス（js-から始まるクラスを保護）
+  /^is-/,                  // 状態クラス（is-active, is-openなど）
+  /^has-/,                 // 状態クラス（has-error, has-childrenなど）
 ]
 
 // ========================
@@ -73,6 +82,16 @@ export default defineConfig({
       enabled: true, // 有効/無効の切り替え
       exclude: WEBP_EXCLUDE, // WebPに変換しない画像（上部で設定）
     }),
+    // ビルド時に未使用CSSを削除（デフォルトOFF）
+    ...(PURGECSS_ENABLED ? [PurgeCSS({
+      content: [
+        `${ROOT_DIR}/**/*.html`,
+        `${ROOT_DIR}/**/*.js`,
+      ],
+      safelist: {
+        standard: PURGECSS_SAFELIST,
+      },
+    })] : []),
   ],
   base: BASE_PATH,
   root: ROOT_DIR,
