@@ -4,12 +4,15 @@
   position: sticky;
   top: 0;
   width: 100%;
-  height: 100vh;
-  overflow: hidden;
+
+  @for $i from 1 through 10 {
+    &:nth-child(#{$i}) {
+      z-index: #{100 + $i};
+    }
+  }
 
   &__img {
+    display: block;
     width: 100%;
-    height: 100%;
-    object-fit: cover;
   }
 }

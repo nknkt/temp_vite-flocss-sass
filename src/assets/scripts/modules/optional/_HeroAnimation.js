@@ -67,7 +67,8 @@ export default class HeroAnimation {
   }
 
   setupScrollAnimations() {
-    const maskExitAt = 0.1
+    // マスク拡大完了までのスクロール距離（px）
+    const maskScrollDist = window.innerHeight * 0.2
 
     ScrollTrigger.create({
       trigger: this.hero,
@@ -75,10 +76,10 @@ export default class HeroAnimation {
       end: 'bottom top',
       scrub: 1,
       onUpdate: (self) => {
-        const progress = self.progress
-        const t = Math.min(progress / maskExitAt, 1)
+        const scrolled = self.progress * (self.end - self.start)
+        const t = Math.min(scrolled / maskScrollDist, 1)
 
-        // clip-pathでマスク拡大（scale不使用 → 画像ズームに影響しない）
+        // clip-pathでマスク拡大
         const radius = this.initRadius + t * (this.finalRadius - this.initRadius)
         gsap.set(this.centerWrapper, { clipPath: `circle(${radius}px at 50% 50%)` })
 
@@ -94,7 +95,7 @@ export default class HeroAnimation {
         })
 
         // マスク退場後にテキスト白
-        if (progress > maskExitAt) {
+        if (scrolled > maskScrollDist) {
           this.mainTitle.classList.add('is-white')
         } else {
           this.mainTitle.classList.remove('is-white')
@@ -116,29 +117,30 @@ export default class HeroAnimation {
       }
     })
 
-    // sub-text フェードイン/アウト（上下どちらも対応）
+    // sub-text フェードイン（マスク完了直後〜+200pxで完了）
     if (this.subText) {
-      const maskExitPct = maskExitAt * 100
-      ScrollTrigger.create({
-        trigger: this.hero,
-        start: `${maskExitPct}% top`,
-        end: `${maskExitPct + 8}% top`,
-        scrub: true,
-        onUpdate: (self) => {
-          gsap.set(this.subText, { opacity: self.progress })
+      gsap.to(this.subText, {
+        opacity: 1,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: this.hero,
+          start: `top+=${maskScrollDist} top`,
+          end: `top+=${maskScrollDist + 100} top`,
+          scrub: true
         }
       })
     }
 
-    // news フェードアウト
+    // news フェードアウト（0〜200pxで完了）
     if (this.newsImg) {
-      ScrollTrigger.create({
-        trigger: this.hero,
-        start: 'top top',
-        end: '5% top',
-        scrub: true,
-        onUpdate: (self) => {
-          gsap.set(this.newsImg, { opacity: 1 - self.progress })
+      gsap.to(this.newsImg, {
+        opacity: 0,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: this.hero,
+          start: 'top top',
+          end: 'top+=200 top',
+          scrub: true
         }
       })
     }

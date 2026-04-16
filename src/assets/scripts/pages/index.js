@@ -6,6 +6,7 @@ import OpeningAnimation from '../modules/optional/_OpeningAnimation.js'
 import HeroAnimation from '../modules/optional/_HeroAnimation.js'
 import SectionAnimation from '../modules/optional/_SectionAnimation.js'
 
+
 // ============================================================
 // Lenis初期化（スムーススクロール）
 // ============================================================
