@@ -1,0 +1,14 @@
+@use "../../global" as *;
+
+.p-final-section {
+  position: relative;
+  z-index: 150; // stickyセクション(最大z-index)より上
+  width: 100%;
+  min-height: 100vh;
+  background-color: transparent; // 後ろのfixed(Hero)を透かせる
+
+  &__img {
+    display: block;
+    width: 100%;
+  }
+}

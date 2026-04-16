@@ -102,18 +102,10 @@ export default class HeroAnimation {
         }
       },
       onLeave: () => {
-        this.bgLoop.style.visibility = 'hidden'
-        this.overlay.style.visibility = 'hidden'
-        this.centerWrapper.style.visibility = 'hidden'
-        if (this.ring1) this.ring1.style.visibility = 'hidden'
-        if (this.ring2) this.ring2.style.visibility = 'hidden'
+        // bgLoopなどは消さない（最後のセクションの下敷きとして使い回すため）
       },
       onEnterBack: () => {
-        this.bgLoop.style.visibility = ''
-        this.overlay.style.visibility = ''
-        this.centerWrapper.style.visibility = ''
-        if (this.ring1) this.ring1.style.visibility = ''
-        if (this.ring2) this.ring2.style.visibility = ''
+        // bgLoopなどは消さない
       }
     })
 

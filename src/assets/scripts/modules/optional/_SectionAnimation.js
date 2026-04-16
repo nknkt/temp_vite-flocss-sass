@@ -6,13 +6,16 @@ export default class SectionAnimation {
   init() {
     if (this.sections.length === 0) return
 
-    const vh = window.innerHeight
+    // 画面サイズ確定後に計算 (Lenisの初期化中などにブレないよう)
+    requestAnimationFrame(() => {
+      const vh = window.innerHeight
 
-    this.sections.forEach(section => {
-      const h = section.offsetHeight
-      if (h > vh) {
-        section.style.top = `${vh - h}px`
-      }
+      this.sections.forEach(section => {
+        const h = Math.round(section.offsetHeight)
+        if (h > vh) {
+          section.style.top = `${vh - h}px`
+        }
+      })
     })
   }
 }
