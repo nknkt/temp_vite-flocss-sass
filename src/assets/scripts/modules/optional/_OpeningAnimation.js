@@ -44,6 +44,9 @@ export default class OpeningAnimation {
       // 最後のセットをワイプアウト
       await this.delay(this.wait)
 
+      // 背景を透明にしてheroを見せる
+      this.opening.style.background = 'transparent'
+
       const lastSet = this.imageSets[this.imageSets.length - 1]
       lastSet.classList.remove('is-revealed')
       lastSet.classList.add('is-wipe-out')
