@@ -4,22 +4,23 @@
   position: relative;
   width: 100%;
   height: 300vh;
-  overflow: hidden;
 
   &__bg-loop {
     position: fixed;
-    top: 0;
-    left: 0;
+    inset: 0;
     z-index: 1;
     display: flex;
     flex-direction: column;
     width: 100%;
-    height: 100vh;
-    opacity: 0;
+    height: 100%;
+  }
 
-    &.is-visible {
-      opacity: 1;
-    }
+  &__overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: url("../images/overlay-pattern.png") center / cover no-repeat;
+    pointer-events: none;
   }
 
   &__bg-row {
@@ -43,30 +44,48 @@
     object-fit: cover;
   }
 
-  &__center {
+  &__ring {
     position: fixed;
     top: 50%;
     left: 50%;
-    z-index: 10;
+    border-radius: 50%;
     transform: translate(-50%, -50%);
-    opacity: 0;
+    pointer-events: none;
+    will-change: transform;
 
-    &.is-visible {
-      opacity: 1;
+    &--1 {
+      z-index: 5;
+      width: 93dvh;
+      height: 93dvh;
+      background: rgb(255 255 255 / 30%);
     }
+
+    &--2 {
+      z-index: 5;
+      width: 96.11dvh;
+      height: 96.11dvh;
+      border: 1px solid #fff;
+    }
+  }
+
+  &__center {
+    position: fixed;
+    inset: 0;
+    z-index: 10;
+    clip-path: circle(40vh at 50% 50%);
   }
 
   &__circle-wrapper {
     position: relative;
+    width: 100%;
+    height: 100%;
   }
 
   &__circle-mask {
     position: relative;
-    width: 50rem;
-    height: 50rem;
+    width: 100%;
+    height: 100%;
     overflow: hidden;
-    border-radius: 50%;
-    will-change: transform;
   }
 
   &__circle-img {
@@ -83,10 +102,8 @@
     z-index: 100;
     width: 100%;
     height: 100%;
-    background: radial-gradient(circle, rgb(255 255 255 / 80%) 0%, rgb(255 255 255 / 0%) 70%);
     border-radius: 50%;
     transform: translate(-50%, -50%);
-    filter: blur(40px);
     pointer-events: none;
   }
 
@@ -101,138 +118,58 @@
     pointer-events: none;
   }
 
-  &__header {
-    position: fixed;
-    top: 0;
+  &__header-img {
+    position: absolute;
+    top: 6.5rem;
+    right: 0;
     left: 0;
     z-index: 100;
-    width: 100%;
-    padding: 3rem 5rem;
-    opacity: 0;
-
-    &.is-visible {
-      opacity: 1;
-    }
+    width: 146.8rem;
+    margin: auto;
+    pointer-events: none;
   }
 
-  &__header-inner {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  &__logo {
-    margin: 0;
-    color: #000;
-    font-weight: 700;
-    font-size: 4rem;
-    line-height: 1;
-  }
-
-  &__nav {
-    display: flex;
-    gap: 3rem;
-    align-items: center;
-  }
-
-  &__nav-link {
-    color: #000;
-    font-size: 1.4rem;
-    line-height: 1;
-    text-decoration: none;
-    transition: opacity 0.3s;
-
-    @include hover() {
-      opacity: 0.6;
-    }
-
-    &--contact {
-      padding: 1rem 2rem;
-      border: 1px solid #000;
-      border-radius: 2rem;
-    }
+  &__news-img {
+    position: absolute;
+    top: calc(100vh - 12rem);
+    right: 5rem;
+    z-index: 100;
+    width: 44.7rem;
+    pointer-events: none;
   }
 
   &__copy {
-    position: fixed;
-    top: 50%;
+    position: absolute;
+    top: calc(100vh - 30rem);
     left: 8rem;
     z-index: 50;
-    transform: translateY(-50%);
-    opacity: 0;
-
-    &.is-visible {
-      opacity: 1;
-    }
   }
 
   &__main-title {
-    margin: 0 0 2rem;
+    margin: 0;
     color: #000;
     font-weight: 700;
-    font-size: 6rem;
-    line-height: 1.4;
+    font-size: 8.2rem;
+    line-height: 1.5;
     transition: color 0.6s;
 
     &.is-white {
       color: #fff;
     }
+  }
+
+  &__message {
+    position: absolute;
+    top: calc(100vh - 8rem);
+    left: 16rem;
+    z-index: 50;
   }
 
   &__sub-text {
-    margin: 0;
-    color: #000;
-    font-size: 1.6rem;
-    line-height: 1.8;
-    transition: color 0.6s;
-
-    &.is-white {
-      color: #fff;
-    }
-  }
-
-  &__news {
-    position: fixed;
-    right: 5rem;
-    bottom: 5rem;
-    z-index: 50;
-    display: flex;
-    gap: 1.5rem;
-    align-items: center;
-    padding: 1.5rem 2rem;
-    background: rgb(255 255 255 / 90%);
-    border-radius: 0.5rem;
-    opacity: 0;
-
-    &.is-visible {
-      opacity: 1;
-    }
-  }
-
-  &__news-date {
-    color: #666;
-    font-weight: 500;
-    font-size: 1.2rem;
-  }
-
-  &__news-label {
-    padding: 0.4rem 1rem;
+    margin-top: 6rem;
     color: #fff;
-    font-size: 1.2rem;
-    background: #000;
-    border-radius: 0.3rem;
-  }
-
-  &__news-text {
-    margin: 0;
-    color: #000;
-    font-size: 1.4rem;
-  }
-
-  &__news-link {
-    color: #000;
-    font-weight: 700;
-    font-size: 1.6rem;
-    text-decoration: none;
+    font-size: 2.6rem;
+    line-height: 2.07;
+    opacity: 0;
   }
 }

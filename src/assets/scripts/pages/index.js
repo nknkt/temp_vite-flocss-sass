@@ -33,7 +33,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   // ヒーローアニメーション
   const heroAnimation = new HeroAnimation()
   heroAnimation.init()
-  heroAnimation.show()
 
   // セクションアニメーション
   const sectionAnimation = new SectionAnimation()

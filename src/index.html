@@ -70,6 +70,8 @@
       <div class="p-hero">
         <!-- Background Loop Images -->
         <div class="p-hero__bg-loop js-bg-loop">
+          <!-- White Overlay -->
+          <div class="p-hero__overlay"></div>
           <div class="p-hero__bg-row p-hero__bg-row--top js-bg-row-top">
             <div class="p-hero__bg-track js-bg-track-top">
               <!-- 上段：左方向にループ -->
@@ -121,20 +123,12 @@
           </div>
         </div>
 
-        <!-- Header & Logo -->
-        <header class="p-hero__header js-hero-header">
-          <div class="p-hero__header-inner">
-            <h1 class="p-hero__logo js-hero-logo">R= Inc.</h1>
-            <nav class="p-hero__nav">
-              <a href="#" class="p-hero__nav-link">理念・メッセージ</a>
-              <a href="#" class="p-hero__nav-link">事業案内</a>
-              <a href="#" class="p-hero__nav-link">会社概要</a>
-              <a href="#" class="p-hero__nav-link">採用情報</a>
-              <a href="#" class="p-hero__nav-link">お知らせ</a>
-              <a href="#" class="p-hero__nav-link p-hero__nav-link--contact">お問い合わせ</a>
-            </nav>
-          </div>
-        </header>
+        <!-- Header Image -->
+        <img src="./assets/images/hero-header.png" alt="" class="p-hero__header-img">
+
+        <!-- Ring Decorations -->
+        <div class="p-hero__ring p-hero__ring--1 js-hero-ring-1"></div>
+        <div class="p-hero__ring p-hero__ring--2 js-hero-ring-2"></div>
 
         <!-- Main Copy -->
         <div class="p-hero__copy js-hero-copy">
@@ -142,19 +136,23 @@
             社会にめぐらせる<br>
             想いと価値
           </h2>
-          <p class="p-hero__sub-text js-sub-text">
-            Through our reuse business,<br>
-            we want to help as<br>
-            many people as possible.
-          </p>
         </div>
 
-        <!-- News -->
-        <div class="p-hero__news js-hero-news">
-          <time class="p-hero__news-date">2026.12.12</time>
-          <span class="p-hero__news-label">お知らせ</span>
-          <p class="p-hero__news-text">お知らせがサンプルダミーテキスト・・・</p>
-          <a href="#" class="p-hero__news-link">→</a>
+        <!-- News Image -->
+        <img src="./assets/images/hero-news.png" alt="" class="p-hero__news-img js-hero-news-img">
+
+        <!-- Sub Text（マスク退場後にフェードイン） -->
+        <div class="p-hero__message js-hero-message">
+          <p class="p-hero__sub-text js-hero-sub-text">
+            モノの価値と、<br>
+            その背景にある想いに向き合い、<br>
+            次へとつないでいく。<br>
+            <br>
+            そのひとつひとつの積み重ねで<br>
+            社会に新たな循環を生み出していきます。<br>
+            アールイコールは、<br>
+            これからもめぐる価値を広げていきます。
+          </p>
         </div>
       </div>
 
@@ -168,6 +166,16 @@
         <!-- Section 2 -->
         <section class="p-section js-section" data-section="2">
           <img src="./assets/images/section-2.jpg" alt="" class="p-section__img">
+        </section>
+
+        <!-- Section 3 -->
+        <section class="p-section js-section" data-section="3">
+          <img src="./assets/images/section-3.jpg" alt="" class="p-section__img">
+        </section>
+
+        <!-- Section 4 -->
+        <section class="p-section js-section" data-section="4">
+          <img src="./assets/images/section-4.jpg" alt="" class="p-section__img">
         </section>
       </main>
     </div>

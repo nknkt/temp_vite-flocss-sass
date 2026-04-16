@@ -12,13 +12,14 @@ export default class HeroAnimation {
     this.centerWrapper = document.querySelector('.js-hero-center')
     this.circleMask = document.querySelector('.js-circle-mask')
     this.circleImg = document.querySelector('.js-circle-img')
-    this.header = document.querySelector('.js-hero-header')
-    this.logo = document.querySelector('.js-hero-logo')
-    this.copy = document.querySelector('.js-hero-copy')
     this.mainTitle = document.querySelector('.js-main-title')
-    this.subText = document.querySelector('.js-sub-text')
-    this.news = document.querySelector('.js-hero-news')
-    this.blurOverlay = document.querySelector('.js-blur-overlay')
+    this.subText = document.querySelector('.js-hero-sub-text')
+    this.overlay = document.querySelector('.p-hero__overlay')
+    this.copy = document.querySelector('.js-hero-copy')
+    this.message = document.querySelector('.js-hero-message')
+    this.newsImg = document.querySelector('.js-hero-news-img')
+    this.ring1 = document.querySelector('.js-hero-ring-1')
+    this.ring2 = document.querySelector('.js-hero-ring-2')
 
     this.loopAnimations = []
   }
@@ -26,43 +27,13 @@ export default class HeroAnimation {
   init() {
     if (!this.hero) return
 
+    this.initRadius = window.innerHeight * 0.4
+    this.finalRadius = Math.sqrt(window.innerWidth ** 2 + window.innerHeight ** 2)
+    gsap.set(this.centerWrapper, { clipPath: `circle(${this.initRadius}px at 50% 50%)` })
+    gsap.set([this.ring1, this.ring2], { xPercent: -50, yPercent: -50 })
+
     this.setupBackgroundLoop()
     this.setupScrollAnimations()
-  }
-
-  show() {
-    // オープニング後に要素を表示
-    const tl = gsap.timeline()
-
-    tl.to(this.bgLoop, {
-      opacity: 1,
-      duration: 0.8,
-      ease: 'power2.out'
-    })
-
-    tl.to(this.centerWrapper, {
-      opacity: 1,
-      duration: 0.8,
-      ease: 'power2.out'
-    }, '-=0.4')
-
-    tl.to([this.header, this.logo], {
-      opacity: 1,
-      duration: 0.8,
-      ease: 'power2.out'
-    }, '-=0.4')
-
-    tl.to(this.copy, {
-      opacity: 1,
-      duration: 0.8,
-      ease: 'power2.out'
-    }, '-=0.4')
-
-    tl.to(this.news, {
-      opacity: 1,
-      duration: 0.8,
-      ease: 'power2.out'
-    }, '-=0.4')
   }
 
   setupBackgroundLoop() {
@@ -96,45 +67,86 @@ export default class HeroAnimation {
   }
 
   setupScrollAnimations() {
-    // スクロールに応じて円形マスクを拡大し、画像をズームイン
+    const maskExitAt = 0.1
+
     ScrollTrigger.create({
       trigger: this.hero,
       start: 'top top',
-      end: 'bottom bottom',
+      end: 'bottom top',
       scrub: 1,
       onUpdate: (self) => {
         const progress = self.progress
+        const t = Math.min(progress / maskExitAt, 1)
 
-        // 円形マスクを拡大（最終的に画面幅の150%まで）
-        const scale = 1 + (progress * 2.5)
-        gsap.set(this.circleMask, {
-          scale: scale
-        })
+        // clip-pathでマスク拡大（scale不使用 → 画像ズームに影響しない）
+        const radius = this.initRadius + t * (this.finalRadius - this.initRadius)
+        gsap.set(this.centerWrapper, { clipPath: `circle(${radius}px at 50% 50%)` })
 
-        // 画像を少しズームイン
-        const imgScale = 1 + (progress * 0.3)
+        // リングをマスクとずらした倍率で拡大
+        const ringScale = radius / this.initRadius
+        gsap.set(this.ring1, { scale: 1 + (ringScale - 1) * 0.7 })
+        gsap.set(this.ring2, { scale: 1 + (ringScale - 1) * 1.3 })
+
+        // 画像を5%ズーム＋ソフトに暗く＋ブラー
         gsap.set(this.circleImg, {
-          scale: imgScale
+          scale: 1 + t * 0.05,
+          filter: `brightness(${1 - t * 0.2}) blur(${t * 2}px)`
         })
 
-        // テキストカラーを変更（progress 0.4以降で白に）
-        if (progress > 0.4) {
+        // マスク退場後にテキスト白
+        if (progress > maskExitAt) {
           this.mainTitle.classList.add('is-white')
-          this.subText.classList.add('is-white')
         } else {
           this.mainTitle.classList.remove('is-white')
-          this.subText.classList.remove('is-white')
         }
+      },
+      onLeave: () => {
+        this.bgLoop.style.visibility = 'hidden'
+        this.overlay.style.visibility = 'hidden'
+        this.centerWrapper.style.visibility = 'hidden'
+        if (this.ring1) this.ring1.style.visibility = 'hidden'
+        if (this.ring2) this.ring2.style.visibility = 'hidden'
+      },
+      onEnterBack: () => {
+        this.bgLoop.style.visibility = ''
+        this.overlay.style.visibility = ''
+        this.centerWrapper.style.visibility = ''
+        if (this.ring1) this.ring1.style.visibility = ''
+        if (this.ring2) this.ring2.style.visibility = ''
       }
     })
+
+    // sub-text フェードイン/アウト（上下どちらも対応）
+    if (this.subText) {
+      const maskExitPct = maskExitAt * 100
+      ScrollTrigger.create({
+        trigger: this.hero,
+        start: `${maskExitPct}% top`,
+        end: `${maskExitPct + 8}% top`,
+        scrub: true,
+        onUpdate: (self) => {
+          gsap.set(this.subText, { opacity: self.progress })
+        }
+      })
+    }
+
+    // news フェードアウト
+    if (this.newsImg) {
+      ScrollTrigger.create({
+        trigger: this.hero,
+        start: 'top top',
+        end: '5% top',
+        scrub: true,
+        onUpdate: (self) => {
+          gsap.set(this.newsImg, { opacity: 1 - self.progress })
+        }
+      })
+    }
   }
 
   destroy() {
-    // ループアニメーションを停止
     this.loopAnimations.forEach(anim => anim.kill())
     this.loopAnimations = []
-
-    // ScrollTriggerをクリーンアップ
     ScrollTrigger.getAll().forEach(st => st.kill())
   }
 }
