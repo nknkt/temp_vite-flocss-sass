@@ -35,63 +35,141 @@
     <!--#include file="assets/includes/svg-symbols.html" -->
 
     <div class="l-page">
-      <!--#include file="assets/includes/header.html" -->
+      <!-- Opening Animation -->
+      <div class="p-opening js-opening">
+        <!-- 2枚1組×3パターン -->
+        <div class="p-opening__image-set js-opening-set" data-index="0">
+          <div class="p-opening__half p-opening__half--left">
+            <img src="./assets/images/opening-1-1.jpg" alt="" class="p-opening__image">
+          </div>
+          <div class="p-opening__half p-opening__half--right">
+            <img src="./assets/images/opening-1-2.jpg" alt="" class="p-opening__image">
+          </div>
+        </div>
 
-      <main class="l-main">
-        <section id="sample" style="padding: 10rem 0;">
-          <h2 class="c-section-head u-fade-in">
-            <span class="c-section-head__en">Sample</span>
-            <span class="c-section-head__ja">サンプルセクション</span>
+        <div class="p-opening__image-set js-opening-set" data-index="1">
+          <div class="p-opening__half p-opening__half--left">
+            <img src="./assets/images/opening-2-1.jpg" alt="" class="p-opening__image">
+          </div>
+          <div class="p-opening__half p-opening__half--right">
+            <img src="./assets/images/opening-2-2.jpg" alt="" class="p-opening__image">
+          </div>
+        </div>
+
+        <div class="p-opening__image-set js-opening-set" data-index="2">
+          <div class="p-opening__half p-opening__half--left">
+            <img src="./assets/images/opening-3-1.jpg" alt="" class="p-opening__image">
+          </div>
+          <div class="p-opening__half p-opening__half--right">
+            <img src="./assets/images/opening-3-2.jpg" alt="" class="p-opening__image">
+          </div>
+        </div>
+      </div>
+
+      <!-- Hero Section -->
+      <div class="p-hero">
+        <!-- Background Loop Images -->
+        <div class="p-hero__bg-loop js-bg-loop">
+          <div class="p-hero__bg-row p-hero__bg-row--top js-bg-row-top">
+            <div class="p-hero__bg-track js-bg-track-top">
+              <!-- 上段：左方向にループ -->
+              <img src="./assets/images/loop-1.jpg" alt="" class="p-hero__bg-img">
+              <img src="./assets/images/loop-2.jpg" alt="" class="p-hero__bg-img">
+              <img src="./assets/images/loop-3.jpg" alt="" class="p-hero__bg-img">
+              <img src="./assets/images/loop-4.jpg" alt="" class="p-hero__bg-img">
+              <img src="./assets/images/loop-5.jpg" alt="" class="p-hero__bg-img">
+              <img src="./assets/images/loop-6.jpg" alt="" class="p-hero__bg-img">
+              <!-- 複製用 -->
+              <img src="./assets/images/loop-1.jpg" alt="" class="p-hero__bg-img">
+              <img src="./assets/images/loop-2.jpg" alt="" class="p-hero__bg-img">
+              <img src="./assets/images/loop-3.jpg" alt="" class="p-hero__bg-img">
+              <img src="./assets/images/loop-4.jpg" alt="" class="p-hero__bg-img">
+              <img src="./assets/images/loop-5.jpg" alt="" class="p-hero__bg-img">
+              <img src="./assets/images/loop-6.jpg" alt="" class="p-hero__bg-img">
+            </div>
+          </div>
+          <div class="p-hero__bg-row p-hero__bg-row--bottom js-bg-row-bottom">
+            <div class="p-hero__bg-track js-bg-track-bottom">
+              <!-- 下段：右方向にループ -->
+              <img src="./assets/images/loop-7.jpg" alt="" class="p-hero__bg-img">
+              <img src="./assets/images/loop-8.jpg" alt="" class="p-hero__bg-img">
+              <img src="./assets/images/loop-9.jpg" alt="" class="p-hero__bg-img">
+              <img src="./assets/images/loop-10.jpg" alt="" class="p-hero__bg-img">
+              <img src="./assets/images/loop-11.jpg" alt="" class="p-hero__bg-img">
+              <img src="./assets/images/loop-12.jpg" alt="" class="p-hero__bg-img">
+              <!-- 複製用 -->
+              <img src="./assets/images/loop-7.jpg" alt="" class="p-hero__bg-img">
+              <img src="./assets/images/loop-8.jpg" alt="" class="p-hero__bg-img">
+              <img src="./assets/images/loop-9.jpg" alt="" class="p-hero__bg-img">
+              <img src="./assets/images/loop-10.jpg" alt="" class="p-hero__bg-img">
+              <img src="./assets/images/loop-11.jpg" alt="" class="p-hero__bg-img">
+              <img src="./assets/images/loop-12.jpg" alt="" class="p-hero__bg-img">
+            </div>
+          </div>
+        </div>
+
+        <!-- Center Circle Mask Image -->
+        <div class="p-hero__center js-hero-center">
+          <div class="p-hero__circle-wrapper js-circle-wrapper">
+            <div class="p-hero__circle-mask js-circle-mask">
+              <img src="./assets/images/center-hands.jpg" alt="" class="p-hero__circle-img js-circle-img">
+            </div>
+            <!-- Gaussian Blur Overlay -->
+            <div class="p-hero__blur-overlay js-blur-overlay"></div>
+            <!-- Particle Image (後で追加) -->
+            <div class="p-hero__particle js-particle"></div>
+          </div>
+        </div>
+
+        <!-- Header & Logo -->
+        <header class="p-hero__header js-hero-header">
+          <div class="p-hero__header-inner">
+            <h1 class="p-hero__logo js-hero-logo">R= Inc.</h1>
+            <nav class="p-hero__nav">
+              <a href="#" class="p-hero__nav-link">理念・メッセージ</a>
+              <a href="#" class="p-hero__nav-link">事業案内</a>
+              <a href="#" class="p-hero__nav-link">会社概要</a>
+              <a href="#" class="p-hero__nav-link">採用情報</a>
+              <a href="#" class="p-hero__nav-link">お知らせ</a>
+              <a href="#" class="p-hero__nav-link p-hero__nav-link--contact">お問い合わせ</a>
+            </nav>
+          </div>
+        </header>
+
+        <!-- Main Copy -->
+        <div class="p-hero__copy js-hero-copy">
+          <h2 class="p-hero__main-title js-main-title">
+            社会にめぐらせる<br>
+            想いと価値
           </h2>
-
-          <div class="u-wrapper" style="margin-top: 5rem;">
-            <div class="u-fade-in" style="max-width: 80rem; margin-inline: auto; text-align: center;">
-              <p style="font-size: 1.8rem; line-height: 2; font-weight: 500;">
-                これはスケルトンテンプレートです。<br>
-                プロジェクトに応じて自由にコンテンツを追加してください。
-              </p>
-              <p style="font-size: 1.6rem; line-height: 2; margin-top: 2rem;">
-                既存のSCSSクラス（c-section-head, c-link-textなど）を活用するか、<br>
-                新規でproject/配下にSCSSファイルを作成してスタイルを定義してください。
-              </p>
-            </div>
-          </div>
-        </section>
-
-        <div id="about" class="p-about">
-          <div>
-            <div class="p-about__logo">
-              <svg aria-label="ブランド名" role="img"><use href="#logo"/></svg>
-            </div>
-            <a class="p-about__link c-link-text" href="/" target="_blank">
-              公式サイト（サンプル）
-            </a>
-          </div>
-          <p class="p-about__note">
-            これは既存のp-aboutコンポーネントのサンプルです。<br>
-            背景色やレイアウトがSCSSで定義されています。<br>
-            このまま使用するか、削除して新しいセクションを作成してください。
+          <p class="p-hero__sub-text js-sub-text">
+            Through our reuse business,<br>
+            we want to help as<br>
+            many people as possible.
           </p>
         </div>
 
-        <section id="contact" style="padding: 10rem 0;">
-          <h2 class="c-section-head u-fade-in">
-            <span class="c-section-head__en">Contact</span>
-            <span class="c-section-head__ja">お問い合わせ</span>
-          </h2>
+        <!-- News -->
+        <div class="p-hero__news js-hero-news">
+          <time class="p-hero__news-date">2026.12.12</time>
+          <span class="p-hero__news-label">お知らせ</span>
+          <p class="p-hero__news-text">お知らせがサンプルダミーテキスト・・・</p>
+          <a href="#" class="p-hero__news-link">→</a>
+        </div>
+      </div>
 
-          <div class="u-wrapper" style="margin-top: 5rem;">
-            <div class="u-fade-in" style="max-width: 80rem; margin-inline: auto; text-align: center;">
-              <p style="font-size: 1.6rem; line-height: 2; margin-bottom: 3rem;">
-                ご質問やお問い合わせは下記よりお気軽にご連絡ください。
-              </p>
-              <a href="#" class="c-link-text">お問い合わせフォームへ</a>
-            </div>
-          </div>
+      <!-- Content Sections -->
+      <main class="l-main">
+        <!-- Section 1 -->
+        <section class="p-section js-section" data-section="1">
+          <img src="./assets/images/section-1.jpg" alt="" class="p-section__img">
+        </section>
+
+        <!-- Section 2 -->
+        <section class="p-section js-section" data-section="2">
+          <img src="./assets/images/section-2.jpg" alt="" class="p-section__img">
         </section>
       </main>
-
-      <!--#include file="assets/includes/footer.html" -->
     </div>
 
     <script type="module" src="./assets/scripts/pages/index.js"></script>

@@ -1,0 +1,78 @@
+@use "../../global" as *;
+
+.p-opening {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  width: 100%;
+  height: 100vh;
+  background: #fff;
+  pointer-events: none;
+
+  &.is-finished {
+    display: none;
+  }
+
+  &__image-set {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    width: 100%;
+    height: 100%;
+
+    &:nth-child(1) {
+      z-index: 1;
+    }
+
+    &:nth-child(2) {
+      z-index: 2;
+    }
+
+    &:nth-child(3) {
+      z-index: 3;
+    }
+  }
+
+  &__half {
+    position: relative;
+    width: 50%;
+    height: 100%;
+
+    &--left {
+      transition: clip-path var(--opening-duration) cubic-bezier(0.55, 0, 0.1, 1);
+      clip-path: inset(100% 0% 0% 0%);
+    }
+
+    &--right {
+      transition: clip-path var(--opening-duration) cubic-bezier(0.55, 0, 0.1, 1);
+      clip-path: inset(0% 0% 100% 0%);
+    }
+  }
+
+  &__image-set {
+    &.is-revealed {
+      .p-opening__half--left,
+      .p-opening__half--right {
+        clip-path: inset(0% 0% 0% 0%);
+      }
+    }
+
+    &.is-wipe-out {
+      .p-opening__half--left {
+        clip-path: inset(0% 0% 100% 0%);
+      }
+
+      .p-opening__half--right {
+        clip-path: inset(100% 0% 0% 0%);
+      }
+    }
+  }
+
+  &__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}

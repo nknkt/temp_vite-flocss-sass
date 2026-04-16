@@ -1,10 +1,6 @@
 @use "../global" as *;
 
 .l-main {
+  position: relative;
   min-height: 100vh;
-  padding-top: $header-height-pc;
-
-  @include sp() {
-    padding-top: $header-height-sp;
-  }
 }

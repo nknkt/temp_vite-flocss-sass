@@ -1,13 +1,10 @@
 // vendors
 import Lenis from 'lenis'
 
-// utils
-import ScrollActive from '../modules/utils/_ScrollActive.js'
-import AnchorScroll from '../modules/utils/_AnchorScroll.js'
-import HamburgerMenu from '../modules/utils/_HamburgerMenu.js'
-import HeaderScroll from '../modules/utils/_HeaderScroll.js'
-
 // optional
+import OpeningAnimation from '../modules/optional/_OpeningAnimation.js'
+import HeroAnimation from '../modules/optional/_HeroAnimation.js'
+import SectionAnimation from '../modules/optional/_SectionAnimation.js'
 
 // ============================================================
 // Lenis初期化（スムーススクロール）
@@ -26,40 +23,19 @@ function raf(time) {
 requestAnimationFrame(raf)
 
 // ============================================================
-// DOMContentLoaded後に初期化
+// アニメーション初期化
 // ============================================================
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+  // オープニングアニメーション
+  const openingAnimation = new OpeningAnimation()
+  await openingAnimation.init()
 
-  // Header Scroll
-  const header = document.querySelector('.l-header')
-  if (header) {
-    const headerScroll = new HeaderScroll(header, {
-      threshold: 100,
-      scrolledClass: 'is-scrolled',
-      hideOnScroll: true,
-      hideThreshold: 200,
-      hiddenClass: 'is-hidden'
-    })
-    headerScroll.init()
-  }
+  // ヒーローアニメーション
+  const heroAnimation = new HeroAnimation()
+  heroAnimation.init()
+  heroAnimation.show()
 
-  // Hamburger Menu
-  let hamburgerMenu
-  const hamburger = document.querySelector('.js-hamburger')
-  const navMenu = document.querySelector('.js-nav-menu')
-  if (hamburger && navMenu) {
-    hamburgerMenu = new HamburgerMenu(hamburger, navMenu)
-    hamburgerMenu.init()
-  }
-
-  // Anchor scroll
-  const anchorScroll = new AnchorScroll('a[href^="#"]', hamburgerMenu, lenis)
-  anchorScroll.init()
-
-  // Scroll Active
-  const fadeInEls = document.getElementsByClassName('u-fade-in')
-  Array.from(fadeInEls).forEach(el => {
-    const scrollActive = new ScrollActive(el)
-    scrollActive.init()
-  })
+  // セクションアニメーション
+  const sectionAnimation = new SectionAnimation()
+  sectionAnimation.init()
 })
