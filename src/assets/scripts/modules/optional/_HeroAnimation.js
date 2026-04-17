@@ -18,9 +18,11 @@ export default class HeroAnimation {
     this.copy = document.querySelector('.js-hero-copy')
     this.message = document.querySelector('.js-hero-message')
     this.newsImg = document.querySelector('.js-hero-news-img')
+    this.maskOverlay = document.querySelector('.js-hero-mask-overlay')
     this.ring1 = document.querySelector('.js-hero-ring-1')
     this.ring2 = document.querySelector('.js-hero-ring-2')
 
+    this.currentRadius = 0
     this.loopAnimations = []
   }
 
@@ -28,6 +30,7 @@ export default class HeroAnimation {
     if (!this.hero) return
 
     this.initRadius = window.innerHeight * 0.4
+    this.currentRadius = this.initRadius
     this.finalRadius = Math.sqrt(window.innerWidth ** 2 + window.innerHeight ** 2)
     gsap.set(this.centerWrapper, { clipPath: `circle(${this.initRadius}px at 50% 50%)` })
     gsap.set([this.ring1, this.ring2], { xPercent: -50, yPercent: -50 })
@@ -81,6 +84,7 @@ export default class HeroAnimation {
 
         // clip-pathでマスク拡大
         const radius = this.initRadius + t * (this.finalRadius - this.initRadius)
+        this.currentRadius = radius
         gsap.set(this.centerWrapper, { clipPath: `circle(${radius}px at 50% 50%)` })
 
         // リングをマスクとずらした倍率で拡大
@@ -132,6 +136,20 @@ export default class HeroAnimation {
           trigger: this.hero,
           start: 'top top',
           end: 'top+=200 top',
+          scrub: true
+        }
+      })
+    }
+
+    // mask-overlay フェードアウト（0〜maskScrollDistで完了）
+    if (this.maskOverlay) {
+      gsap.to(this.maskOverlay, {
+        opacity: 0,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: this.hero,
+          start: 'top top',
+          end: `top+=${maskScrollDist} top`,
           scrub: true
         }
       })

@@ -19,7 +19,7 @@
     position: absolute;
     inset: 0;
     z-index: 1;
-    background: url("../images/overlay-pattern.png") center / cover no-repeat;
+    background-image: radial-gradient(50% 50%, circle closest-side, rgb(255 255 255) 0%, rgb(232 232 232) 100%);
     pointer-events: none;
   }
 
@@ -28,6 +28,7 @@
     width: 100%;
     height: 50%;
     overflow: hidden;
+    opacity: 0.13;
   }
 
   &__bg-track {
@@ -107,17 +108,6 @@
     pointer-events: none;
   }
 
-  &__particle {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    z-index: 101;
-    width: 100%;
-    height: 100%;
-    transform: translate(-50%, -50%);
-    pointer-events: none;
-  }
-
   &__header-img {
     position: absolute;
     top: 6.5rem;
@@ -156,6 +146,26 @@
     &.is-white {
       color: #fff;
     }
+  }
+
+  &__mask-overlay {
+    position: fixed;
+    z-index: 15;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    mix-blend-mode: overlay;
+    pointer-events: none;
+    inset: 0;
+  }
+
+  &__particle {
+    position: fixed;
+    inset: 0;
+    z-index: 3;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
   }
 
   &__message {

@@ -10,7 +10,7 @@ import { readdirSync, existsSync } from 'fs'
 // プロジェクト設定
 // ========================
 // ベースパス（サブディレクトリ配置時は '/project-name/' に変更）
-const BASE_PATH = '/'
+const BASE_PATH = '/x65sr5kw/'
 
 // ルートディレクトリ（サブディレクトリ配置時は 'src/project-name' に変更）
 const ROOT_DIR = 'src'

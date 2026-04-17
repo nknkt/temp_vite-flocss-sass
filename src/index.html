@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="ja">
   <head>
-    <!--#include file="assets/includes/gtm-head.html" -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vogaro SAMPLE</title>
@@ -100,8 +99,6 @@
             </div>
             <!-- Gaussian Blur Overlay -->
             <div class="p-hero__blur-overlay js-blur-overlay"></div>
-            <!-- Particle Image (後で追加) -->
-            <div class="p-hero__particle js-particle"></div>
           </div>
         </div>
 
@@ -111,6 +108,12 @@
         <!-- Ring Decorations -->
         <div class="p-hero__ring p-hero__ring--1 js-hero-ring-1"></div>
         <div class="p-hero__ring p-hero__ring--2 js-hero-ring-2"></div>
+
+        <!-- Mask Overlay Image (円内外にかかる透過PNG) -->
+        <img src="./assets/images/hero-mask-overlay.png" alt="" class="p-hero__mask-overlay js-hero-mask-overlay">
+
+        <!-- Particle Canvas -->
+        <canvas class="p-hero__particle js-hero-particle"></canvas>
 
         <!-- Main Copy -->
         <div class="p-hero__copy js-hero-copy">

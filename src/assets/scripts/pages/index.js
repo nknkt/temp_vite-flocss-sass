@@ -4,6 +4,7 @@ import Lenis from 'lenis'
 // optional
 import OpeningAnimation from '../modules/optional/_OpeningAnimation.js'
 import HeroAnimation from '../modules/optional/_HeroAnimation.js'
+import ParticleAnimation from '../modules/optional/_ParticleAnimation.js'
 import SectionAnimation from '../modules/optional/_SectionAnimation.js'
 
 
@@ -34,6 +35,10 @@ document.addEventListener('DOMContentLoaded', async () => {
   // ヒーローアニメーション
   const heroAnimation = new HeroAnimation()
   heroAnimation.init()
+
+  // パーティクルアニメーション
+  const particleAnimation = new ParticleAnimation(heroAnimation)
+  particleAnimation.init()
 
   // セクションアニメーション
   const sectionAnimation = new SectionAnimation()
