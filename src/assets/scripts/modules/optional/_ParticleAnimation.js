@@ -24,14 +24,18 @@ export default class ParticleAnimation {
 
   createParticles() {
     const count = 200
+    const cx = window.innerWidth / 2
+    const cy = window.innerHeight / 2
     for (let i = 0; i < count; i++) {
+      const angle = Math.random() * Math.PI * 2
+      const speed = Math.random() * 0.4 + 0.15
       this.particles.push({
         x: Math.random() * window.innerWidth,
         y: Math.random() * window.innerHeight,
         radius: Math.random() * 2.5 + 1.5,
         opacity: Math.random() * 0.5 + 0.5,
-        vx: (Math.random() - 0.5) * 0.25,
-        vy: (Math.random() - 0.5) * 0.25,
+        vx: Math.cos(angle) * speed,
+        vy: Math.sin(angle) * speed,
         opacitySpeed: (Math.random() * 0.004 + 0.001) * (Math.random() > 0.5 ? 1 : -1),
       })
     }
@@ -50,16 +54,27 @@ export default class ParticleAnimation {
     // パーティクル描画
     ctx.globalCompositeOperation = 'source-over'
     this.particles.forEach(p => {
+      // 中心から外へ向かう方向を計算
+      const dx = p.x - cx
+      const dy = p.y - cy
+      const dist = Math.sqrt(dx * dx + dy * dy) || 1
+      const speed = Math.sqrt(p.vx * p.vx + p.vy * p.vy)
+      p.vx = (dx / dist) * speed
+      p.vy = (dy / dist) * speed
+
       p.x += p.vx
       p.y += p.vy
       p.opacity += p.opacitySpeed
       if (p.opacity > 0.7 || p.opacity < 0.05) p.opacitySpeed *= -1
 
-      // 画面端でループ
-      if (p.x < 0) p.x = w
-      if (p.x > w) p.x = 0
-      if (p.y < 0) p.y = h
-      if (p.y > h) p.y = 0
+      // 画面外に出たら中心付近にリスポーン
+      if (p.x < -10 || p.x > w + 10 || p.y < -10 || p.y > h + 10) {
+        const angle = Math.random() * Math.PI * 2
+        const r = Math.random() * 50 + 20
+        p.x = cx + Math.cos(angle) * r
+        p.y = cy + Math.sin(angle) * r
+        p.opacity = 0.05
+      }
 
       const gradient = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.radius * 3)
       gradient.addColorStop(0, `rgba(255, 255, 255, ${p.opacity})`)
