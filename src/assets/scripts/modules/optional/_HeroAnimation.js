@@ -25,7 +25,6 @@ export default class HeroAnimation {
     this.headerImg = document.querySelector('.js-hero-header-img')
 
     this.currentRadius = 0
-    this.loopAnimations = []
   }
 
   async init() {
@@ -34,16 +33,9 @@ export default class HeroAnimation {
     this.initRadius = window.innerHeight * 0.4
     this.currentRadius = this.initRadius
     this.finalRadius = Math.sqrt(window.innerWidth ** 2 + window.innerHeight ** 2)
-    gsap.set(this.centerWrapper, { clipPath: `circle(${this.initRadius}px at 50% 50%)` })
-    gsap.set([this.ring1, this.ring2], { xPercent: -50, yPercent: -50 })
-
-    // 初期状態：円・テキスト・パーティクルを非表示（CSSでも設定済みだがGSAP管理に統一）
-    gsap.set([this.centerWrapper, this.ring1, this.ring2, this.maskOverlay], { opacity: 0 })
-    gsap.set([this.copy, this.newsImg, this.particleCanvas, this.headerImg], { opacity: 0 })
 
     this.setupScrollAnimations()
     await this.playEntrance()
-    this.setupBackgroundLoop()
   }
 
   playEntrance() {
@@ -68,36 +60,6 @@ export default class HeroAnimation {
     }, '+=0.2')
 
     return tl.then()
-  }
-
-  setupBackgroundLoop() {
-    if (!this.trackTop || !this.trackBottom) return
-
-    // 上段：左方向にループ
-    const topWidth = this.trackTop.scrollWidth / 2
-    const loopTop = gsap.to(this.trackTop, {
-      x: -topWidth,
-      duration: 60,
-      ease: 'none',
-      repeat: -1,
-      modifiers: {
-        x: gsap.utils.unitize(x => parseFloat(x) % topWidth)
-      }
-    })
-    this.loopAnimations.push(loopTop)
-
-    // 下段：右方向にループ
-    const bottomWidth = this.trackBottom.scrollWidth / 2
-    const loopBottom = gsap.to(this.trackBottom, {
-      x: bottomWidth,
-      duration: 60,
-      ease: 'none',
-      repeat: -1,
-      modifiers: {
-        x: gsap.utils.unitize(x => parseFloat(x) % bottomWidth)
-      }
-    })
-    this.loopAnimations.push(loopBottom)
   }
 
   setupScrollAnimations() {
@@ -188,8 +150,6 @@ export default class HeroAnimation {
   }
 
   destroy() {
-    this.loopAnimations.forEach(anim => anim.kill())
-    this.loopAnimations = []
     ScrollTrigger.getAll().forEach(st => st.kill())
   }
 }
