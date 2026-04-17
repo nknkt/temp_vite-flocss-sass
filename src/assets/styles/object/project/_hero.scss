@@ -52,13 +52,14 @@
     border-radius: 50%;
     transform: translate(-50%, -50%);
     pointer-events: none;
-    will-change: transform;
+    will-change: transform, opacity;
 
     &--1 {
       z-index: 5;
       width: 93dvh;
       height: 93dvh;
       background: rgb(255 255 255 / 30%);
+      opacity: 0;
     }
 
     &--2 {
@@ -66,14 +67,18 @@
       width: 96.11dvh;
       height: 96.11dvh;
       border: 1px solid #fff;
+      opacity: 0;
     }
   }
 
   &__center {
     position: fixed;
-    inset: 0;
     z-index: 10;
+    transform: translateZ(0);
+    opacity: 0;
     clip-path: circle(40vh at 50% 50%);
+    will-change: clip-path, opacity;
+    inset: 0;
   }
 
   &__circle-wrapper {
@@ -116,6 +121,7 @@
     z-index: 100;
     width: 146.8rem;
     margin: auto;
+    opacity: 0;
     pointer-events: none;
   }
 
@@ -125,6 +131,7 @@
     right: 5rem;
     z-index: 100;
     width: 44.7rem;
+    opacity: 0;
     pointer-events: none;
   }
 
@@ -133,6 +140,7 @@
     top: calc(100vh - 30rem);
     left: 8rem;
     z-index: 50;
+    opacity: 0;
   }
 
   &__main-title {
@@ -154,6 +162,7 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+    opacity: 0;
     mix-blend-mode: overlay;
     pointer-events: none;
     inset: 0;
@@ -161,11 +170,12 @@
 
   &__particle {
     position: fixed;
-    inset: 0;
     z-index: 3;
     width: 100%;
     height: 100%;
+    opacity: 0;
     pointer-events: none;
+    inset: 0;
   }
 
   &__message {

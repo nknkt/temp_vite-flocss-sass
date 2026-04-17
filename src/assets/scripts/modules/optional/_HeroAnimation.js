@@ -21,12 +21,14 @@ export default class HeroAnimation {
     this.maskOverlay = document.querySelector('.js-hero-mask-overlay')
     this.ring1 = document.querySelector('.js-hero-ring-1')
     this.ring2 = document.querySelector('.js-hero-ring-2')
+    this.particleCanvas = document.querySelector('.js-hero-particle')
+    this.headerImg = document.querySelector('.js-hero-header-img')
 
     this.currentRadius = 0
     this.loopAnimations = []
   }
 
-  init() {
+  async init() {
     if (!this.hero) return
 
     this.initRadius = window.innerHeight * 0.4
@@ -35,8 +37,37 @@ export default class HeroAnimation {
     gsap.set(this.centerWrapper, { clipPath: `circle(${this.initRadius}px at 50% 50%)` })
     gsap.set([this.ring1, this.ring2], { xPercent: -50, yPercent: -50 })
 
-    this.setupBackgroundLoop()
+    // 初期状態：円・テキスト・パーティクルを非表示（CSSでも設定済みだがGSAP管理に統一）
+    gsap.set([this.centerWrapper, this.ring1, this.ring2, this.maskOverlay], { opacity: 0 })
+    gsap.set([this.copy, this.newsImg, this.particleCanvas, this.headerImg], { opacity: 0 })
+
     this.setupScrollAnimations()
+    await this.playEntrance()
+    this.setupBackgroundLoop()
+  }
+
+  playEntrance() {
+    const tl = gsap.timeline({ delay: 0.3 })
+
+    // 1. 円の写真 + リング フェードイン
+    tl.to([this.centerWrapper, this.ring1, this.ring2], {
+      opacity: 1,
+      duration: 0.6,
+      ease: 'none',
+      force3D: true
+    })
+
+    // maskOverlayは円のフェードイン完了後に即表示（mix-blend-modeの同時アニメ回避）
+    tl.set(this.maskOverlay, { opacity: 1 })
+
+    // 2. テキスト + パーティクル + ヘッダー画像 フェードイン
+    tl.to([this.copy, this.newsImg, this.particleCanvas, this.headerImg], {
+      opacity: 1,
+      duration: 0.4,
+      ease: 'power2.out'
+    }, '+=0.2')
+
+    return tl.then()
   }
 
   setupBackgroundLoop() {

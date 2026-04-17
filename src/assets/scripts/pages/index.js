@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   // ヒーローアニメーション
   const heroAnimation = new HeroAnimation()
-  heroAnimation.init()
+  await heroAnimation.init()
 
   // パーティクルアニメーション
   const particleAnimation = new ParticleAnimation(heroAnimation)
