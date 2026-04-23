@@ -1,182 +1,98 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ja">
   <head>
+    <!--#include file="assets/includes/gtm-head.html" -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>%SITE_TITLE%</title>
-    <meta name="description" content="%SITE_DESCRIPTION%">
+    <title>%TITLE%</title>
+    <meta name="description" content="%DESCRIPTION%">
     <meta name="format-detection" content="telephone=no">
-    <meta property="og:title" content="%OG_TITLE%">
-    <meta property="og:description" content="%OG_DESCRIPTION%">
-    <meta property="og:image" content="%OG_IMAGE%">
-    <meta property="og:url" content="%SITE_URL%">
+
+    <meta property="og:title" content="%TITLE%">
+    <meta property="og:description" content="%DESCRIPTION%">
+    <meta property="og:image" content="./assets/images/og.png">
+    <meta property="og:url" content="%URL%">
     <meta property="og:type" content="website">
-    <meta property="og:site_name" content="%OG_SITE_NAME%">
-    <!-- <link rel="shortcut icon" type="/image/vnd.microsoft.icon" href="%FAVICON_URL%"> -->
-    <link rel="stylesheet" href="./assets/styles/style.scss">
+    <meta property="og:site_name" content="%SITE_NAME%">
+
+    <link rel="canonical" href="%URL%">
+    <!-- <meta name="robots" content="noindex"> -->
+
+    <link rel="preload" as="image" href="%LCP_SRC%" fetchpriority="high">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://www.googletagmanager.com">
+    <link rel="preconnect" href="https://www.google-analytics.com">
+    <!--#include file="assets/includes/fonts.html" -->
+
+    <link rel="shortcut icon" href="./favicon.ico">
+    <link rel="stylesheet" href="./assets/styles/common.scss">
+    <link rel="stylesheet" href="./assets/styles/object/pages/index/_index.scss">
   </head>
 
   <body>
+    <!--#include file="assets/includes/gtm-body.html" -->
+
+    <!--#include file="assets/includes/svg-symbols.html" -->
+
     <div class="l-page">
-      <header class="l-header">
-        <div class="l-header__inner">
-          <div class="l-header__logo">
-            <a href="/">Your Brand</a>
-          </div>
-
-          <button class="l-header__hamburger js-hamburger" aria-label="メニューを開く">
-            <span></span>
-            <span></span>
-            <span></span>
-          </button>
-
-          <nav class="l-navigation js-nav-menu">
-            <ul class="l-navigation__list">
-              <li class="l-navigation__item"><a href="#vision" class="l-navigation__link">Vision</a></li>
-              <li class="l-navigation__item"><a href="#team" class="l-navigation__link">Team</a></li>
-              <li class="l-navigation__item"><a href="#portfolio" class="l-navigation__link">Portfolio</a></li>
-              <li class="l-navigation__item l-navigation__item--has-submenu">
-                <button class="l-navigation__link js-submenu-toggle" aria-expanded="false">
-                  Services
-                  <span class="l-navigation__arrow"></span>
-                </button>
-                <ul class="l-navigation__submenu">
-                  <li class="l-navigation__submenu-item">
-                    <a href="#web-design" class="l-navigation__submenu-link">Web Design</a>
-                  </li>
-                  <li class="l-navigation__submenu-item">
-                    <a href="#development" class="l-navigation__submenu-link">Development</a>
-                  </li>
-                  <li class="l-navigation__submenu-item">
-                    <a href="#consulting" class="l-navigation__submenu-link">Consulting</a>
-                  </li>
-                </ul>
-              </li>
-              <li class="l-navigation__item"><a href="#insights" class="l-navigation__link">Insights</a></li>
-              <li class="l-navigation__item"><a href="#about" class="l-navigation__link">About</a></li>
-            </ul>
-            <div class="l-navigation__cta">
-              <a href="#contact" class="l-navigation__button">Contact</a>
-            </div>
-          </nav>
-        </div>
-      </header>
+      <!--#include file="assets/includes/header.html" -->
 
       <main class="l-main">
-        <!-- ファーストビュー -->
-        <section class="p-hero">
-          <div class="p-hero__image">
-            <img
-              src="https://images.unsplash.com/photo-1557804506-669a67965ba0?w=1920&h=1080&fit=crop"
-              alt="Hero Background">
-          </div>
-          <div class="p-hero__content">
-            <h1 class="p-hero__title">Welcome to Our Website</h1>
-            <p class="p-hero__text">Discover amazing experiences with us</p>
+        <section id="sample" style="padding: 10rem 0;">
+          <h2 class="c-section-head u-fade-in">
+            <span class="c-section-head__en">Sample</span>
+            <span class="c-section-head__ja">サンプルセクション</span>
+          </h2>
+
+          <div class="u-wrapper" style="margin-top: 5rem;">
+            <div class="u-fade-in" style="max-width: 80rem; margin-inline: auto; text-align: center;">
+              <p style="font-size: 1.8rem; line-height: 2; font-weight: 500;">
+                これはスケルトンテンプレートです。<br>
+                プロジェクトに応じて自由にコンテンツを追加してください。
+              </p>
+              <p style="font-size: 1.6rem; line-height: 2; margin-top: 2rem;">
+                既存のSCSSクラス（c-section-head, c-link-textなど）を活用するか、<br>
+                新規でproject/配下にSCSSファイルを作成してスタイルを定義してください。
+              </p>
+            </div>
           </div>
         </section>
 
-        <section id="vision" class="p-sample-section">
-          <h2 class="p-sample-section__title">Vision</h2>
-          <p class="p-sample-section__desc">
-            モーダル・ドロワー（dialog要素）とPopover（Popover API）のサンプル実装です。
+        <div id="about" class="p-about">
+          <div>
+            <div class="p-about__logo">
+              <svg aria-label="ブランド名" role="img"><use href="#logo"/></svg>
+            </div>
+            <a class="p-about__link c-link-text" href="/" target="_blank">
+              公式サイト（サンプル）
+            </a>
+          </div>
+          <p class="p-about__note">
+            これは既存のp-aboutコンポーネントのサンプルです。<br>
+            背景色やレイアウトがSCSSで定義されています。<br>
+            このまま使用するか、削除して新しいセクションを作成してください。
           </p>
+        </div>
 
-          <!-- ボタングループ -->
-          <div class="p-sample-section__buttons">
-            <button class="c-button c-button--primary js-modal-trigger" data-target="modal-center">
-              モーダルを開く
-            </button>
-            <button class="c-button c-button--secondary js-modal-trigger" data-target="drawer-right">
-              ドロワーを開く
-            </button>
-            <button class="c-button c-button--accent" popovertarget="popover-custom">Popoverを開く</button>
-          </div>
+        <section id="contact" style="padding: 10rem 0;">
+          <h2 class="c-section-head u-fade-in">
+            <span class="c-section-head__en">Contact</span>
+            <span class="c-section-head__ja">お問い合わせ</span>
+          </h2>
 
-          <!-- モーダル（中央） -->
-          <dialog class="c-modal" id="modal-center">
-            <div class="c-modal__content">
-              <button class="c-modal__close js-modal-close" aria-label="閉じる">&times;</button>
-              <h3 class="c-modal__title">モーダルタイトル</h3>
-              <div class="c-modal__body">
-                <p>これはモーダルの内容です。中央に表示され、背景がオーバーレイで覆われます。</p>
-                <p>スクロール可能な長いコンテンツにも対応しています。</p>
-                <p>ESCキーまたは背景クリックで閉じることができます。</p>
-              </div>
-              <div class="c-modal__footer">
-                <button class="c-modal__button c-modal__button--secondary js-modal-close">キャンセル</button>
-                <button class="c-modal__button c-modal__button--primary">OK</button>
-              </div>
-            </div>
-          </dialog>
-
-          <!-- ドロワー（右） -->
-          <dialog class="c-drawer c-drawer--right" id="drawer-right">
-            <div class="c-drawer__content">
-              <button class="c-drawer__close js-modal-close" aria-label="閉じる">&times;</button>
-              <h3 class="c-drawer__title">ドロワーメニュー</h3>
-              <div class="c-drawer__body">
-                <nav>
-                  <ul>
-                    <li><a href="#">メニュー 1</a></li>
-                    <li><a href="#">メニュー 2</a></li>
-                    <li><a href="#">メニュー 3</a></li>
-                    <li><a href="#">メニュー 4</a></li>
-                  </ul>
-                </nav>
-              </div>
-            </div>
-          </dialog>
-
-          <!-- Popover -->
-          <div id="popover-custom" popover class="c-popover">
-            <div class="c-popover__content">
-              <div class="c-popover__header">
-                <h4 class="c-popover__title">通知</h4>
-                <button class="c-popover__close" popovertarget="popover-custom" popovertargetaction="hide">
-                  &times;
-                </button>
-              </div>
-              <div class="c-popover__body">
-                <p>これはPopover APIを使用したポップオーバーです。</p>
-                <p>JavaScriptなしで動作し、アクセシビリティが組み込まれています。</p>
-              </div>
+          <div class="u-wrapper" style="margin-top: 5rem;">
+            <div class="u-fade-in" style="max-width: 80rem; margin-inline: auto; text-align: center;">
+              <p style="font-size: 1.6rem; line-height: 2; margin-bottom: 3rem;">
+                ご質問やお問い合わせは下記よりお気軽にご連絡ください。
+              </p>
+              <a href="#" class="c-link-text">お問い合わせフォームへ</a>
             </div>
           </div>
-        </section>
-
-        <section id="team" class="p-sample-section p-sample-section--gray">
-          <h2 class="p-sample-section__title">Team</h2>
-          <p class="p-sample-section__text">チームメンバーの紹介です。ここにコンテンツが入ります。</p>
-        </section>
-
-        <section id="portfolio" class="p-sample-section">
-          <h2 class="p-sample-section__title">Portfolio</h2>
-          <p class="p-sample-section__text">これまでの実績を紹介します。ここにコンテンツが入ります。</p>
-        </section>
-
-        <section id="services" class="p-sample-section p-sample-section--gray">
-          <h2 class="p-sample-section__title">Services</h2>
-          <p class="p-sample-section__text">提供するサービスについて説明します。ここにコンテンツが入ります。</p>
-        </section>
-
-        <section id="insights" class="p-sample-section">
-          <h2 class="p-sample-section__title">Insights</h2>
-          <p class="p-sample-section__text">最新の情報やブログ記事を掲載します。ここにコンテンツが入ります。</p>
-        </section>
-
-        <section id="about" class="p-sample-section p-sample-section--gray">
-          <h2 class="p-sample-section__title">About</h2>
-          <p class="p-sample-section__text">会社概要や理念について説明します。ここにコンテンツが入ります。</p>
-        </section>
-
-        <section id="contact" class="p-sample-section">
-          <h2 class="p-sample-section__title">Contact</h2>
-          <p class="p-sample-section__text">お問い合わせフォームがここに入ります。ここにコンテンツが入ります。</p>
         </section>
       </main>
 
-      <footer class="l-footer">footer</footer>
+      <!--#include file="assets/includes/footer.html" -->
     </div>
 
     <script type="module" src="./assets/scripts/pages/index.js"></script>

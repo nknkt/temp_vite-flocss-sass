@@ -1,14 +1,26 @@
 @use "../../global" as *;
 
 .u-fade-in {
-  transform: translateY(20px);
+  transform: translateY(3rem);
   opacity: 0;
   transition:
     opacity 0.6s ease,
     transform 0.6s ease;
-}
 
-.u-fade-in.is-active {
-  transform: translateY(0);
-  opacity: 1;
+  &--center {
+    transform: scale(0.8);
+  }
+
+  &--s3 {
+    transition-delay: 0.3s;
+  }
+
+  &--s6 {
+    transition-delay: 0.6s;
+  }
+
+  &.is-active {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
 }

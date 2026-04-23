@@ -1,33 +1,102 @@
-import { defineConfig } from 'vite';
-import { viteStaticCopy } from 'vite-plugin-static-copy';
-import { autoLintFormatValidate } from './plugins/auto-lint-format-validate.js';
+import { defineConfig } from 'vite'
+import { viteStaticCopy } from 'vite-plugin-static-copy'
+import vitePluginWebp from './plugins/vite-plugin-webp.js'
+import vitePluginSsi from './plugins/vite-plugin-ssi.js'
+import vitePluginScriptToBody from './plugins/vite-plugin-script-to-body.js'
+import PurgeCSS from 'vite-plugin-purgecss-updated-v5'
+import { resolve } from 'path'
+import { readdirSync, existsSync } from 'fs'
+
+// ========================
+// プロジェクト設定
+// ========================
+// ベースパス（サブディレクトリ配置時は '/project-name/' に変更）
+const BASE_PATH = '/temp/'
+
+// ルートディレクトリ（サブディレクトリ配置時は 'src/project-name' に変更）
+const ROOT_DIR = 'src'
+
+// WebP変換から除外する画像（OGP画像、QRコードなど）
+const WEBP_EXCLUDE = [
+  'og.png',                // OG画像
+  // 'qr-*.png',           // QRコード等も必要に応じて追加
+  // 'favicon.ico',        // faviconも除外する場合
+]
+
+// PurgeCSS設定（未使用CSSの削除）
+const PURGECSS_ENABLED = false  // デフォルトはOFF（大規模プロジェクトで有効化を推奨）
+const PURGECSS_SAFELIST = [
+  /^js-/,                  // JS用クラス（js-から始まるクラスを保護）
+  /^is-/,                  // 状態クラス（is-active, is-openなど）
+  /^has-/,                 // 状態クラス（has-error, has-childrenなど）
+]
+
+// ========================
+// エントリーポイント自動検出
+// ========================
+// src配下のindex.htmlを持つディレクトリを自動検出
+const srcDir = resolve(import.meta.dirname, ROOT_DIR)
+const entries = {}
+
+// src/index.html（メインエントリー）
+if (existsSync(resolve(srcDir, 'index.html'))) {
+  entries.index = resolve(srcDir, 'index.html')
+}
+
+// src/**/index.html（サブディレクトリ）
+// assets, snippetsなどのリソースディレクトリは除外
+const excludeDirs = ['assets', 'snippets']
+readdirSync(srcDir, { withFileTypes: true })
+  .filter(dirent => dirent.isDirectory() && !excludeDirs.includes(dirent.name))
+  .forEach(dirent => {
+    const indexPath = resolve(srcDir, dirent.name, 'index.html')
+    if (existsSync(indexPath)) {
+      entries[dirent.name] = indexPath
+    }
+  })
 
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [
-    // 開発時のlint/format/validate自動実行
-    autoLintFormatValidate({
-      eslint: true,
-      prettier: true,
-      htmlValidate: true,
-      stylelint: true,
-      debounceMs: 500, // ファイル変更後の遅延時間
-    }),
+    vitePluginSsi(),
+    vitePluginScriptToBody(),
     viteStaticCopy({
+      silent: true,
       targets: [
         {
-          src: 'assets/images/*.{webp,png,jpg,jpeg,svg,gif,ico}',
+          src: 'assets/images/*.{svg,gif,ico}',
           dest: 'assets/images',
         },
         {
-          src: 'assets/images/sp',
-          dest: 'assets/images',
+          src: 'assets/videos/**/*',
+          dest: 'assets/videos',
+        },
+        {
+          src: 'assets/includes/**/*',
+          dest: 'assets/includes',
         },
       ],
     }),
+    // ビルド時に画像をWebPに変換しHTMLのパスも書き換え
+    vitePluginWebp({
+      quality: 90, // JPEG用の品質 (1-100)
+      lossless: { png: true, jpg: false }, // PNGはロスレス、JPEGは高品質圧縮
+      enabled: true, // 有効/無効の切り替え
+      exclude: WEBP_EXCLUDE, // WebPに変換しない画像（上部で設定）
+    }),
+    // ビルド時に未使用CSSを削除（デフォルトOFF）
+    ...(PURGECSS_ENABLED ? [PurgeCSS({
+      content: [
+        `${ROOT_DIR}/**/*.html`,
+        `${ROOT_DIR}/**/*.js`,
+      ],
+      safelist: {
+        standard: PURGECSS_SAFELIST,
+      },
+    })] : []),
   ],
-  base: process.env.NODE_ENV === 'production' ? '/ipc/meets_creator/' : '/',
-  root: 'src',
+  base: BASE_PATH,
+  root: ROOT_DIR,
   css: {
     preprocessorOptions: {
       scss: {
@@ -36,21 +105,34 @@ export default defineConfig({
     },
   },
   build: {
-    outDir: '../dist/ipc/meets_creator',
+    outDir: '../dist',
     copyPublicDir: false,
     rollupOptions: {
+      input: entries,
       output: {
         assetFileNames: assetInfo => {
           if (assetInfo.name && assetInfo.name.endsWith('.css')) {
-            return 'assets/css/[name][extname]';
+            return 'assets/styles/[name][extname]';
           }
           if (assetInfo.name && /\.(png|jpe?g|svg|gif|webp|ico)$/.test(assetInfo.name)) {
             return 'assets/images/[name][extname]';
           }
+          if (assetInfo.name && /\.(mp4|webm|mov|ogg|m4v)$/.test(assetInfo.name)) {
+            return 'assets/videos/[name][extname]';
+          }
           return 'assets/[name][extname]';
         },
-        entryFileNames: 'assets/js/[name].js',
-        chunkFileNames: 'assets/js/[name].js',
+        entryFileNames: 'assets/scripts/[name].js',
+        chunkFileNames: 'assets/scripts/[name].js',
+        manualChunks: (id) => {
+          if (
+            id.includes('scripts/common.js') ||
+            id.includes('scripts/modules/') ||
+            id.includes('node_modules/')
+          ) {
+            return 'common'
+          }
+        },
       },
     },
   },

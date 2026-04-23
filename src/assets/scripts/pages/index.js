@@ -1,101 +1,69 @@
-import AnchorScroll from '../modules/_AnchorScroll.js';
-import ScrollActive from '../modules/_ScrollActive.js';
-import Collapse from '../modules/_Collapse.js';
-import HamburgerMenu from '../modules/_HamburgerMenu.js';
-import HeaderScroll from '../modules/_HeaderScroll.js';
-import IntroTextAnimate from '../modules/_IntroTextAnimate.js';
-import HorizontalScroll from '../modules/_HorizontalScroll.js';
-import PageTop from '../modules/_PageTop.js';
-import SubMenu from '../modules/_SubMenu.js';
-import Modal from '../modules/_Modal.js';
+// styles
+import '../common.js'
+import '../../styles/object/pages/index/_index.scss'
 
+// vendors
+import Lenis from 'lenis'
+
+// utils
+import ScrollActive from '../modules/utils/_ScrollActive.js'
+import AnchorScroll from '../modules/utils/_AnchorScroll.js'
+import HamburgerMenu from '../modules/utils/_HamburgerMenu.js'
+import HeaderScroll from '../modules/utils/_HeaderScroll.js'
+
+// optional
+
+// ============================================================
+// Lenis初期化（スムーススクロール）
+// ============================================================
+const lenis = new Lenis({
+  duration: 1.2,
+  easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+  orientation: 'vertical',
+  smoothWheel: true,
+})
+
+function raf(time) {
+  lenis.raf(time)
+  requestAnimationFrame(raf)
+}
+requestAnimationFrame(raf)
+
+// ============================================================
 // DOMContentLoaded後に初期化
+// ============================================================
 document.addEventListener('DOMContentLoaded', () => {
-  // HorizontalScroll初期化（必要なら）
-  if (typeof HorizontalScroll === 'function') {
-    HorizontalScroll();
+
+  // Header Scroll
+  const header = document.querySelector('.l-header')
+  if (header) {
+    const headerScroll = new HeaderScroll(header, {
+      threshold: 100,
+      scrolledClass: 'is-scrolled',
+      hideOnScroll: true,
+      hideThreshold: 200,
+      hiddenClass: 'is-hidden'
+    })
+    headerScroll.init()
   }
 
   // Hamburger Menu
-  {
-    const hamburger = document.querySelector('.js-hamburger');
-    const navMenu = document.querySelector('.js-nav-menu');
-    const navBg = document.querySelector('.l-navigation__bg');
-
-    if (hamburger && navMenu) {
-      const hamburgerMenu = new HamburgerMenu(hamburger, navMenu, {}, navBg);
-      hamburgerMenu.init();
-    }
+  let hamburgerMenu
+  const hamburger = document.querySelector('.js-hamburger')
+  const navMenu = document.querySelector('.js-nav-menu')
+  if (hamburger && navMenu) {
+    hamburgerMenu = new HamburgerMenu(hamburger, navMenu)
+    hamburgerMenu.init()
   }
 
   // Anchor scroll
-  {
-    const anchorScroll = new AnchorScroll();
-    anchorScroll.init();
-  }
-
-  // SubMenu
-  {
-    const subMenu = new SubMenu();
-    subMenu.init();
-  }
-
-  // Modal & Drawer
-  {
-    const modal = new Modal();
-  }
+  const anchorScroll = new AnchorScroll('a[href^="#"]', hamburgerMenu, lenis)
+  anchorScroll.init()
 
   // Scroll Active
-  {
-    const els = document.getElementsByClassName('js-scroll-active');
-    Array.from(els).forEach(el => {
-      const scrollActive = new ScrollActive(el);
-      scrollActive.init();
-    });
-  }
-
-  // HeaderScroll（l-headerのロゴ制御）
-  {
-    const header = document.querySelector('.l-header');
-    if (header) {
-      const headerScroll = new HeaderScroll(header);
-      headerScroll.init();
-    }
-  }
-
-  // Intro Text Animate
-  {
-    const introTextAnimate = new IntroTextAnimate('.js-animate-text');
-    introTextAnimate.animate();
-  }
-
-  // Page Top Button
-  {
-    const pageTopButton = document.querySelector('.js-page-top');
-    if (pageTopButton) {
-      const pageTop = new PageTop(pageTopButton);
-      pageTop.init();
-    }
-  }
-});
-
-// Collapse（ページロード後に初期化）
-window.addEventListener('load', () => {
-  document.querySelectorAll('[data-collapse-toggler]').forEach(el => {
-    const collapse = new Collapse(el, {
-      hashNavigation: true,
-    });
-    collapse.init();
-  });
-});
-
-// リサイズ時の横スクロール再初期化
-let resizeTimer;
-window.addEventListener('resize', () => {
-  clearTimeout(resizeTimer);
-  resizeTimer = setTimeout(() => {
-    if (typeof window.horizontalScroll !== 'undefined') {
-      window.horizontalScroll.recreateAll();
-    }
-  }, 300);
-});
+  const fadeInEls = document.getElementsByClassName('u-fade-in')
+  Array.from(fadeInEls).forEach(el => {
+    const scrollActive = new ScrollActive(el)
+    scrollActive.init()
+  })
+})

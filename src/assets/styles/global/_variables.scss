@@ -1,16 +1,41 @@
-$color-font-base: #111 !default;
-$color-bg-main: #fcfcfc !default;
-$color-black: #222 !default;
+// color
+$color-font-base: #1a1a2e !default;
+$color-bg-main: #f4f6f9 !default;
+$color-black: #1a1a2e !default;
+$color-accent: #9f9f9f !default;
 $select: #fbca5a !default;
-$weight-base: 400 !default;
-$weight-bold: 700 !default;
-$weight-black: 900 !default;
-$font-base: "Noto Sans JP", sans-serif !default;
 
+// weight
+$weight-base: 500 !default;
+$weight-semi-bold: 600 !default;
+$weight-bold: 700 !default;
+
+// font
+$font-base: "Zen Kaku Gothic Antique", sans-serif !default;
+$font-poppins: "Poppins", sans-serif !default;
+
+// 汎用フォント
 // $font-lato: "Lato", sans-serif !default;
 // $font-roboto: "Roboto", sans-serif !default;
 // $font-monserrat: "Montserrat", sans-serif !default;
 
-$transition-basic: 0.15s ease-in-out !default;
-$breakpoint-tablet: 768px !default;
-$breakpoint-desktop: 1280px !default;
+// yakuhan
+// $font-yakuhan: "YakuHanJP", "Zen Kaku Gothic Antique", sans-serif !default;
+
+// gradient
+$gradient-blue-blue: linear-gradient(90deg, rgb(45 91 227 / 99.6%) 0%, rgb(100 160 255) 100%) !default;
+$gradient-black-gray: linear-gradient(90deg, rgb(26 26 46 / 99.6%) 0%, rgb(120 130 160) 100%) !default;
+
+// transition
+$transition-basic: all 0.3s ease-in-out !default;
+
+// breakpoint
+$breakpoint-desktop: 768px !default;
+
+// $breakpoint-wide: 2000px !default;
+// $breakpoint-medium: 1024px !default;
+// $breakpoint-tablet: 600px !default;
+
+// header height
+$header-height-pc: 9rem;
+$header-height-sp: 5rem;

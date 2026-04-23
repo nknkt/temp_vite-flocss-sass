@@ -10,8 +10,4 @@
   @include pc() {
     display: none;
   }
-
-  @include tb() {
-    display: none;
-  }
 }

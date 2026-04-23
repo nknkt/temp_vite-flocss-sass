@@ -1,0 +1,52 @@
+@use "../../../global" as *;
+
+.p-about {
+  display: flex;
+  gap: 7rem;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-top: 10rem;
+  padding: 4.5rem 8rem 7rem;
+  background: $color-accent;
+
+  @include sp() {
+    flex-direction: column;
+    gap: 4rem;
+    margin-top: 8rem;
+    padding: 3rem 2rem 4.5rem;
+  }
+
+  &__logo {
+    width: 32.8rem;
+
+    @include sp() {
+      width: 24rem;
+    }
+
+    svg {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+  }
+
+  &__link {
+    margin-top: 1.5rem;
+
+    @include sp() {
+      margin-top: 1rem;
+    }
+  }
+
+  &__note {
+    width: 76.2rem;
+    font-size: 1.6rem;
+    line-height: 2;
+
+    @include sp() {
+      width: 100%;
+      font-size: 1.3rem;
+    }
+  }
+}

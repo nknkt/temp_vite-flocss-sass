@@ -1,0 +1,34 @@
+Options +Includes
+AddOutputFilter INCLUDES .html
+
+# ========================
+# HTTPS リダイレクト（本番環境で有効化）
+# ========================
+# <IfModule mod_rewrite.c>
+#   RewriteEngine On
+#   RewriteCond %{HTTPS} off
+#   RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
+# </IfModule>
+
+# ========================
+# www あり/なし 統一（どちらか一方を有効化）
+# ========================
+# www なし → あり
+# <IfModule mod_rewrite.c>
+#   RewriteEngine On
+#   RewriteCond %{HTTP_HOST} ^example\.com$ [NC]
+#   RewriteRule ^(.*)$ https://www.example.com/$1 [R=301,L]
+# </IfModule>
+
+# www あり → なし
+# <IfModule mod_rewrite.c>
+#   RewriteEngine On
+#   RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+#   RewriteRule ^ https://%1%{REQUEST_URI} [R=301,L]
+# </IfModule>
+
+# ========================
+# 旧URL → 新URL リダイレクト（リニューアル時）
+# ========================
+# Redirect 301 /old-page.html /new-page/
+# Redirect 301 /old-dir/ /new-dir/

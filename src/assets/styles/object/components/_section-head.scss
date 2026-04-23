@@ -1,0 +1,40 @@
+@use "../../global" as *;
+
+.c-section-head {
+  width: 116rem;
+  margin-inline: auto;
+
+  @include sp() {
+    width: 34rem;
+  }
+
+  &__en {
+    display: block;
+    width: fit-content;
+    padding-bottom: 0.15em;
+    font-size: 12rem;
+    font-family: $font-poppins;
+    line-height: 1;
+    letter-spacing: 0;
+    background: $gradient-blue-blue;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    @include sp() {
+      font-size: 7rem;
+    }
+  }
+
+  &__ja {
+    display: block;
+    margin-top: 5rem;
+    font-weight: $weight-bold;
+    font-size: 2.4rem;
+    line-height: 1;
+
+    @include sp() {
+      margin-top: 2.5rem;
+      font-size: 1.7rem;
+    }
+  }
+}

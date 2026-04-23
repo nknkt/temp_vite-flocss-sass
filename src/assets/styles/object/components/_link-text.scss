@@ -1,0 +1,23 @@
+@use "../../global" as *;
+
+.c-link-text {
+  position: relative;
+  display: inline-block;
+  padding-right: 1.4rem;
+  font-size: 1.6rem;
+  text-decoration: underline;
+
+  @include sp() {
+    font-size: 1.1rem;
+  }
+
+  &::after {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    display: block;
+    margin: auto;
+    content: "";
+  }
+}

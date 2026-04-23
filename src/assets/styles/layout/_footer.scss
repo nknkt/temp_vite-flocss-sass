@@ -1,7 +1,68 @@
 @use "../global" as *;
 
 .l-footer {
-  padding: 4rem 2rem;
+  padding-block: 3.3rem 4.5rem;
   color: #fff;
-  background: #333;
+  background: $color-black;
+
+  @include sp() {
+    padding-block: 5.5rem 2.6rem;
+  }
+
+  &__top {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    width: 116rem;
+    margin-inline: auto;
+
+    @include sp() {
+      flex-direction: column;
+      gap: 4.2rem;
+      align-items: center;
+      width: 100%;
+    }
+  }
+
+  &__logo {
+    width: 14.7rem;
+
+    @include sp() {
+      width: 14.2rem;
+    }
+
+    svg {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+  }
+
+  &__link {
+    position: relative;
+    padding-right: 2.2rem;
+    text-decoration: underline;
+
+    & + & {
+      margin-left: 3rem;
+
+      @include sp() {
+        margin-left: 0;
+      }
+    }
+  }
+
+  &__copy {
+    margin-top: 5rem;
+    font-size: 1.3rem;
+    font-family: $font-poppins;
+    line-height: 1.8;
+    letter-spacing: 0;
+
+    @include sp() {
+      width: 37rem;
+      margin: 4rem auto 0;
+      font-size: 1.2rem;
+    }
+  }
 }
