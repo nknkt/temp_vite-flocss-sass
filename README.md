@@ -1,348 +1,176 @@
 # temp_vite-flocss-sass
 
-Vite + SCSS (FLOCSS) frontend template. Replace project-specific logos and meta information to reuse this template for a new project.
+Vite + SCSS（FLOCSS）のフロントエンドスターターテンプレートです。
+新規プロジェクト開始時はこのテンプレートを複製し、プロジェクト固有の設定・素材を差し替えてください。
 
-## Required initial steps
+## 技術スタック
 
-- Update `package.json` metadata (name, description, author, repository)
-- Add or verify `LICENSE`
-- Replace logos and OGP images in `src/assets/images/`
-- Edit `src/styles/foundation/_variables.scss` to match the project design
-- Prepare environment variables using `.env.example` as a reference
+| カテゴリ | 採用技術 |
+| --- | --- |
+| ビルドツール | Vite 6 |
+| CSS | SCSS（FLOCSS アーキテクチャ） |
+| JavaScript | Vanilla JS（ES Modules） |
+| パッケージマネージャー | pnpm |
+| スムーズスクロール | Lenis |
+| Lint / Format | ESLint / Stylelint / Prettier / html-validate |
 
-## Quick start (bash)
+---
 
-```bash
-# Install Node (example using nvm)
-nvm install 18
-nvm use 18
+## セットアップ
 
-# Install dependencies
-npm install
+```fish
+# Node.js >= 18 が必要
+node -v
 
-# Start development server
-npm run dev
-
-# Build
-npm run build
-
-# Preview build output
-npm run preview
-
-# Lint / Format (auto-fix is a separate command)
-npm run lint
-npm run format
-
-# Optional: image conversion (requires scripts/convert-images.js)
-npm run webp
+# 依存関係のインストール
+pnpm install
 ```
 
-## Template variables
+---
 
-`src/index.html` contains placeholders that should be replaced per project. Main placeholders:
+## コマンド
 
-- %SITE_TITLE%
-- %SITE_DESCRIPTION%
-- %OG_TITLE%
-- %OG_DESCRIPTION%
-- %OG_IMAGE%
-- %SITE_URL%
-- %OG_SITE_NAME%
-- %FAVICON_URL%
-- %SHOP_URL%
-- %INQUIRY_URL%
-- %PROJECT_NAME%
-- %PROJECT_BRAND%
-- %BRAND_NAME%
-- %COMPANY_URL%
-- %COMPANY_NAME%
+```fish
+pnpm dev        # 開発サーバー起動（自動でブラウザを開く）
+pnpm build      # プロダクションビルド
+pnpm preview    # ビルド結果のプレビュー
 
-Replace them manually or use an `.env`-based replacement script.
+pnpm fix        # Lint + Format（自動修正）
+pnpm check      # Lint + Format（チェックのみ）
+pnpm watch      # Lint + Format のウォッチモード
+```
 
-## OGP画像について
+---
 
-プロジェクト開始時にOGP画像を作成してください。
+## ディレクトリ構成
 
-### 必要な画像
+```
+src/
+├── index.html
+├── {page}/
+│   └── index.html          # 下層ページ（自動検出・エントリー登録）
+└── assets/
+    ├── images/
+    ├── videos/
+    ├── includes/            # SSI パーシャル（header, footer など）
+    ├── scripts/
+    │   ├── pages/           # ページごとのエントリーJS
+    │   └── modules/
+    │       ├── utils/       # 汎用モジュール
+    │       └── optional/    # オプションモジュール（必要に応じて使用）
+    └── styles/              # SCSS（FLOCSS 構成）
+        ├── foundation/
+        ├── global/          # 変数・mixin
+        ├── layout/
+        ├── object/
+        │   ├── components/
+        │   ├── project/
+        │   └── utility/
+        └── vendors/
+```
 
-#### og.png または og.jpg
-- **サイズ**: 1200x630px（推奨）
-- **用途**: Facebook、LinkedIn、Twitter等のOGP画像
-- **フォーマット**: PNG または JPG
-- **配置場所**: `src/assets/images/og.png`
-- **注意**: 自動WebP変換から除外されます
+---
 
-### WebP変換の除外設定
+## 主な機能
 
-`vite.config.js`の`WEBP_EXCLUDE`に以下のパターンが設定されています：
+### SSI（Server Side Includes）
+
+開発時は `<!--#include file="..." -->` をインライン展開します。
+ビルド時はコメントをそのまま残し、Apache SSI がサーバー側で処理します。
+
+```html
+<!--#include file="assets/includes/header.html" -->
+```
+
+パスは **HTMLファイルからの相対パス** で記述します。
+
+### 画像の自動 WebP 変換
+
+ビルド時に PNG / JPEG を WebP に変換し、HTML 内のパスも自動で書き換えます。
+OGP 画像など変換から除外したいファイルは `vite.config.js` の `WEBP_EXCLUDE` に追加してください。
 
 ```javascript
 const WEBP_EXCLUDE = [
-  'og.png',              // OG画像
-  'og.jpg',              // OG画像
-  'og-*.png',            // og-で始まる画像（PNG）
-  'og-*.jpg',            // og-で始まる画像（JPG）
-  'ogp*.png',            // ogpで始まる画像（PNG）
-  'ogp*.jpg',            // ogpで始まる画像（JPG）
+  'og.png',
 ]
 ```
 
-### 推奨サイズとクロップエリア
-- テキストや重要な要素は中央600x600pxの領域に配置
-- 上下左右に余白を持たせる（端が切れる可能性を考慮）
-- ファイルサイズは300KB以下を推奨
+### 下層ページの自動エントリー登録
 
-### デザイン時の注意点
-- ブランドカラーを使用
-- サイト名またはロゴを配置
-- キャッチコピーを大きく見やすく
-- 背景はシンプルに
-- テキストは読みやすいコントラストで
+`src/{ディレクトリ}/index.html` が存在すれば自動でビルドエントリーに追加されます。
+`assets` / `snippets` ディレクトリは除外されます。
 
-### HTMLでの使用例
+### PurgeCSS（デフォルト OFF）
 
-```html
-<!-- OGP -->
-<meta property="og:image" content="./assets/images/og.png">
-
-<!-- Twitter Card -->
-<meta name="twitter:image" content="./assets/images/og.png">
-```
-
-## PurgeCSS（未使用CSS削除）
-
-ビルド時に未使用のCSSを自動削除してファイルサイズを削減できます。
-
-### 有効化方法
-
-`vite.config.js`の`PURGECSS_ENABLED`を`true`に変更：
-
-```javascript
-const PURGECSS_ENABLED = true  // PurgeCSSを有効化
-```
-
-### 効果
-
-スケルトンテンプレートでの測定結果：
-- **OFF**: 11.70 kB（gzip: 3.01 kB）
-- **ON**: 10.24 kB（gzip: 2.56 kB）
-- **削減量**: 約12.5%（gzipで15%削減）
-
-大規模プロジェクトではより大きな効果が期待できます。
-
-### 保護されるクラス（自動削除されない）
-
-以下のパターンのクラスは自動的に保護されます：
-- `js-*`：JavaScript用クラス（例: `js-hamburger`, `js-tab-content`）
-- `is-*`：状態クラス（例: `is-active`, `is-open`, `is-hidden`）
-- `has-*`：状態クラス（例: `has-error`, `has-children`）
-
-### safelist設定のカスタマイズ
-
-特定のクラスを保護したい場合は、`vite.config.js`の`PURGECSS_SAFELIST`に追加：
-
-```javascript
-const PURGECSS_SAFELIST = [
-  /^js-/,                  // JS用クラス
-  /^is-/,                  // 状態クラス
-  /^has-/,                 // 状態クラス
-  /^custom-/,              // カスタムクラス（例）
-  'specific-class-name',   // 特定のクラス名（例）
-]
-```
-
-### 注意点
-
-- 動的に生成されるクラス名（`` `tab-${id}` ``など）は必ずsafelistに追加
-- CSSフレームワーク（Tailwind, Bootstrap等）使用時は特に有効
-- 小規模プロジェクトではデフォルトOFFを推奨
-
-## 画像の遅延読み込み（Lazy Loading）
-
-ビューポート外の画像を遅延読み込みすることで、初期ページ読み込みを高速化できます。
-
-### 基本的な実装
-
-HTML5の`loading="lazy"`属性を使用：
-
-```html
-<img src="./assets/images/sample.png" alt="説明" loading="lazy">
-```
-
-### 重要な注意点
-
-以下の画像には`loading="lazy"`を**使用しないでください**：
-
-1. **LCP（Largest Contentful Paint）画像**
-   - ページの主要なメイン画像
-   - ヒーローイメージ
-   - これらには`fetchpriority="high"`を使用
-
-```html
-<!-- ❌ NG: LCP画像にlazyは使わない -->
-<img src="./hero.png" alt="メインビジュアル" loading="lazy">
-
-<!-- ✅ OK: LCP画像は優先読み込み -->
-<img src="./hero.png" alt="メインビジュアル" fetchpriority="high">
-```
-
-2. **最初のビューポート内の画像**
-   - ファーストビューで表示される画像
-   - ヘッダーロゴ
-   - アバウトセクションの画像（ページ上部の場合）
-
-3. **小さなアイコン・ロゴ**
-   - ファイルサイズが小さい画像は遅延読み込みしても効果が薄い
-
-### 推奨される使い方
-
-```html
-<!-- ✅ ファーストビュー内：lazyなし -->
-<header class="l-header">
-  <img src="./logo.svg" alt="ロゴ" width="120" height="40">
-</header>
-
-<section class="hero">
-  <img src="./hero.webp" alt="メインビジュアル" fetchpriority="high">
-</section>
-
-<!-- ✅ スクロール後のセクション：lazyを使う -->
-<section class="features">
-  <img src="./feature1.webp" alt="機能1" loading="lazy">
-  <img src="./feature2.webp" alt="機能2" loading="lazy">
-  <img src="./feature3.webp" alt="機能3" loading="lazy">
-</section>
-```
-
-### srcset使用時
-
-レスポンシブ画像でも同様に使用できます：
-
-```html
-<img
-  srcset="./image-small.webp 400w, ./image-large.webp 800w"
-  sizes="(max-width: 768px) 400px, 800px"
-  src="./image-large.webp"
-  alt="説明"
-  loading="lazy"
->
-```
-
-### LCP画像の設定（index.html）
-
-`src/index.html`の`<head>`にLCP画像のpreloadを設定：
-
-```html
-<!-- %LCP_SRC%をプロジェクトのLCP画像パスに置き換え -->
-<link rel="preload" as="image" href="%LCP_SRC%" fetchpriority="high">
-```
-
-## Critical CSS（ファーストビュー用CSSの最適化）
-
-Critical CSSは、ファーストビューのレンダリングに必要な最小限のCSSを`<head>`にインライン化し、残りのCSSを非同期で読み込む手法です。
-
-### このテンプレートでの推奨
-
-**小〜中規模プロジェクトでは不要です。**
-
-理由：
-- CSSが既に軽量（gzip 3KB）
-- HTTP/2では並列ダウンロードが効率的
-- インライン化によるHTMLサイズ増加のほうがデメリットになる場合がある
-
-### 大規模プロジェクトでの導入
-
-CSSが大きい場合（gzip 10KB以上）は検討価値があります。
-
-#### 1. vite-plugin-critical を使用
-
-```bash
-pnpm add -D vite-plugin-critical
-```
+未使用 CSS を削除してファイルサイズを削減します。大規模プロジェクトで有効化を推奨します。
 
 ```javascript
 // vite.config.js
-import critical from 'vite-plugin-critical'
-
-export default defineConfig({
-  plugins: [
-    critical({
-      inline: true,
-      dimensions: [
-        { width: 375, height: 812 },  // スマホ
-        { width: 1920, height: 1080 }, // PC
-      ],
-    }),
-  ],
-})
+const PURGECSS_ENABLED = true
 ```
 
-#### 2. 手動でCritical CSSを抽出
+`js-*` / `is-*` / `has-*` のクラスは自動で保護されます。
 
-1. ビルド後のサイトをlocalhostで起動
-2. Chrome DevToolsのCoverageタブでファーストビューで使用されるCSSを確認
-3. 使用されるCSSを`<style>`タグで`<head>`にインライン化
-4. 元のCSSファイルを`<link rel="preload" as="style">`で非同期読み込み
+---
 
-```html
-<head>
-  <!-- Critical CSS（インライン） -->
-  <style>
-    /* ファーストビューに必要な最小限のCSS */
-    body { margin: 0; font-family: ... }
-    .l-header { ... }
-    .hero { ... }
-  </style>
+## JavaScript モジュール
 
-  <!-- 残りのCSSは非同期読み込み -->
-  <link rel="preload" as="style" onload="this.rel='stylesheet'" href="./assets/css/main.css">
-  <noscript>
-    <link rel="stylesheet" href="./assets/css/main.css">
-  </noscript>
-</head>
-```
+### utils（汎用）
 
-### 効果測定
+| ファイル | 概要 |
+| --- | --- |
+| `_Accordion.js` | アコーディオン |
+| `_AnchorScroll.js` | アンカースクロール |
+| `_HamburgerMenu.js` | ハンバーガーメニュー |
+| `_HeaderScroll.js` | スクロール時ヘッダー制御 |
+| `_LoadingAnimation.js` | ローディングアニメーション |
+| `_PageTop.js` | ページトップボタン |
+| `_ScrollActive.js` | スクロール位置によるクラス付与 |
+| `_SubMenu.js` | サブメニュー |
 
-- LCP（Largest Contentful Paint）の改善
-- FCP（First Contentful Paint）の改善
-- Lighthouse Performanceスコアの向上
+### optional（必要に応じて使用）
 
-ただし、**HTMLサイズが増加する**ため、バランスを見て判断してください。
+| ファイル | 概要 |
+| --- | --- |
+| `_BasicSlider.js` | 基本スライダー（Splide） |
+| `_GSAPHorizontalScroll.js` | GSAP 横スクロール |
+| `_HorizontalScroll.js` | 横スクロール |
+| `_HueRotate.js` | 色相アニメーション |
+| `_Modal.js` | モーダル |
+| `_ParallaxScroll.js` | パララックス |
+| `_ScrollBackgroundScale.js` | スクロール連動背景スケール |
+| `_ScrollImageExpand.js` | スクロール連動画像拡大 |
+| `_ScrollImageSwitcher.js` | スクロール連動画像切り替え |
+| `_ScrollTextReveal.js` | テキストリビール |
 
-## プロジェクト固有コンテンツの置き換え
+---
 
-このテンプレートには、サンプルプロジェクトの内容が含まれています。新規プロジェクトで使用する際は、以下を置き換えてください。
+## 新規プロジェクト開始時のチェックリスト
 
-### 1. HTMLコンテンツ（`src/index.html`）
+- [ ] `package.json` のメタ情報を更新（name / description / author / repository）
+- [ ] `LICENSE` を更新
+- [ ] `src/assets/images/` のロゴ・OGP 画像を差し替え（OGP: 1200×630px）
+- [ ] `src/assets/styles/global/_variables.scss` をプロジェクトに合わせて更新
+- [ ] `src/index.html` のプレースホルダーを置き換え（`%TITLE%` / `%URL%` など）
+- [ ] `vite.config.js` の `BASE_PATH` を確認（サブディレクトリ配置時は変更）
+- [ ] 不要な optional モジュールを削除
 
-以下のダミーテキストを実際のプロジェクト内容に置き換え：
-- ヘッダーロゴ：`<img src="./assets/images/logo.svg">`
-- メインタイトル：「製品名・サービス名をここに記載」
-- 説明文：「製品・サービスに関する説明文をここに記載します...」
-- フッター：「Copyright (C) 2024 COMPANY NAME...」
+---
 
-### 2. SCSSファイル
+## テンプレート変数
 
-以下のファイルにサンプルプロジェクトのクラスが含まれています：
-- `src/assets/styles/object/project/_about.scss`
-  - クラス名を変更またはファイルを削除して新規作成
-- `src/assets/styles/object/project/_search.scss`
-  - クラス名を変更またはファイルを削除して新規作成
+HTML 内のプレースホルダーは手動またはスクリプトで置き換えてください。
 
-### 3. 画像ファイル（`src/assets/images/`）
+| 変数 | 用途 |
+| --- | --- |
+| `%TITLE%` | ページタイトル |
+| `%DESCRIPTION%` | メタディスクリプション |
+| `%URL%` | 正規 URL |
+| `%SITE_NAME%` | サイト名 |
+| `%LCP_SRC%` | LCP 画像のパス（preload 用） |
 
-サンプルプロジェクトの画像は削除し、新規プロジェクトの画像に置き換えてください：
-- `logo.svg`：ブランドロゴ
-- `og.png`：OGP画像（1200x630px）
-- その他必要な画像を追加
+---
 
-### 4. JavaScriptモジュール
+## ライセンス
 
-`src/assets/scripts/modules/` 内のサンプルモジュールを確認：
-- 不要なモジュールは削除
-- 必要に応じて新規作成
-
-### 5. データファイル
-
-`src/assets/scripts/data/` に配置されるJSONファイルは、プロジェクトに応じて作成してください。
+MIT
