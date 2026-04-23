@@ -32,9 +32,13 @@ export default function vitePluginSsi() {
       const htmlDir = resolve(ctx.filename, '..')
 
       return html.replace(
-        /<!--#include\s+file="([^"]+)"\s*-->/g,
+        /<!--#include\s+(?:file|virtual)="([^"]+)"\s*-->/g,
         (match, filePath) => {
-          const absolutePath = resolve(htmlDir, filePath)
+          // virtual="/absolute" はViteルートからの絶対パスとして解決
+          // virtual="../relative" や file="relative" はHTMLディレクトリからの相対パスとして解決
+          const absolutePath = filePath.startsWith('/')
+            ? resolve(root, filePath.slice(1))
+            : resolve(htmlDir, filePath)
           if (existsSync(absolutePath)) {
             return readFileSync(absolutePath, 'utf-8')
           }

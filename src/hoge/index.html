@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ja">
   <head>
-    <!--#include file="../assets/includes/gtm-head.html" -->
+    <!--#include virtual="../assets/includes/gtm-head.html" -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>%TITLE%</title>
@@ -23,19 +23,20 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://www.googletagmanager.com">
     <link rel="preconnect" href="https://www.google-analytics.com">
-    <!--#include file="../assets/includes/fonts.html" -->
+    <!--#include virtual="../assets/includes/fonts.html" -->
 
     <link rel="shortcut icon" href="../favicon.ico">
-    <link rel="stylesheet" href="../assets/styles/style.scss">
+    <link rel="stylesheet" href="../assets/styles/common.scss">
+    <link rel="stylesheet" href="../assets/styles/object/pages/hoge/_index.scss">
   </head>
 
   <body>
-    <!--#include file="../assets/includes/gtm-body.html" -->
+    <!--#include virtual="../assets/includes/gtm-body.html" -->
 
-    <!--#include file="../assets/includes/svg-symbols.html" -->
+    <!--#include virtual="../assets/includes/svg-symbols.html" -->
 
     <div class="l-page">
-      <!--#include file="../assets/includes/header.html" -->
+      <!--#include virtual="../assets/includes/header.html" -->
 
       <main class="l-main">
         <section style="padding: 10rem 0;">
@@ -57,11 +58,13 @@
             </div>
           </div>
         </section>
+
+        <div class="hoge-test">hogeページ固有スタイルの確認</div>
       </main>
 
-      <!--#include file="../assets/includes/footer.html" -->
+      <!--#include virtual="../assets/includes/footer.html" -->
     </div>
 
-    <script type="module" src="../assets/scripts/pages/index.js"></script>
+    <script type="module" src="../assets/scripts/pages/hoge.js"></script>
   </body>
 </html>

@@ -2,6 +2,7 @@ import { defineConfig } from 'vite'
 import { viteStaticCopy } from 'vite-plugin-static-copy'
 import vitePluginWebp from './plugins/vite-plugin-webp.js'
 import vitePluginSsi from './plugins/vite-plugin-ssi.js'
+import vitePluginScriptToBody from './plugins/vite-plugin-script-to-body.js'
 import PurgeCSS from 'vite-plugin-purgecss-updated-v5'
 import { resolve } from 'path'
 import { readdirSync, existsSync } from 'fs'
@@ -10,7 +11,7 @@ import { readdirSync, existsSync } from 'fs'
 // プロジェクト設定
 // ========================
 // ベースパス（サブディレクトリ配置時は '/project-name/' に変更）
-const BASE_PATH = '/'
+const BASE_PATH = '/temp/'
 
 // ルートディレクトリ（サブディレクトリ配置時は 'src/project-name' に変更）
 const ROOT_DIR = 'src'
@@ -39,7 +40,7 @@ const entries = {}
 
 // src/index.html（メインエントリー）
 if (existsSync(resolve(srcDir, 'index.html'))) {
-  entries.main = resolve(srcDir, 'index.html')
+  entries.index = resolve(srcDir, 'index.html')
 }
 
 // src/**/index.html（サブディレクトリ）
@@ -58,6 +59,7 @@ readdirSync(srcDir, { withFileTypes: true })
 export default defineConfig({
   plugins: [
     vitePluginSsi(),
+    vitePluginScriptToBody(),
     viteStaticCopy({
       silent: true,
       targets: [
@@ -110,7 +112,7 @@ export default defineConfig({
       output: {
         assetFileNames: assetInfo => {
           if (assetInfo.name && assetInfo.name.endsWith('.css')) {
-            return 'assets/css/[name][extname]';
+            return 'assets/styles/[name][extname]';
           }
           if (assetInfo.name && /\.(png|jpe?g|svg|gif|webp|ico)$/.test(assetInfo.name)) {
             return 'assets/images/[name][extname]';
@@ -120,8 +122,17 @@ export default defineConfig({
           }
           return 'assets/[name][extname]';
         },
-        entryFileNames: 'assets/js/[name].js',
-        chunkFileNames: 'assets/js/[name].js',
+        entryFileNames: 'assets/scripts/[name].js',
+        chunkFileNames: 'assets/scripts/[name].js',
+        manualChunks: (id) => {
+          if (
+            id.includes('scripts/common.js') ||
+            id.includes('scripts/modules/') ||
+            id.includes('node_modules/')
+          ) {
+            return 'common'
+          }
+        },
       },
     },
   },

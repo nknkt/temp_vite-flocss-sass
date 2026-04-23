@@ -59,13 +59,17 @@ src/
     │       ├── utils/       # 汎用モジュール
     │       └── optional/    # オプションモジュール（必要に応じて使用）
     └── styles/              # SCSS（FLOCSS 構成）
+        ├── common.scss      # 全ページ共通エントリー
         ├── foundation/
         ├── global/          # 変数・mixin
         ├── layout/
         ├── object/
         │   ├── components/
         │   ├── project/
-        │   └── utility/
+        │   ├── utility/
+        │   └── pages/       # ページ固有スタイル
+        │       └── {page}/
+        │           └── _index.scss
         └── vendors/
 ```
 
@@ -75,14 +79,45 @@ src/
 
 ### SSI（Server Side Includes）
 
-開発時は `<!--#include file="..." -->` をインライン展開します。
+開発時は SSI コメントをインライン展開します。
 ビルド時はコメントをそのまま残し、Apache SSI がサーバー側で処理します。
 
 ```html
+<!-- トップページ（../なし） -->
 <!--#include file="assets/includes/header.html" -->
+
+<!-- 下層ページ（../あり → virtual= を使用） -->
+<!--#include virtual="../assets/includes/header.html" -->
 ```
 
+> Apache SSI の `file=` は `../` によるディレクトリ上位への参照が禁止されているため、
+> 下層ページでは必ず `virtual=` を使用してください。
+
 パスは **HTMLファイルからの相対パス** で記述します。
+
+### CSS / JS のビルド分割
+
+ビルド後は以下の構成で出力されます。
+
+```
+dist/assets/
+├── styles/
+│   ├── common.css    # 全ページ共通CSS
+│   └── {page}.css    # ページ固有CSS
+└── scripts/
+    ├── common.js     # 全ページ共通JS（Lenis 等の vendor を含む）
+    └── {page}.js     # ページ固有JS
+```
+
+ページ固有の JS エントリー（`scripts/pages/{page}.js`）で `common.js` と ページ固有 SCSS を import します。
+
+```javascript
+// scripts/pages/hoge.js
+import '../common.js'
+import '../../styles/object/pages/hoge/_index.scss'
+```
+
+共通スタイル・スクリプトを変更した場合は `common.css` / `common.js` のみ再アップロードすれば済みます。
 
 ### 画像の自動 WebP 変換
 

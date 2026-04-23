@@ -1,6 +1,6 @@
 // styles
 import '../common.js'
-import '../../styles/object/pages/index/_index.scss'
+import '../../styles/object/pages/hoge/_index.scss'
 
 // vendors
 import Lenis from 'lenis'
@@ -61,9 +61,9 @@ document.addEventListener('DOMContentLoaded', () => {
   anchorScroll.init()
 
   // Scroll Active
-  const fadeInEls = document.getElementsByClassName('u-fade-in')
-  Array.from(fadeInEls).forEach(el => {
-    const scrollActive = new ScrollActive(el)
-    scrollActive.init()
-  })
+    const fadeInEls = document.getElementsByClassName('u-fade-in')
+    Array.from(fadeInEls).forEach(el => {
+      const scrollActive = new ScrollActive(el)
+      scrollActive.init()
+    })
 })
