@@ -24,14 +24,17 @@ export default function vitePluginSsi() {
       isBuild = config.command === 'build'
     },
 
-    transformIndexHtml(html) {
+    transformIndexHtml(html, ctx) {
       // ビルド時はSSIコメントをそのまま残す
       if (isBuild) return html
+
+      // HTMLファイルのディレクトリを起点にパスを解決
+      const htmlDir = resolve(ctx.filename, '..')
 
       return html.replace(
         /<!--#include\s+file="([^"]+)"\s*-->/g,
         (match, filePath) => {
-          const absolutePath = resolve(root, filePath)
+          const absolutePath = resolve(htmlDir, filePath)
           if (existsSync(absolutePath)) {
             return readFileSync(absolutePath, 'utf-8')
           }
