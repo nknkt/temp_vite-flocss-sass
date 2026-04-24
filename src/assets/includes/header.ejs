@@ -1,3 +1,10 @@
+<%
+const navItems = [
+  { en: 'Top', ja: 'サンプル', href: '/' },
+  { en: 'Hoge', ja: 'Hoge', href: '/hoge/index.html' },
+  { en: 'Fuga', ja: 'Fuga', href: '/fuga/index.html' },
+]
+%>
 <header class="l-header">
   <div class="l-header__inner">
     <h1 class="l-header__logo">
@@ -17,20 +24,7 @@
     </button>
 
     <nav class="l-navigation js-nav-menu">
-      <ul class="l-navigation__list">
-        <li class="l-navigation__item">
-          <a href="/" class="l-navigation__link">
-            <span class="en">Top</span>
-            <span class="ja u-hidden-pc">サンプル</span>
-          </a>
-        </li>
-        <li class="l-navigation__item">
-          <a href="/hoge/index.html" class="l-navigation__link">
-            <span class="en">Hoge</span>
-            <span class="ja u-hidden-pc">Hoge</span>
-          </a>
-        </li>
-      </ul>
+      <%- include('../partials/nav-list.ejs', { navItems }) %>
       <div class="l-navigation__cta">
         <a href="#contact" class="l-navigation__button">
           <span class="en">Contact</span>

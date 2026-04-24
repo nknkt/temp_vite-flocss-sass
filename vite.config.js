@@ -11,7 +11,7 @@ import { readdirSync, existsSync } from 'fs'
 // プロジェクト設定
 // ========================
 // ベースパス（サブディレクトリ配置時は '/project-name/' に変更）
-const BASE_PATH = '/temp/'
+const BASE_PATH = '/'
 
 // ルートディレクトリ（サブディレクトリ配置時は 'src/project-name' に変更）
 const ROOT_DIR = 'src'
@@ -38,20 +38,22 @@ const PURGECSS_SAFELIST = [
 const srcDir = resolve(import.meta.dirname, ROOT_DIR)
 const entries = {}
 
-// src/index.html（メインエントリー）
-if (existsSync(resolve(srcDir, 'index.html'))) {
+// src/index.html or index.ejs（メインエントリー）
+// .ejs が存在する場合は buildStart で .html を生成するため .html パスで登録
+if (existsSync(resolve(srcDir, 'index.ejs')) || existsSync(resolve(srcDir, 'index.html'))) {
   entries.index = resolve(srcDir, 'index.html')
 }
 
-// src/**/index.html（サブディレクトリ）
+// src/**/index.html or index.ejs（サブディレクトリ）
 // assets, snippetsなどのリソースディレクトリは除外
 const excludeDirs = ['assets', 'snippets']
 readdirSync(srcDir, { withFileTypes: true })
   .filter(dirent => dirent.isDirectory() && !excludeDirs.includes(dirent.name))
   .forEach(dirent => {
-    const indexPath = resolve(srcDir, dirent.name, 'index.html')
-    if (existsSync(indexPath)) {
-      entries[dirent.name] = indexPath
+    const ejsPath = resolve(srcDir, dirent.name, 'index.ejs')
+    const htmlPath = resolve(srcDir, dirent.name, 'index.html')
+    if (existsSync(ejsPath) || existsSync(htmlPath)) {
+      entries[dirent.name] = htmlPath
     }
   })
 
@@ -72,7 +74,7 @@ export default defineConfig({
           dest: 'assets/videos',
         },
         {
-          src: 'assets/includes/**/*',
+          src: 'assets/includes/**/*.html',
           dest: 'assets/includes',
         },
       ],

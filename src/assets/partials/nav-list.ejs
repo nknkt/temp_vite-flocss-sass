@@ -1,0 +1,10 @@
+<ul class="l-navigation__list">
+  <% navItems.forEach(function(item) { %>
+  <li class="l-navigation__item">
+    <a href="<%= item.href %>" class="l-navigation__link">
+      <span class="en"><%= item.en %></span>
+      <span class="ja u-hidden-pc"><%= item.ja %></span>
+    </a>
+  </li>
+  <% }) %>
+</ul>

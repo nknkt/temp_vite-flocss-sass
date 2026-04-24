@@ -46,13 +46,14 @@ pnpm watch      # Lint + Format のウォッチモード
 
 ```
 src/
-├── index.html
+├── index.ejs
 ├── {page}/
-│   └── index.html          # 下層ページ（自動検出・エントリー登録）
+│   └── index.ejs           # 下層ページ（自動検出・エントリー登録）
 └── assets/
     ├── images/
     ├── videos/
     ├── includes/            # SSI パーシャル（header, footer など）
+    ├── partials/            # EJS パーシャル（include() で使用）
     ├── scripts/
     │   ├── pages/           # ページごとのエントリーJS
     │   └── modules/
@@ -95,6 +96,40 @@ src/
 
 パスは **HTMLファイルからの相対パス** で記述します。
 
+### EJS
+
+ページファイル（`.ejs`）および `assets/includes/` 内のパーシャルで EJS 構文が使えます。
+`vite-plugin-ssi.js` に EJS レンダリングが統合されており、外部ライブラリの追加設定は不要です。
+
+#### ファイルの役割
+
+| ディレクトリ | 用途 |
+| --- | --- |
+| `src/` / `src/{page}/` | ページファイル（ビルドエントリー） |
+| `assets/includes/` | SSI でインクルードするパーシャル。EJS 構文も使用可 |
+| `assets/partials/` | EJS の `include()` で使うパーシャル。ビルド対象外 |
+
+`assets/partials/` のファイルは `include()` の引数にパスと変数を渡して呼び出します。
+ページファイルからは `./assets/partials/`、`assets/includes/` 内からは `../partials/` の相対パスで指定します。
+
+#### dev / build の動作
+
+| タイミング | 動作 |
+| --- | --- |
+| `pnpm dev` | ミドルウェアが `.ejs` をその場でレンダリング → SSI 展開 → HMR 注入。中間ファイルなし |
+| `pnpm build` | `buildStart` で `.ejs` → `.html` を一時生成 → Vite ビルド → `closeBundle` で削除 |
+
+`src/` に `.html` ファイルは存在しません。編集するのは常に `.ejs` ファイルです。
+
+#### SSI との使い分け
+
+| | SSI `<!--#include -->` | EJS `<%- include() %>` |
+| --- | --- | --- |
+| 展開タイミング | Apache（実行時） | Vite（dev / build 時） |
+| build 後の出力 | コメントがそのまま残る | HTML にインライン展開 |
+| 本番サーバー要件 | Apache + SSI 設定が必要 | 不要 |
+| 主な用途 | header / footer など共通パーシャル | SVG Symbols・ナビリストなど |
+
 ### CSS / JS のビルド分割
 
 ビルド後は以下の構成で出力されます。
@@ -132,7 +167,7 @@ const WEBP_EXCLUDE = [
 
 ### 下層ページの自動エントリー登録
 
-`src/{ディレクトリ}/index.html` が存在すれば自動でビルドエントリーに追加されます。
+`src/{ディレクトリ}/index.ejs`（または `index.html`）が存在すれば自動でビルドエントリーに追加されます。
 `assets` / `snippets` ディレクトリは除外されます。
 
 ### PurgeCSS（デフォルト OFF）
@@ -186,7 +221,7 @@ const PURGECSS_ENABLED = true
 - [ ] `LICENSE` を更新
 - [ ] `src/assets/images/` のロゴ・OGP 画像を差し替え（OGP: 1200×630px）
 - [ ] `src/assets/styles/global/_variables.scss` をプロジェクトに合わせて更新
-- [ ] `src/index.html` のプレースホルダーを置き換え（`%TITLE%` / `%URL%` など）
+- [ ] `src/index.ejs` のプレースホルダーを置き換え（`%TITLE%` / `%URL%` など）
 - [ ] `vite.config.js` の `BASE_PATH` を確認（サブディレクトリ配置時は変更）
 - [ ] 不要な optional モジュールを削除
 

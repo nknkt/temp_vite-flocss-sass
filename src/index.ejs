@@ -33,7 +33,13 @@
   <body>
     <!--#include file="assets/includes/gtm-body.html" -->
 
-    <!--#include file="assets/includes/svg-symbols.html" -->
+    <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+      <symbol id="logo" viewBox="0 0 160 40">
+        <rect width="40" height="40" rx="6" fill="currentColor" />
+        <text x="50" y="28" font-family="sans-serif" font-size="20" font-weight="700" fill="currentColor"
+          letter-spacing="1">LOGO</text>
+      </symbol>
+    </svg>
 
     <div class="l-page">
       <!--#include file="assets/includes/header.html" -->
@@ -47,14 +53,30 @@
 
           <div class="u-wrapper" style="margin-top: 5rem">
             <div class="u-fade-in" style="max-width: 80rem; margin-inline: auto; text-align: center">
-              <p style="font-size: 1.8rem; line-height: 2; font-weight: 500">
-                これはスケルトンテンプレートです。<br>
-                プロジェクトに応じて自由にコンテンツを追加してください。
+
+              <%# 変数の出力サンプル %>
+              <% const pageTitle = 'トップページ' %>
+              <p style="font-size: 1.8rem; font-weight: 700; margin-bottom: 2rem">
+                <%= pageTitle %>
               </p>
-              <p style="font-size: 1.6rem; line-height: 2; margin-top: 2rem">
-                既存のSCSSクラス（c-section-head, c-link-textなど）を活用するか、<br>
-                新規でproject/配下にSCSSファイルを作成してスタイルを定義してください。
-              </p>
+
+              <%# if サンプル（isNewフラグで出し分け） %>
+              <% const sampleItems = [
+                { label: 'アイテムA', isNew: true },
+                { label: 'アイテムB', isNew: false },
+                { label: 'アイテムC', isNew: true },
+              ] %>
+              <ul style="margin-top: 2rem; list-style: none; display: flex; gap: 1rem; justify-content: center">
+                <% sampleItems.forEach(function(item) { %>
+                <li style="font-size: 1.4rem; padding: 0.5rem 1.5rem; border: 1px solid currentColor">
+                  <%= item.label %>
+                  <% if (item.isNew) { %>
+                  <span style="font-size: 1.2rem; color: red; margin-left: 0.5rem">NEW</span>
+                  <% } %>
+                </li>
+                <% }) %>
+              </ul>
+
             </div>
           </div>
         </section>
@@ -88,6 +110,8 @@
             </div>
           </div>
         </section>
+
+
       </main>
 
       <!--#include file="assets/includes/footer.html" -->
