@@ -1,6 +1,6 @@
-import html from 'eslint-plugin-html';
-import globals from 'globals';
-import js from '@eslint/js';
+import html from 'eslint-plugin-html'
+import globals from 'globals'
+import js from '@eslint/js'
 
 export default [
   // base ignores
@@ -25,9 +25,10 @@ export default [
       'no-console': ['warn', { allow: ['warn', 'error'] }],
       'prefer-const': 'error',
       'no-var': 'error',
+      'semi': ['error', 'never']
     },
   },
 
   // include @eslint/js recommended config
   ...(Array.isArray(js.configs.recommended) ? js.configs.recommended : [js.configs.recommended]),
-];
+]

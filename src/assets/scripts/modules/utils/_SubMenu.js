@@ -5,7 +5,7 @@
  */
 export default class SubMenu {
   constructor(selector = '.js-submenu-toggle') {
-    this.toggles = document.querySelectorAll(selector);
+    this.toggles = document.querySelectorAll(selector)
   }
 
   init() {
@@ -13,20 +13,20 @@ export default class SubMenu {
     this.toggles.forEach(toggle => {
       toggle.addEventListener('click', e => {
         // PC表示時はクリック無効
-        if (window.innerWidth >= 768) return;
+        if (window.innerWidth >= 768) return
 
-        e.preventDefault();
-        e.stopPropagation();
+        e.preventDefault()
+        e.stopPropagation()
 
-        const isExpanded = toggle.getAttribute('aria-expanded') === 'true';
-        const submenu = toggle.nextElementSibling;
+        const isExpanded = toggle.getAttribute('aria-expanded') === 'true'
+        const submenu = toggle.nextElementSibling
 
         if (submenu && submenu.classList.contains('l-navigation__submenu')) {
           // 状態を切り替え
-          toggle.setAttribute('aria-expanded', !isExpanded);
-          submenu.classList.toggle('is-open');
+          toggle.setAttribute('aria-expanded', !isExpanded)
+          submenu.classList.toggle('is-open')
         }
-      });
-    });
+      })
+    })
   }
 }

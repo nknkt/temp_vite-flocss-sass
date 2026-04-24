@@ -112,15 +112,15 @@ export default defineConfig({
       output: {
         assetFileNames: assetInfo => {
           if (assetInfo.name && assetInfo.name.endsWith('.css')) {
-            return 'assets/styles/[name][extname]';
+            return 'assets/styles/[name][extname]'
           }
           if (assetInfo.name && /\.(png|jpe?g|svg|gif|webp|ico)$/.test(assetInfo.name)) {
-            return 'assets/images/[name][extname]';
+            return 'assets/images/[name][extname]'
           }
           if (assetInfo.name && /\.(mp4|webm|mov|ogg|m4v)$/.test(assetInfo.name)) {
-            return 'assets/videos/[name][extname]';
+            return 'assets/videos/[name][extname]'
           }
-          return 'assets/[name][extname]';
+          return 'assets/[name][extname]'
         },
         entryFileNames: 'assets/scripts/[name].js',
         chunkFileNames: 'assets/scripts/[name].js',
@@ -146,4 +146,4 @@ export default defineConfig({
       ignored: ['**/node_modules/**', '**/plugins/**', '**/.git/**'],
     },
   },
-});
+})

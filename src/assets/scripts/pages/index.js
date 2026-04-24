@@ -18,7 +18,7 @@ import HeaderScroll from '../modules/utils/_HeaderScroll.js'
 // ============================================================
 const lenis = new Lenis({
   duration: 1.2,
-  easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+  easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
   orientation: 'vertical',
   smoothWheel: true,
 })
@@ -33,7 +33,6 @@ requestAnimationFrame(raf)
 // DOMContentLoaded後に初期化
 // ============================================================
 document.addEventListener('DOMContentLoaded', () => {
-
   // Header Scroll
   const header = document.querySelector('.l-header')
   if (header) {
@@ -42,7 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
       scrolledClass: 'is-scrolled',
       hideOnScroll: true,
       hideThreshold: 200,
-      hiddenClass: 'is-hidden'
+      hiddenClass: 'is-hidden',
     })
     headerScroll.init()
   }
