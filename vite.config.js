@@ -55,6 +55,17 @@ readdirSync(srcDir, { withFileTypes: true })
     }
   })
 
+function scriptFileName(chunkInfo) {
+  if (Object.prototype.hasOwnProperty.call(entries, chunkInfo.name)) {
+    if (chunkInfo.name === 'index') {
+      return 'assets/scripts/index.js'
+    }
+    return `assets/scripts/${chunkInfo.name}/index.js`
+  }
+
+  return `assets/scripts/${chunkInfo.name}.js`
+}
+
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [
@@ -123,8 +134,8 @@ export default defineConfig({
           }
           return 'assets/[name][extname]'
         },
-        entryFileNames: 'assets/scripts/[name].js',
-        chunkFileNames: 'assets/scripts/[name].js',
+        entryFileNames: scriptFileName,
+        chunkFileNames: scriptFileName,
         manualChunks: (id) => {
           if (
             id.includes('scripts/common.js') ||
