@@ -1,15 +1,15 @@
 // styles
-import '../common.js'
-import '../../styles/object/pages/index/_index.scss'
+import '../../common.js'
+import '../../../styles/object/pages/index/_index.scss'
 
 // vendors
 import Lenis from 'lenis'
 
 // utils
-import ScrollActive from '../modules/utils/_ScrollActive.js'
-import AnchorScroll from '../modules/utils/_AnchorScroll.js'
-import HamburgerMenu from '../modules/utils/_HamburgerMenu.js'
-import HeaderScroll from '../modules/utils/_HeaderScroll.js'
+import ScrollActive from '../../modules/utils/_ScrollActive.js'
+import AnchorScroll from '../../modules/utils/_AnchorScroll.js'
+import HamburgerMenu from '../../modules/utils/_HamburgerMenu.js'
+import HeaderScroll from '../../modules/utils/_HeaderScroll.js'
 
 // optional
 
