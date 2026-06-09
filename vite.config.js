@@ -57,10 +57,7 @@ readdirSync(srcDir, { withFileTypes: true })
 
 function scriptFileName(chunkInfo) {
   if (Object.prototype.hasOwnProperty.call(entries, chunkInfo.name)) {
-    if (chunkInfo.name === 'index') {
-      return 'assets/scripts/index.js'
-    }
-    return `assets/scripts/${chunkInfo.name}/index.js`
+    return `assets/scripts/pages/${chunkInfo.name}/index.js`
   }
 
   return `assets/scripts/${chunkInfo.name}.js`
@@ -127,6 +124,11 @@ export default defineConfig({
             return 'assets/styles/[name][extname]'
           }
           if (assetInfo.name && /\.(png|jpe?g|svg|gif|webp|ico)$/.test(assetInfo.name)) {
+            const originalFile = assetInfo.originalFileNames?.[0]?.replace(/\\/g, '/')
+            const imageRoot = `/${ROOT_DIR}/assets/images/`
+            if (originalFile && originalFile.includes(imageRoot)) {
+              return `assets/images/${originalFile.split(imageRoot)[1]}`
+            }
             return 'assets/images/[name][extname]'
           }
           if (assetInfo.name && /\.(mp4|webm|mov|ogg|m4v)$/.test(assetInfo.name)) {
