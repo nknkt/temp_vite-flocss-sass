@@ -64,18 +64,19 @@ export default defineConfig({
     vitePluginScriptToBody(),
     viteStaticCopy({
       silent: true,
+      structured: true,
       targets: [
         {
-          src: 'assets/images/*.{svg,gif,ico}',
-          dest: 'assets/images',
+          src: 'assets/images/**/*.{svg,gif,ico,png,jpg,jpeg,webp}',
+          dest: '.',
         },
         {
           src: 'assets/videos/**/*',
-          dest: 'assets/videos',
+          dest: '.',
         },
         {
           src: 'assets/includes/**/*.html',
-          dest: 'assets/includes',
+          dest: '.',
         },
       ],
     }),
