@@ -25,7 +25,9 @@ src/**/*.css
 src/**/*.css.map
 
 # Editor directories and files
-.vscode/*
+# global gitignore の .vscode を上書きし、このリポジトリでは追跡する
+!.vscode/
+!.vscode/**
 .idea
 *.suo
 *.ntvs*

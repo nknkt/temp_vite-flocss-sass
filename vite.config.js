@@ -81,7 +81,7 @@ export default defineConfig({
           dest: '.',
         },
         {
-          src: 'assets/includes/**/*',
+          src: 'assets/includes/**/*.html',
           dest: '.',
         },
       ],

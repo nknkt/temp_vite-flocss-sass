@@ -1,7 +1,8 @@
 @use "../../global" as *;
 
 .u-wrapper {
-  width: 132rem;
+  width: 100%;
+  max-width: 200rem;
   margin-inline: auto;
 
   @include sp() {

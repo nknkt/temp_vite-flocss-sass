@@ -11,24 +11,27 @@
     "url": "git+https://github.com/nknkt/temp_vite-flocss-sass.git"
   },
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=24.0.0"
   },
   "scripts": {
     "dev": "BROWSER='open' vite",
     "build": "vite build",
-    "lint": "npm run lint:js && npm run lint:css && npm run lint:html",
-    "lint:check": "npm run lint:check:js && npm run lint:check:css && npm run lint:check:html",
+    "lint": "npm run lint:js && npm run lint:css && npm run lint:html && npm run lint:markup",
+    "lint:check": "npm run lint:check:js && npm run lint:check:css && npm run lint:check:html && npm run lint:check:markup",
     "lint:js": "eslint . --fix",
     "lint:check:js": "eslint .",
     "lint:css": "stylelint \"src/**/*.{css,scss}\" --fix || true",
     "lint:check:css": "stylelint \"src/**/*.{css,scss}\"",
     "lint:html": "html-validate \"src/**/*.html\"",
     "lint:check:html": "html-validate \"src/**/*.html\"",
+    "lint:markup": "markuplint \"src/**/*.html\"",
+    "lint:check:markup": "markuplint \"src/**/*.html\"",
     "watch:js": "onchange \"src/**/*.js\" -- eslint --fix",
     "watch:css": "onchange \"src/**/*.{css,scss}\" -- stylelint --fix",
     "watch:html": "onchange \"src/**/*.html\" -- html-validate",
+    "watch:markup": "onchange \"src/**/*.html\" -- markuplint",
     "watch:format": "onchange \"src/**/*.{js,css,scss,html}\" -- prettier --write",
-    "watch": "concurrently \"npm:watch:js\" \"npm:watch:css\" \"npm:watch:html\" \"npm:watch:format\"",
+    "watch": "concurrently \"npm:watch:js\" \"npm:watch:css\" \"npm:watch:html\" \"npm:watch:markup\" \"npm:watch:format\"",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "fix": "npm run lint && npm run format",
@@ -45,6 +48,7 @@
     "eslint-plugin-html": "^8.1.2",
     "globals": "^16.0.0",
     "html-validate": "^10.0.0",
+    "markuplint": "5.0.0-rc.4",
     "onchange": "^7.1.0",
     "prettier": "^3.3.3",
     "sass": "^1.89.2",
@@ -66,5 +70,8 @@
       "esbuild",
       "sharp"
     ]
-  }
+  },
+  "browserslist": [
+    "defaults"
+  ]
 }

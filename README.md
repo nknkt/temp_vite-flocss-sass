@@ -12,14 +12,14 @@ Vite + SCSS（FLOCSS）のフロントエンドスターターテンプレート
 | JavaScript | Vanilla JS（ES Modules） |
 | パッケージマネージャー | pnpm |
 | スムーズスクロール | Lenis |
-| Lint / Format | ESLint / Stylelint / Prettier / html-validate |
+| Lint / Format | ESLint / Stylelint / Prettier / html-validate / Markuplint |
 
 ---
 
 ## セットアップ
 
 ```fish
-# Node.js >= 18 が必要
+# Node.js >= 24 が必要
 node -v
 
 # 依存関係のインストール
@@ -94,6 +94,17 @@ src/
 > 下層ページでは必ず `virtual=` を使用してください。
 
 パスは **HTMLファイルからの相対パス** で記述します。
+
+開発時は SSI インクルードを再帰的に展開するため、`header.html` などのパーシャル内にさらに `<!--#include -->` を記述できます。
+
+### Markuplint
+
+`html-validate` と役割が重複しないルール（アクセシビリティ・クラス命名・画像アスペクト比など）を Markuplint で検証します。
+
+```fish
+pnpm lint:markup        # 自動修正なし
+pnpm lint:check:markup  # CI 向けチェック
+```
 
 ### CSS / JS のビルド分割
 
@@ -202,7 +213,8 @@ HTML 内のプレースホルダーは手動またはスクリプトで置き換
 | `%DESCRIPTION%` | メタディスクリプション |
 | `%URL%` | 正規 URL |
 | `%SITE_NAME%` | サイト名 |
-| `%LCP_SRC%` | LCP 画像のパス（preload 用） |
+
+各ページの LCP 画像は `<link rel="preload">` に実際のパスを指定してください。
 
 ---
 

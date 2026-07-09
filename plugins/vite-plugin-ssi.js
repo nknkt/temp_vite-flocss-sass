@@ -1,10 +1,10 @@
 import { readFileSync, existsSync } from 'fs'
-import { resolve } from 'path'
+import { resolve, dirname } from 'path'
 
 /**
  * Vite SSI プラグイン
  *
- * 開発時: <!--#include file="assets/includes/xxx.html" --> をインライン展開 + HMR対応
+ * 開発時: <!--#include file="assets/includes/xxx.html" --> を再帰的にインライン展開 + HMR対応
  * ビルド時: SSIコメントをそのまま残す（Apache SSI がサーバー側で処理）
  *
  * .htaccess に以下の設定が必要:
@@ -14,6 +14,26 @@ import { resolve } from 'path'
 export default function vitePluginSsi() {
   let root = ''
   let isBuild = false
+
+  // SSI インクルードを再帰展開（dev のみ）
+  function expandSSI(html, baseDir) {
+    return html.replace(
+      /<!--#include\s+(?:file|virtual)="([^"]+)"\s*-->/g,
+      (match, filePath) => {
+        const absolutePath = filePath.startsWith('/')
+          ? resolve(root, filePath.slice(1))
+          : resolve(baseDir, filePath)
+
+        if (!existsSync(absolutePath)) {
+          console.warn(`[vite-plugin-ssi] File not found: ${absolutePath}`)
+          return match
+        }
+
+        const content = readFileSync(absolutePath, 'utf-8')
+        return expandSSI(content, dirname(absolutePath))
+      }
+    )
+  }
 
   return {
     name: 'vite-plugin-ssi',
@@ -28,27 +48,10 @@ export default function vitePluginSsi() {
       // ビルド時はSSIコメントをそのまま残す
       if (isBuild) return html
 
-      // HTMLファイルのディレクトリを起点にパスを解決
       const htmlDir = resolve(ctx.filename, '..')
-
-      return html.replace(
-        /<!--#include\s+(?:file|virtual)="([^"]+)"\s*-->/g,
-        (match, filePath) => {
-          // virtual="/absolute" はViteルートからの絶対パスとして解決
-          // virtual="../relative" や file="relative" はHTMLディレクトリからの相対パスとして解決
-          const absolutePath = filePath.startsWith('/')
-            ? resolve(root, filePath.slice(1))
-            : resolve(htmlDir, filePath)
-          if (existsSync(absolutePath)) {
-            return readFileSync(absolutePath, 'utf-8')
-          }
-          console.warn(`[vite-plugin-ssi] File not found: ${absolutePath}`)
-          return match
-        }
-      )
+      return expandSSI(html, htmlDir)
     },
 
-    // 開発サーバー: assets/includes/ を監視してフルリロード
     configureServer(server) {
       const includesDir = resolve(root, 'assets/includes')
       server.watcher.add(includesDir)
