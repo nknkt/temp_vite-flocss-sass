@@ -1,0 +1,15 @@
+{
+  "parser": {
+    "\\.ejs$": "@markuplint/ejs-parser"
+  },
+  "excludeFiles": ["**/node_modules/**", "**/dist/**"],
+  "rules": {
+    "correct-aspect-ratio": {
+      "value": true,
+      "severity": "error",
+      "options": {
+        "documentRoot": "src"
+      }
+    }
+  }
+}

@@ -12,7 +12,7 @@ Vite + SCSS（FLOCSS）のフロントエンドスターターテンプレート
 | JavaScript | Vanilla JS（ES Modules） |
 | パッケージマネージャー | pnpm |
 | スムーズスクロール | Lenis |
-| Lint / Format | ESLint / Stylelint / Prettier / html-validate |
+| Lint / Format | ESLint / Stylelint / Prettier / html-validate / Markuplint |
 
 ---
 
