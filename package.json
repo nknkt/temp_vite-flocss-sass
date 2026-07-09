@@ -72,5 +72,8 @@
       "esbuild",
       "sharp"
     ]
-  }
+  },
+  "browserslist": [
+    "defaults"
+  ]
 }

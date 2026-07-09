@@ -10,6 +10,36 @@
       "options": {
         "documentRoot": "src"
       }
+    },
+    "srcset-sizes-constraint": "error",
+    "heading-levels": "error",
+    "require-accessible-name": "error",
+    "no-use-event-handler-attr": "error",
+    "link-types": {
+      "value": true,
+      "severity": "warning"
+    },
+    "landmark-roles": "warning",
+    "no-hard-code-id": "warning",
+    "no-unsupported-features": {
+      "severity": "warning",
+      "options": {
+        "browserslist": "defaults"
+      }
+    },
+    "class-naming": {
+      "severity": "warning",
+      "value": [
+        "/^(?:l|c|p|u|js)-[a-z0-9-]+(?:__[a-z0-9-]+(?:--[a-z0-9-]+)?)?$/",
+        "/^(?:en|ja)$/"
+      ]
+    }
+  },
+  "overrides": {
+    "**/partials/**": {
+      "rules": {
+        "no-hard-code-id": false
+      }
     }
   }
 }
