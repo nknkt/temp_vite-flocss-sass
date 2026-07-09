@@ -19,7 +19,7 @@ Vite + SCSS（FLOCSS）のフロントエンドスターターテンプレート
 ## セットアップ
 
 ```fish
-# Node.js >= 18 が必要
+# Node.js >= 24 が必要
 node -v
 
 # 依存関係のインストール
