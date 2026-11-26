@@ -5,9 +5,9 @@
 export default class Accordion {
   constructor(options = {}) {
     this.options = {
-      toggleSelector: '.js-accordion-toggle',
-      contentSelector: '.js-accordion-content',
-      innerSelector: '.js-accordion-inner',
+      toggleSelector: '.js-accordionToggle',
+      contentSelector: '.js-accordionContent',
+      innerSelector: '.js-accordionInner',
       ...options,
     }
     this.toggles = document.querySelectorAll(this.options.toggleSelector)

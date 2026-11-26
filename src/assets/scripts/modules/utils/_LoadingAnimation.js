@@ -21,7 +21,7 @@ export default class LoadingAnimation {
       loadingSelector: options.loadingSelector || '.js-loading',
       bodyLoadingClass: options.bodyLoadingClass || 'is-loading',
       bodyReadyClass: options.bodyReadyClass || null,
-      fadeOutClass: options.fadeOutClass || 'is-fade-out',
+      fadeOutClass: options.fadeOutClass || 'is-fadeOut',
       minDisplayTime: options.minDisplayTime !== undefined ? options.minDisplayTime : 1000,
       fadeOutDuration: options.fadeOutDuration || 1200,
       completeEventName: options.completeEventName || 'loadingComplete',

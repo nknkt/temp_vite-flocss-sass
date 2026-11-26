@@ -3,14 +3,14 @@
  * テキストブロックのスクロール位置に応じて対応する画像を切り替える
  * 
  * @example
- * const switcher = new ScrollImageSwitcher(document.querySelector('.js-feature-block'))
+ * const switcher = new ScrollImageSwitcher(document.querySelector('.js-featureBlock'))
  * 
  * @example カスタム設定
  * const switcher = new ScrollImageSwitcher(
- *   document.querySelector('.js-custom-block'),
+ *   document.querySelector('.js-customBlock'),
  *   {
- *     textSelector: '.js-custom-text',
- *     imageSelector: '.js-custom-image',
+ *     textSelector: '.js-customText',
+ *     imageSelector: '.js-customImage',
  *     breakpoint: 1024,
  *     rootMargin: '-30% 0px -30% 0px'
  *   }
@@ -23,8 +23,8 @@ export default class ScrollImageSwitcher {
 
     // オプション設定
     this.options = {
-      textSelector: '.js-switch-text',        // テキストブロックのセレクタ
-      imageSelector: '.js-switch-image',      // 画像のセレクタ
+      textSelector: '.js-switchText',        // テキストブロックのセレクタ
+      imageSelector: '.js-switchImage',      // 画像のセレクタ
       breakpoint: 768,                        // SPで無効化するブレークポイント
       rootMargin: '-45% 0px -45% 0px',       // 画面のどの位置で切り替えるか
       activeClass: 'is-active',              // 画像に付与するクラス

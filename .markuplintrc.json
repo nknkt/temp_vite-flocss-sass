@@ -27,7 +27,7 @@
     "class-naming": {
       "severity": "warning",
       "value": [
-        "/^(?:l|c|p|u|js)-[a-z0-9-]+(?:__[a-z0-9-]+(?:--[a-z0-9-]+)?)?$/",
+        "/^(?:l|c|p|u|js|is)-[a-z][a-zA-Z0-9]*(?:__[a-z][a-zA-Z0-9]*(?:--[a-z][a-zA-Z0-9]*)?)?$/",
         "/^(?:en|ja)$/"
       ]
     }
