@@ -11,9 +11,9 @@ export default class HorizontalScroll {
    */
   constructor(options = {}) {
     this.options = {
-      containerSelector: options.containerSelector || '.js-horizontal-scroll',
-      trackSelector: options.trackSelector || '.js-horizontal-track',
-      disabledBodyClass: options.disabledBodyClass || 'is-nav-open'
+      containerSelector: options.containerSelector || '.js-horizontalScroll',
+      trackSelector: options.trackSelector || '.js-horizontalTrack',
+      disabledBodyClass: options.disabledBodyClass || 'is-navOpen'
     }
 
     this.tracks = []

@@ -1,12 +1,12 @@
 @use "../../global" as *;
 
-.u-hidden-sp {
+.u-hiddenSp {
   @include sp() {
     display: none;
   }
 }
 
-.u-hidden-pc {
+.u-hiddenPc {
   @include pc() {
     display: none;
   }

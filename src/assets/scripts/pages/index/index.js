@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Hamburger Menu
   let hamburgerMenu
   const hamburger = document.querySelector('.js-hamburger')
-  const navMenu = document.querySelector('.js-nav-menu')
+  const navMenu = document.querySelector('.js-navMenu')
   if (hamburger && navMenu) {
     hamburgerMenu = new HamburgerMenu(hamburger, navMenu)
     hamburgerMenu.init()
@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
   anchorScroll.init()
 
   // Scroll Active
-  const fadeInEls = document.getElementsByClassName('u-fade-in')
+  const fadeInEls = document.getElementsByClassName('u-fadeIn')
   Array.from(fadeInEls).forEach(el => {
     const scrollActive = new ScrollActive(el)
     scrollActive.init()

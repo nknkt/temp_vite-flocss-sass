@@ -22,7 +22,7 @@ export default class HamburgerMenu {
 
     // デフォルト設定
     this.options = {
-      bodyClass: 'is-menu-open',
+      bodyClass: 'is-menuOpen',
       breakpoint: 768,
       debounceDelay: 100,
       ...options,
@@ -173,8 +173,8 @@ export default class HamburgerMenu {
   preventScrollOutsideNav(e) {
     // イベントがナビ内で発生した場合
     if (this.navMenu.contains(e.target)) {
-      // スクロール可能な要素（p-nav-header-menu）を探す
-      const scrollableElement = e.target.closest('.p-nav-header-menu__inner')
+      // スクロール可能な要素（p-navHeaderMenu）を探す
+      const scrollableElement = e.target.closest('.p-navHeaderMenu__inner')
 
       if (scrollableElement) {
         // スクロール位置と要素の高さを取得

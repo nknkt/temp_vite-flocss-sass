@@ -4,7 +4,7 @@
  * SP: クリックでアコーディオン展開
  */
 export default class SubMenu {
-  constructor(selector = '.js-submenu-toggle') {
+  constructor(selector = '.js-submenuToggle') {
     this.toggles = document.querySelectorAll(selector)
   }
 

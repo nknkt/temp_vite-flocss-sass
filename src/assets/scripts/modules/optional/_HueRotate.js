@@ -8,7 +8,7 @@
  *
  * @example カスタム設定
  * const hueRotate = new HueRotate(lenisInstance, {
- *   elementSelector: '.js-color-change',
+ *   elementSelector: '.js-colorChange',
  *   targetSelector: '.target-element',
  *   colors: [
  *     [255, 0, 0],     // 赤
@@ -27,7 +27,7 @@ export default class HueRotate {
 
     // オプション設定
     this.options = {
-      elementSelector: '.js-hue-rotate',     // 監視する要素
+      elementSelector: '.js-hueRotate',     // 監視する要素
       targetSelector: null,                  // 色を適用する子要素（nullの場合は自身）
       colors: [                              // 補間する色の配列 [R, G, B]
         [255, 200, 150],                     // オレンジ

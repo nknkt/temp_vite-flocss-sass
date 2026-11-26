@@ -3,13 +3,13 @@
  * スクロールに応じて画像が拡大し、背景のように画面全体に広がる効果
  *
  * @example
- * const expand = new ScrollImageExpand(document.querySelector('.js-expand-image'), {
+ * const expand = new ScrollImageExpand(document.querySelector('.js-expandImage'), {
  *   lenis: lenisInstance
  * })
  *
  * @example カスタム設定
  * const expand = new ScrollImageExpand(
- *   document.querySelector('.js-expand-image'),
+ *   document.querySelector('.js-expandImage'),
  *   {
  *     startOffset: 0,
  *     endOffset: 1000,

@@ -10,7 +10,7 @@ gsap.registerPlugin(ScrollTrigger)
  *
  * @example
  * const slider = new GSAPHorizontalScroll(
- *   document.querySelector('.js-horizontal-slider'),
+ *   document.querySelector('.js-horizontalSlider'),
  *   { lenis: lenisInstance }
  * )
  *
@@ -18,8 +18,8 @@ gsap.registerPlugin(ScrollTrigger)
  * const slider = new GSAPHorizontalScroll(
  *   document.querySelector('.js-slider'),
  *   {
- *     trackSelector: '.js-slider-track',
- *     progressBarSelector: '.js-progress-fill',
+ *     trackSelector: '.js-sliderTrack',
+ *     progressBarSelector: '.js-progressFill',
  *     topOffset: 100,
  *     breakpoint: 768,
  *     scrub: 1
@@ -33,7 +33,7 @@ export default class GSAPHorizontalScroll {
 
     // オプション設定
     this.options = {
-      trackSelector: '.js-horizontal-track',     // スクロールするトラック要素
+      trackSelector: '.js-horizontalTrack',     // スクロールするトラック要素
       progressBarSelector: null,                 // プログレスバー（nullで無効）
       wrapperElement: null,                      // ピン固定する要素（nullの場合は親要素）
       topOffset: 170,                            // 固定開始位置（px）

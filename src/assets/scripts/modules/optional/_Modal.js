@@ -4,24 +4,24 @@
  * 
  * @example 基本的な使い方
  * const modal = new Modal({
- *   trigger: '.js-modal-trigger',
+ *   trigger: '.js-modalTrigger',
  *   modal: '.js-modal',
- *   close: '.js-modal-close'
+ *   close: '.js-modalClose'
  * })
  * 
  * @example Lenis対応
  * const modal = new Modal({
- *   trigger: '.js-modal-trigger',
+ *   trigger: '.js-modalTrigger',
  *   modal: '.js-modal',
- *   close: '.js-modal-close',
+ *   close: '.js-modalClose',
  *   lenis: lenisInstance
  * })
  * 
  * @example 複数モーダル
  * const modals = Modal.initAll({
- *   trigger: '.js-modal-trigger',
+ *   trigger: '.js-modalTrigger',
  *   modal: '.js-modal',
- *   close: '.js-modal-close'
+ *   close: '.js-modalClose'
  * })
  */
 export default class Modal {

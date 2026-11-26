@@ -4,12 +4,12 @@
  *
  * @example
  * // 自動初期化（data属性で制御）
- * const scaleElements = document.querySelectorAll('.js-bg-scale')
+ * const scaleElements = document.querySelectorAll('.js-bgScale')
  * scaleElements.forEach(el => new ScrollBackgroundScale(el, { lenis: lenisInstance }))
  *
  * @example カスタム設定
  * const scale = new ScrollBackgroundScale(
- *   document.querySelector('.js-bg-scale'),
+ *   document.querySelector('.js-bgScale'),
  *   {
  *     minScale: 1,
  *     maxScale: 1.2,
@@ -19,7 +19,7 @@
  * )
  *
  * @example HTML
- * <div class="js-bg-scale" data-scale-min="1" data-scale-max="1.3">
+ * <div class="js-bgScale" data-scale-min="1" data-scale-max="1.3">
  *   <div style="background-image: url(...); transform: scale(var(--scale))"></div>
  * </div>
  */

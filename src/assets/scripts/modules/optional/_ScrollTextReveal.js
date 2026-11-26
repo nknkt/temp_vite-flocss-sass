@@ -4,11 +4,11 @@
  * デザイナーに人気のエフェクト
  * 
  * @example
- * const textReveal = new ScrollTextReveal('.js-text-reveal')
+ * const textReveal = new ScrollTextReveal('.js-textReveal')
  * textReveal.animate()
  * 
  * @example カスタム設定
- * const textReveal = new ScrollTextReveal('.js-text-reveal', {
+ * const textReveal = new ScrollTextReveal('.js-textReveal', {
  *   startOpacity: 0,
  *   endOpacity: 1,
  *   startPoint: 0.9,
@@ -19,7 +19,7 @@
  * textReveal.animate()
  */
 export default class ScrollTextReveal {
-  constructor(selector = '.js-text-reveal', options = {}) {
+  constructor(selector = '.js-textReveal', options = {}) {
     this.selector = selector
 
     // オプション設定
