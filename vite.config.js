@@ -3,6 +3,7 @@ import { viteStaticCopy } from 'vite-plugin-static-copy'
 import vitePluginWebp from './plugins/vite-plugin-webp.js'
 import vitePluginSsi from './plugins/vite-plugin-ssi.js'
 import vitePluginScriptToBody from './plugins/vite-plugin-script-to-body.js'
+import vitePluginDevCssLinks from './plugins/vite-plugin-dev-css-links.js'
 import PurgeCSS from 'vite-plugin-purgecss-updated-v5'
 import { resolve } from 'path'
 import { readdirSync, existsSync } from 'fs'
@@ -66,6 +67,7 @@ function scriptFileName(chunkInfo) {
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [
+    vitePluginDevCssLinks(),
     vitePluginSsi(),
     vitePluginScriptToBody(),
     viteStaticCopy({
@@ -107,6 +109,7 @@ export default defineConfig({
   base: BASE_PATH,
   root: ROOT_DIR,
   css: {
+    devSourcemap: true,
     preprocessorOptions: {
       scss: {
         quietDeps: true,
@@ -121,6 +124,10 @@ export default defineConfig({
       output: {
         assetFileNames: assetInfo => {
           if (assetInfo.name && assetInfo.name.endsWith('.css')) {
+            const cssName = assetInfo.name.replace(/\.css$/, '')
+            if (Object.prototype.hasOwnProperty.call(entries, cssName)) {
+              return `assets/styles/pages/${cssName}/index[extname]`
+            }
             return 'assets/styles/[name][extname]'
           }
           if (assetInfo.name && /\.(png|jpe?g|svg|gif|webp|ico)$/.test(assetInfo.name)) {
