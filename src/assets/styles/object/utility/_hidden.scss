@@ -2,12 +2,12 @@
 
 .u-hiddenSp {
   @include sp() {
-    display: none;
+    display: none !important;
   }
 }
 
 .u-hiddenPc {
   @include pc() {
-    display: none;
+    display: none !important;
   }
 }
