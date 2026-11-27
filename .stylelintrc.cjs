@@ -46,5 +46,14 @@ module.exports = {
     'selector-class-pattern': null,
     'no-descending-specificity': null,
     'keyframes-name-pattern': null
-  }
+  },
+
+  overrides: [
+    {
+      files: ['**/object/utility/_hidden.scss'],
+      rules: {
+        'declaration-no-important': null
+      }
+    }
+  ]
 }
